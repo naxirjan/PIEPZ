@@ -42,10 +42,10 @@
           "slug": "vendor-products"
         },
         {
-          "url": "vendor/products/customization",
-          "name": "Products Customization",
+          "url": "vendor/products/bulk-edit-products",
+          "name": "Bulk Edit Products",
           "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "vendor-products-customization"
+          "slug": "vendor-bulk-edit-products"
         }
         ,
         {

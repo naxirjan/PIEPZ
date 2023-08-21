@@ -44,10 +44,10 @@
           "slug": "admin-products"
         },
         {
-          "url": "admin/products/customization",
-          "name": "Products Customization",
+          "url": "admin/products/bulk-edit-products",
+          "name": "Bulk Edit Products",
           "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "admin-products-customization"
+          "slug": "admin-bulk-edit-products"
         },
         {
           "url": "admin/product/add",

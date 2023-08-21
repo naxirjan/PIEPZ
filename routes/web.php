@@ -18,6 +18,10 @@ use App\Http\Controllers\Vendor\Products\VendorImportProductController;
 use App\Http\Controllers\Vendor\Products\VendorProductController;
 use App\Http\Controllers\Vendor\Support\VendorSupportController;
 use App\Http\Controllers\Vendor\VendorController;
+use App\Http\Controllers\AdminPanel\Orders\OrderController;
+use App\Http\Controllers\AdminPanel\Support\SupportController;
+
+
 use Illuminate\Support\Facades\Route;
 
 $controller_path = 'App\Http\Controllers';
@@ -99,7 +103,11 @@ Route::middleware(['admin'])->group(function () {
         ->prefix('admin')
         ->group(function () {
             route::get('/products', 'index')->name('admin.products');
-            route::get('/products/customization', 'productCustomization')->name('admin.products.customization');
+            route::get('/products/bulk-edit-products', 'BulkEditProducts')->name('admin.products.bulkeditproduts');
+            route::get('/products/ajax-get-bulk-edit-products', 'AjaxGetBulkEditProducts')->name('admin.products.ajax.get.bulkeditproducts');
+            route::post('/products/bulk-update-procducts-process', 'BulkUpdateProductsProcess')->name('admin.products.bulkupdateproductsprocess');
+            
+            
             route::get('/product/add', 'productAdd')->name('admin.product.add');
             route::get('/product/view/{id}', 'productView')->name('vendor.product.view');
             route::get('/product/delete/{id}', 'productDelete')->name('admin.delete.product');

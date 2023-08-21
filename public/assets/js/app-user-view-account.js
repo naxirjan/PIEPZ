@@ -1,6 +1,7 @@
 /**
  * App User View - Account (jquery)
- */
+ 
+ 
 
 $(function () {
   'use strict';
