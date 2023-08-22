@@ -1,0 +1,263 @@
+{
+  "menu": [
+    {
+      "name": "Dashboards",
+      "icon": "menu-icon tf-icons ti ti-smart-home",
+      "slug": "dashboard",
+      "badge": [
+        "primary",
+        "3"
+      ],
+      "submenu": [
+        {
+          "url": "/dashboard/analytics",
+          "name": "Analytics",
+          "slug": "dashboard-analytics"
+        },
+        {
+          "url": "/dashboard/crm",
+          "name": "CRM",
+          "slug": "dashboard-crm"
+        },
+        {
+          "url": "/dashboard/ecommerce",
+          "name": "eCommerce",
+          "slug": "dashboard-ecommerce"
+        }
+      ]
+    },
+    {
+      "name": "Order Panel",
+      "icon": "menu-icon tf-icons ti ti-smart-home",
+      "slug": "dashboard",
+      "badge": [
+        "primary",
+        "5"
+      ],
+      "submenu": [
+        {
+          "url": "/partner/products/search",
+          "name": "Search Product",
+          "slug": "partner-products-search"
+        },
+        {
+          "url": "/partner/products/collection",
+          "name": "Collection",
+          "slug": "partner-products-collection"
+        },{
+          "url": "/partner/products/view-product",
+          "name": "View Product",
+          "slug": "partner-products-view-product"
+        },{
+          "url": "/partner/products/checkout",
+          "name": "View Checkout",
+          "slug": "partner-products-checkout"
+        },{
+          "url": "/partner/products/cart",
+          "name": "View Cart",
+          "slug": "partner-products-cart"
+        }
+      ]
+    },
+    {
+      "name": "My Orders",
+      "icon": "menu-icon tf-icons ti ti-smart-home",
+      "slug": "Orders",
+      "badge": [
+        "primary",
+        "3"
+      ],
+      "submenu": [
+        {
+          "url": "partner/orders",
+          "name": "My Orders",
+          "icon": "menu-icon tf-icons ti ti-messages",
+          "slug": "partner-orders"
+        },
+       
+        {
+          "url": "partner/order/details",
+          "name": "Order Detail",
+          "icon": "menu-icon tf-icons ti ti-messages",
+          "slug": "partner-order-detail"
+        }
+        
+      ]
+    },
+    {
+      "name": "invoices",
+      "icon": "menu-icon tf-icons ti ti-smart-home",
+      "slug": "Orders",
+      "badge": [
+        "primary",
+        "1"
+      ],
+      "submenu": [
+        {
+  
+          "url": "partner/order/invoice",
+          "name": "Order Invoice",
+          "icon": "menu-icon tf-icons ti ti-messages",
+          "slug": "partner-order-invoice"
+        }
+    
+        
+      ]
+    },
+    {
+      "name": "Support",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "slug": "Support",
+      "badge": [
+        "primary",
+        "2"
+      ],
+      "submenu": [
+        {
+          "url": "partner/support",
+          "name": "Support",
+          "slug": "partner-support"
+        },
+        {
+          "url": "partner/chat",
+          "name": "Chat",
+          "slug": "partner-chat"
+        }
+       
+      ]
+    },
+    {
+      "name": "Add-ons",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "slug": "Add-ons",
+      "badge": [
+        "primary",
+        "10"
+      ],
+      "submenu": [
+        {
+          "url": "partner/add-ons/choice",
+          "name": "Addon Choice 1",
+          "slug": "partner-add-ons-choice"
+        }, 
+        {
+          "url": "partner/add-ons/services",
+          "name": "Addon Services 2",
+          "slug": "partner-add-ons-services"
+        },
+        {
+          "url": "partner/add-ons/marketplaces",
+          "name": "Addon Marketplace 3",
+          "slug": "partner-add-ons-marketplaces"
+        },
+        {
+          "url": "partner/add-ons/invoices",
+          "name": "Addon Invoices 4",
+          "slug": "partner-add-ons-invoices"
+        },
+        {
+          "url": "partner/add-ons/accounting-tools",
+          "name": "Addon Accounting Tool 5",
+          "slug": "partner-add-ons-accounting-tools"
+        },
+        {
+          "url": "partner/add-ons/accounting-tools-revenue",
+          "name": "Addon Accounting Revenue 6",
+          "slug": "partner-add-ons-accounting-tools-revenue"
+        },
+        {
+          "url": "partner/add-ons/accounting-tools-cost",
+          "name": "Addon Accounting Cost 7",
+          "slug": "partner-add-ons-accounting-tools-cost"
+        },
+        {
+          "url": "partner/add-ons/accounting-tools-vat",
+          "name": "Addon Accounting Vat 8",
+          "slug": "partner-add-ons-accounting-tools-vat"
+        },
+        {
+          "url": "partner/add-ons/profit-calculator",
+          "name": "Addon Profit Calculator 9",
+          "slug": "partner-add-ons/profit-calculator"
+        },
+        {
+          "url": "partner/add-ons/webshop",
+          "name": "Addon webshop 10",
+          "slug": "partner-add-ons/websop"
+        }
+        
+       
+       
+      ]
+    },
+    {
+      "name": "Account",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "slug": "account",
+      "badge": [
+        "primary",
+        "4"
+      ],
+      "submenu": [
+        {
+          "url": "partner/my-account",
+          "name": "My Account",
+          "slug": "partner-my-account"
+        },{
+          "url": "partner/user-information",
+          "name": "User Information",
+          "slug": "partner-user-information"
+        }
+        ,{
+          "url": "partner/invoice-information",
+          "name": "Invoice Information",
+          "slug": "partner-invoice-information"
+        },{
+          "url": "partner/sync",
+          "name": "Sync Information",
+          "slug": "partner-sync"
+        }
+        ,{
+          "url": "partner/sync-piepz",
+          "name": "Sync Piepz",
+          "slug": "partner-sync-piepz"
+        }
+       
+      ]
+    },
+    {
+      "name": "Feedback",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "slug": "feedback",
+      "badge": [
+        "primary",
+        "1"
+      ],
+      "submenu": [
+        {
+          "url": "partner/feedback",
+          "name": "Feedback",
+          "slug": "partner-feedback"
+        }
+       
+      ]
+    },
+    {
+      "name": "Logout",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "slug": "logout",
+      "badge": [
+        "primary",
+        "0"
+      ],
+      "submenu": [
+        {
+          "url": "logout",
+          "name": "Logout",
+          "slug": "logut"
+        }
+       
+      ]
+    }
+  ]
+}
