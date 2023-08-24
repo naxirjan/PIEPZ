@@ -39,7 +39,7 @@ Route::get('/dashboard/analytics', $controller_path . '\dashboard\Analytics@inde
  */
 
 // Cache clear route
-
+//fakecommit
 Route::get('products/advance', [UserManagement::class, 'productsDatatable'])->name('products.datatable');
 
 //payment Routes Start
@@ -106,8 +106,8 @@ Route::middleware(['admin'])->group(function () {
             route::get('/products/bulk-edit-products', 'BulkEditProducts')->name('admin.products.bulkeditproduts');
             route::get('/products/ajax-get-bulk-edit-products', 'AjaxGetBulkEditProducts')->name('admin.products.ajax.get.bulkeditproducts');
             route::post('/products/bulk-update-procducts-process', 'BulkUpdateProductsProcess')->name('admin.products.bulkupdateproductsprocess');
-            
-            
+
+
             route::get('/product/add', 'productAdd')->name('admin.product.add');
             route::get('/product/view/{id}', 'productView')->name('vendor.product.view');
             route::get('/product/delete/{id}', 'productDelete')->name('admin.delete.product');
