@@ -4,6 +4,8 @@ namespace App\Http\Controllers\AdminPanel\Products;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -48,14 +50,37 @@ class ProductController extends Controller
 
     public function BulkEditProducts()
     {
-        return view('admin.products.product-bulk-edit');
+        $objVendors = User::where("role", "vendor")->get();
+        $objCategories = Category::where("status", "1")->get();
+        return view('admin.products.product-bulk-edit', ["objVendors" => $objVendors, "objCategories" => $objCategories]);
     } // End Method
     
     public function AjaxGetBulkEditProducts()
     {
-        $aProducts =  DB::table('products')->limit(10)->get()->toArray();
+        $aProducts =  DB::table('products')->orderBy('id', 'desc')->limit(10)->get()->toArray();
         return view('admin.products.ajax.ajax-get-bulk-edit-products', [ "aProducts" => $aProducts]);
         
+    } // End Method
+    
+    public function AjaxGetBulkEditProductsByFilters(Request $request)
+    {
+        $aFilters = $request->all();
+        $iCategoryId = $request->Input('iCategoryId'); 
+        $iStatusId = $request->Input('iStatusId'); 
+        $iVendor = $request->Input('iVendor'); 
+        
+        $sQuery =  DB::table('products');
+        
+        if($iCategoryId > 0 ) $sQuery->where('category_id', $iCategoryId);
+        if($iStatusId > 0 ) $sQuery->where('status', $iStatusId);
+        if($iVendor > 0 ) $sQuery->where('user_id', $iVendor);
+        
+        $aProducts = $sQuery->get()->toArray();
+        
+        return view('admin.products.ajax.ajax-get-bulk-edit-products', [ "aProducts" => $aProducts]);
+       
+    
+    
     } // End Method
     
     public function BulkUpdateProductsProcess(Request $request)
@@ -75,7 +100,8 @@ class ProductController extends Controller
             $objProduct->save();
         }
         
-        echo "$iCount Record(s) Updated !... <br />";
+        return redirect("admin/products/bulk-edit-products")->with("msg", "Product(s) Updated Successfully !...");
+        
         
     }
     
