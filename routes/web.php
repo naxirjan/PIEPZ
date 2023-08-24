@@ -103,18 +103,15 @@ Route::middleware(['admin'])->group(function () {
             route::get('/products', 'index')->name('admin.products');
             route::get('/products/bulk-edit-products', 'BulkEditProducts')->name('admin.products.bulkeditproduts');
             route::get('/products/ajax-get-bulk-edit-products', 'AjaxGetBulkEditProducts')->name('admin.products.ajax.get.bulkeditproducts');
-            
+
             route::post('/products/ajax-get-bulk-edit-products-by-filters', 'AjaxGetBulkEditProductsByFilters')->name('admin.products.ajax.get.bulkeditproductsbyproducts');
-            
-            
+
             route::post('/products/bulk-update-procducts-process', 'BulkUpdateProductsProcess')->name('admin.products.bulkupdateproductsprocess');
 
             route::get('/product/add', 'productAdd')->name('admin.product.add');
             route::get('/product/view/{id}', 'productView')->name('vendor.product.view');
             route::get('/product/delete/{id}', 'productDelete')->name('admin.delete.product');
             route::get('/product/edit/{id}', 'productEdit')->name('admin.edit.product');
-            route::post('/product/store', 'productStore')->name('admin.product.store');
-            route::post('/product/update', 'productUpdate')->name('admin.product.update');
 
         });
 
