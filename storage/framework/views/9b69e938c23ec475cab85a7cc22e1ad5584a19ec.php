@@ -443,28 +443,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                         <!-- Credit Card Details -->
                         <div class="row g-3">
                            <div class="col-sm-12">
-                              <div class="col-md-12">
-                                 <label class="form-label w-100" for="multiStepsCard">Card Number</label>
-                                 <div class="input-group input-group-merge">
-                                    <input id="multiStepsCard" class="form-control multi-steps-card" name="multiStepsCard" type="text" placeholder="1356 3215 6548 7898" aria-describedby="multiStepsCardImg" />
-                                    <span class="input-group-text cursor-pointer" id="multiStepsCardImg"><span class="card-type"></span></span>
-                                 </div>
-                              </div>
-                              <div class="col-md-12">
-                                 <label class="form-label" for="multiStepsName">Name On Card</label>
-                                 <input type="text" id="multiStepsName" class="form-control" name="multiStepsName" placeholder="John Doe" />
-                              </div>
-                              <div class="col-md-12">
-                                 <label class="form-label" for="multiStepsExDate">Expiry Date</label>
-                                 <input type="text" id="multiStepsExDate" class="form-control multi-steps-exp-date" name="multiStepsExDate" placeholder="MM/YY" />
-                              </div>
-                              <div class="col-md-12">
-                                 <label class="form-label" for="multiStepsCvv">CVV Code</label>
-                                 <div class="input-group input-group-merge">
-                                    <input type="text" id="multiStepsCvv" class="form-control multi-steps-cvv" name="multiStepsCvv" maxlength="3" placeholder="654" />
-                                    <span class="input-group-text cursor-pointer" id="multiStepsCvvHelp"><i class="ti ti-help text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="Card Verification Value"></i></span>
-                                 </div>
-                              </div>
+
                               <h5 class="my-4">Summary</h5>
                               <table style="width: 100%;">
                                  <tr>
@@ -513,6 +492,11 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
       <div class="d-flex col-lg-1 align-items-center p-3"></div>
    </div>
 </div>
+	<!-- jQuery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Toastr -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script>
    // Check selected custom option
    window.Helpers.initCustomOptionCheck();

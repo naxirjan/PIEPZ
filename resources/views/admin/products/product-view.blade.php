@@ -80,7 +80,7 @@
 
  <!-- Gallery effect-->
  <div class="col-12">
-    <h6 class="text-muted mt-3">Product Images</h6>
+    <h6 class="text-muted mt-3">Product Gallery</h6>
     <div id="swiper-gallery">
       <div class="swiper gallery-top">
         <div class="swiper-wrapper">

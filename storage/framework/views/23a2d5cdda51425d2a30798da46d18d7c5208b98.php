@@ -1,18 +1,19 @@
 
 
 <?php $__env->startSection('title', 'DataTables - Tables'); ?>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
 
 <?php $__env->startSection('vendor-style'); ?>
-<link rel="stylesheet" href="<?php echo e(asset('assets/vendor/libs/quill/typography.css')); ?>" />
-<link rel="stylesheet" href="<?php echo e(asset('assets/vendor/libs/quill/katex.css')); ?>" />
-<link rel="stylesheet" href="<?php echo e(asset('assets/vendor/libs/quill/editor.css')); ?>" />
 
 
-<link rel="stylesheet" href="<?php echo e(asset('assets/vendor/libs/dropzone/dropzone.css')); ?>" />
 
 <link rel="stylesheet" href="<?php echo e(asset('assets/vendor/libs/select2/select2.css')); ?>" />
-<link rel="stylesheet" href="<?php echo e(asset('assets/vendor/libs/tagify/tagify.css')); ?>" />
+
 <link rel="stylesheet" href="<?php echo e(asset('assets/vendor/libs/bootstrap-select/bootstrap-select.css')); ?>" />
 <link rel="stylesheet" href="<?php echo e(asset('assets/vendor/libs/typeahead-js/typeahead.css')); ?>" />
 
@@ -20,10 +21,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('vendor-script'); ?>
-<script src="<?php echo e(asset('assets/vendor/libs/quill/katex.js')); ?>"></script>
-<script src="<?php echo e(asset('assets/vendor/libs/quill/quill.js')); ?>"></script>
 
-<script src="<?php echo e(asset('assets/vendor/libs/dropzone/dropzone.js')); ?>"></script>
 
 
 <script src="<?php echo e(asset('assets/vendor/libs/select2/select2.js')); ?>"></script>
@@ -31,16 +29,13 @@
 <script src="<?php echo e(asset('assets/vendor/libs/bootstrap-select/bootstrap-select.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/vendor/libs/typeahead-js/typeahead.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/vendor/libs/bloodhound/bloodhound.js')); ?>"></script>
+
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('page-script'); ?>
-<script src="<?php echo e(asset('assets/js/forms-editors.js')); ?>"></script>
-
-<script src="<?php echo e(asset('assets/js/forms-file-upload.js')); ?>"></script>
 
 
 <script src="<?php echo e(asset('assets/js/forms-selects.js')); ?>"></script>
-<script src="<?php echo e(asset('assets/js/forms-tagify.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/js/forms-typeahead.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 
@@ -49,30 +44,56 @@
 
 
 
-
 <?php $__env->startSection('content'); ?>
+<form action="<?php echo e(route('admin.product.store')); ?>" method="POST" enctype="multipart/form-data" >
+
 <h4 class="fw-bold py-3 mb-4">
   <span class="text-muted fw-light">Admin /</span> Product Add
 </h4>
-
 <div class="row">
-  
+
 
   <!-- Earning Reports -->
   <div class="col-lg-8 mb-4">
+
+      <?php if(session('success')): ?>
+       <div class="alert alert-sucess">
+          <h1><?php echo e(session('success')); ?></h1>
+       </div>
+      <?php endif; ?>
     <div class="card h-100">
       <div class="card-body">
-       
+      <?php if($errors->any()): ?>
+          <div class="alert alert-danger">
+              <ul>
+                  <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <li><?php echo e($error); ?></li>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              </ul>
+          </div>
+      <?php endif; ?>
       <!-- Product Name Field -->
       <div>
           <label for="defaultFormControlInput" class="form-label">Title</label>
-          <input type="text" class="form-control" id="defaultFormControlInput" placeholder="simply dummy text of the printing and typesetting industry" aria-describedby="defaultFormControlHelp" />
+          <input type="text" class="form-control" id="defaultFormControlInput" placeholder="simply dummy text of the printing and typesetting industry" aria-describedby="defaultFormControlHelp" / name="name">
         </div>
       <!-- Product Description  -->
       <hr class="my-5">
+      <div>
       <label for="defaultFormControlInput" class="form-label">Product Description</label>
-     
-        <div id="snow-toolbar">
+      <br>
+     <textarea name="description" id="summernote"></textarea>
+     </div>
+     <hr class="my-5">
+
+     <div>
+          <label for="defaultFormControlInput" class="form-label">Short Descirption</label>
+          <br>
+
+     <textarea name="short_description" id="summernote"></textarea>
+
+        </div>
+         <!--<div id="snow-toolbar">
           <span class="ql-formats">
             <select class="ql-font"></select>
             <select class="ql-size"></select>
@@ -99,10 +120,10 @@
           </span>
         </div>
         <div id="snow-editor">
-          <h6>Quill Rich Text Editor</h6>
-          <p> Cupcake ipsum dolor sit amet. Halvah cheesecake chocolate bar gummi bears cupcake. Pie macaroon bear claw. Soufflé I love candy canes I love cotton candy I love. </p>
-        </div>
-            
+          <h6></h6>
+          <p> </p>
+        </div> -->
+
 
       <!-- Product Description End -->
 
@@ -110,52 +131,66 @@
           <!-- Basic  -->
           <hr class="my-5">
   <label for="defaultFormControlInput" class="form-label">Product Feature Image</label>
-      
-        <form action="/upload" class="dropzone needsclick" id="dropzone-basic">
-          <div class="dz-message needsclick">
+
+        <!-- <form action="/upload" class="dropzone needsclick" id="dropzone-basic"> -->
+          <!-- <div class="dz-message needsclick">
             Drop files here or click to upload
             <span class="note needsclick">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
-          </div>
+          </div> -->
           <div class="fallback">
-            <input name="file" type="file" />
+            <input name="images[]" type="file" /  multiple>
           </div>
-        </form>
-    
+
+
       <!-- /Basic  -->
       <!-- File Upload End -->
-      
+
       <hr class="my-5">
-      
+
       <!-- prices -->
     <div class="row">
-     
+
     <div class="col-md-6">
          <div class="input-group">
-          <span class="input-group-text">$</span>
-          <input type="text" class="form-control" placeholder="149" aria-label="Dollar amount (with dot and two decimal places)">
+          <span class="input-group-text">SKU</span>
+          <input type="text" class="form-control" placeholder="149" aria-label="Dollar amount (with dot and two decimal places)" name="sku">
+        </div>
+    </div>
+    <br>
+      <br>
+    <div class="col-md-6">
+         <div class="input-group">
+          <span class="input-group-text">Price ($)</span>
+          <input type="text" class="form-control" placeholder="149" aria-label="Dollar amount (with dot and two decimal places)" name="price">
         </div>
     </div>
 
-      <div class="col-md-6"> 
+      <div class="col-md-6">
         <div class="input-group">
-          <span class="input-group-text">$</span>
-          <input type="text" class="form-control" placeholder="1349" aria-label="Dollar amount (with dot and two decimal places)">
+          <span class="input-group-text">Stock</span>
+          <input type="number" class="form-control" placeholder="1349" aria-label="Dollar amount (with dot and two decimal places)" name="stock">
         </div>
       </div>
 
       <br>
       <br>
-      
-      <div class="col-md-6"> 
+
+      <div class="col-md-6">
         <div class="input-group">
-          <span class="input-group-text">$</span>
-          <input type="text" class="form-control" placeholder="349" aria-label="Dollar amount (with dot and two decimal places)">
+          <span class="input-group-text">In Stock</span>
+          <input type="number" class="form-control" placeholder="349" aria-label="Dollar amount (with dot and two decimal places)" name="in_stock">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-text">Low Stock</span>
+          <input type="number" class="form-control" placeholder="349" aria-label="Dollar amount (with dot and two decimal places)" name="low_stock">
         </div>
       </div>
 
     </div>
-    
-     
+
+
       <!-- End Price -->
 
 
@@ -168,25 +203,24 @@
   <div class="col-lg-4 mb-4">
     <div class="card h-100">
     <div class="card-body">
-    
+
     <div class="mb-3">
           <label for="defaultSelect" class="form-label">Status</label>
-          <select id="defaultSelect" class="form-select">
-            <option>Default select</option>
+          <select id="defaultSelect" class="form-select" name="status">
             <option value="1">Active</option>
-            <option value="2">Draft</option>
-            <option value="3">UnAvailable</option>
+            <!-- <option value="2">Draft</option> -->
+            <option value="0">UnAvailable</option>
           </select>
     </div>
 
 
-    
-    <hr class="my-5">
+
+    <!-- <hr class="my-5">
 
     <label for="defaultFormControlInput" class="form-label">Sales channels and apps Manage</label>
 <br><br>
     <ul class="list-unstyled mb-0">
-            
+
               <li class="mb-3">
                 <div class="d-flex align-items-center">
                   <div class="d-flex align-items-start">
@@ -198,7 +232,7 @@
                       <small class="text-muted">Beschikbaarheid plannen</small>
                     </div>
                   </div>
-                 
+
                 </div>
               </li>
 
@@ -213,7 +247,7 @@
                       <small class="text-muted">Facebook & Instagram</small>
                     </div>
                   </div>
-                 
+
                 </div>
               </li>
               <li class="mb-3">
@@ -227,50 +261,53 @@
                       <small class="text-muted">Beschikbaarheid plannen</small>
                     </div>
                   </div>
-                 
+
                 </div>
               </li>
-            
+
               <li class="text-center">
                 <a href="javascript:;">View all teams</a>
-              </li>
-            </ul>
+              </li> -->
+            <!-- </ul> -->
 
-            <hr class="my-5">
+            <!-- <hr class="my-5">
 
             <div class="size" style="display:flex;">
             <h6>Inzichten</h6> <span style="margin-left:20px;"></span><h6>    Afgelopen 90 dagen</h6>
             </div>
             <p>12 eenheden verkocht aan 14 klantvoor € 1.197,01 aan netto-omzet.</p>
-            <a href="#">Details bekijken</a>
+            <a href="#">Details bekijken</a> -->
 
             <hr class="my-5">
 
             <label for="select2Basic" class="form-label">Product Categories</label>
-            <select id="select2Basic1" class="select2 form-select form-select-lg" data-allow-clear="true">
-              <option value="AK">Option 1</option>
-              <option value="HI">Option 2</option>
-              <option value="CA">Option 3</option>
-              <option value="NV">Option 4</option>
+            <select id="select2Basic1" class="select2 form-select form-select-lg" data-allow-clear="true" name="category[]" multiple>
+              <?php if($categories->count()): ?>
+                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <option value="<?php echo e($category->name); ?>"><?php echo e($category->name); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              <?php endif; ?>
+
             </select>
 
-                  
+
         <label for="select2Basic" class="form-label">Product Type</label>
-        <select id="select2Basic" class="select2 form-select form-select-lg" data-allow-clear="true">
-          <option value="AK">Option 1</option>
-          <option value="HI">Option 2</option>
+        <select id="select2Basic" class="select2 form-select form-select-lg" data-allow-clear="true" name="type">
+          <option value="simple">Simple</option>
+          <!-- <option value="HI">Option 2</option>
           <option value="CA">Option 3</option>
-          <option value="NV">Option 4</option>
+          <option value="NV">Option 4</option> -->
         </select>
 
         <label for="select2Basic" class="form-label">Seller</label>
-        <select id="select2Basic2" class="select2 form-select form-select-lg" data-allow-clear="true">
-          <option value="AK">Option 1</option>
-          <option value="HI">Option 2</option>
-          <option value="CA">Option 3</option>
-          <option value="NV">Option 4</option>
+        <select id="select2Basic2" class="select2 form-select form-select-lg" data-allow-clear="true" name="seller">
+          <?php if($vendors->count()): ?>
+            <?php $__currentLoopData = $vendors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $vendor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option value="<?php echo e($vendor->id); ?>"><?php echo e($vendor->first_name ." ".$vendor->last_name); ?></option>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          <?php endif; ?>
         </select>
-        
+
         <label for="select2Multiple" class="form-label">Product Tags</label>
             <select id="select2Multiple" class="select2 form-select" multiple>
               <optgroup label="Alaskan/Hawaiian Time Zone">
@@ -280,23 +317,59 @@
               </select>
 
               <hr class="my-5">
-              <label for="select2Basic" class="form-label">Online Store</label>
-            <select id="select2Basic3" class="select2 form-select form-select-lg" data-allow-clear="true">
-              <option value="AK">Option 1</option>
-              <option value="HI">Option 2</option>
-              <option value="CA">Option 3</option>
-              <option value="NV">Option 4</option>
+              <label for="select2Basic" class="form-label">Is Feature</label>
+            <select id="select2Basic3" class="select2 form-select form-select-lg" data-allow-clear="true" name="is_featured">
+              <option value="1">Yes</option>
+
+              <option value="0">No</option>
             </select>
 
     </div>
+    <?php echo csrf_field(); ?>
+
     </div>
 </div>
+<div class="row">
+
+<div class="col-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="demo-inline-spacing">
+          <button type="submit" class="btn btn-primary">ADD PRODUCT</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</form>
   <!--/ Earning Reports -->
 
-  
+
 <hr class="my-5">
 
 
+<script>
+  $('textarea#summernote').summernote({
+        placeholder: 'Description',
+        tabsize: 2,
+        height: 100,
+  toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'italic', 'underline', 'clear']],
+        // ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+        //['fontname', ['fontname']],
+       // ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'hr']],
+        //['view', ['fullscreen', 'codeview']],
+        ['help', ['help']]
+      ],
+      });
+</script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts/layoutMaster', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\PIEPZ\resources\views/admin/products/product-add.blade.php ENDPATH**/ ?>

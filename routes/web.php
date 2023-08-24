@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminPanel\AdminController;
+use App\Http\Controllers\AdminPanel\Orders\OrderController;
 use App\Http\Controllers\AdminPanel\Piepz\PiepzController;
 use App\Http\Controllers\AdminPanel\Products\ProductController;
+use App\Http\Controllers\AdminPanel\Support\SupportController;
 use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\auth\partner\AuthPartnerController;
 use App\Http\Controllers\auth\vendor\AuthVendorController;
@@ -18,10 +20,6 @@ use App\Http\Controllers\Vendor\Products\VendorImportProductController;
 use App\Http\Controllers\Vendor\Products\VendorProductController;
 use App\Http\Controllers\Vendor\Support\VendorSupportController;
 use App\Http\Controllers\Vendor\VendorController;
-use App\Http\Controllers\AdminPanel\Orders\OrderController;
-use App\Http\Controllers\AdminPanel\Support\SupportController;
-
-
 use Illuminate\Support\Facades\Route;
 
 $controller_path = 'App\Http\Controllers';
@@ -111,11 +109,12 @@ Route::middleware(['admin'])->group(function () {
             
             route::post('/products/bulk-update-procducts-process', 'BulkUpdateProductsProcess')->name('admin.products.bulkupdateproductsprocess');
 
-
             route::get('/product/add', 'productAdd')->name('admin.product.add');
             route::get('/product/view/{id}', 'productView')->name('vendor.product.view');
             route::get('/product/delete/{id}', 'productDelete')->name('admin.delete.product');
             route::get('/product/edit/{id}', 'productEdit')->name('admin.edit.product');
+            route::post('/product/store', 'productStore')->name('admin.product.store');
+            route::post('/product/update', 'productUpdate')->name('admin.product.update');
 
         });
 
