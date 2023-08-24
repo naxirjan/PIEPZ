@@ -1,10 +1,10 @@
 @php $iCount = 0; @endphp
 @foreach($aProducts as $aProduct)
     <tr>
-        <td><input name="SelectedProduct_{{$iCount}}" class="form-check-input" type="checkbox" class="cb-select-products" value="{{base64_encode($aProduct->id)}}" /> </td>
+        <td><input name="SelectedProduct_{{$iCount}}" class="form-check-input cb-select-product" type="checkbox" value="{{base64_encode($aProduct->id)}}" /> </td>
         <td><input name="name_{{$iCount}}" type="text" value="{{$aProduct->name}}-{{$aProduct->id}}" class="form-control"></td>
         <td><input name="type_{{$iCount}}" type="text" value="{{$aProduct->type}}" class="form-control"></td>
-        
+
         <td><input name="price_{{$iCount}}" type="number" value="{{$aProduct->price}}" class="form-control"></td>
         <td><input name="short_description_{{$iCount}}" type="text" value="{{$aProduct->short_description}}" class="form-control"></td>
         <td><label class="switch switch-sm pe-4">
