@@ -24,7 +24,12 @@ class ProductController extends Controller
 
     public function productView($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with('images')->findOrFail($id);
+
+        // foreach ($product->categories as $cat) {
+        //     echo $cat->name;
+        //     echo "<br>";
+        // }
 
         return view('admin.products.product-view', compact('product'));
     } // End Method

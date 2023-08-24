@@ -4,7 +4,7 @@
 @php
 $customizerHidden = 'customizer-hide';
 $configData = Helper::appClasses();
-$package = App\Models\Package::whereNot("package_title","Free")->get();
+$package = App\Models\Package::get();
 $addons = App\Models\PurchasePackageAddon::get();
 $marketplaces = App\Models\PurchasePackageMarketplace::get();
 $functionalities = App\Models\PurchasePackageFunctionality::get();
@@ -39,9 +39,9 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
 @section('content')
 <div class="authentication-wrapper authentication-cover authentication-bg">
    <div class="authentication-inner row">
-      <div class="d-flex col-lg-2 align-items-center p-3"></div>
+      <div class="d-flex col-lg-1 align-items-center p-3"></div>
       <!--  Multi Steps Registration -->
-      <div class="col-lg-8 align-items-center p-3">
+      <div class="col-lg-10 align-items-center p-3">
 
             <div id="multiStepsValidation" class="bs-stepper shadow-none">
                <div class="bs-stepper-header border-bottom-0">
@@ -101,7 +101,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                         <div class="row g-3">
 
                            <div class="col-sm-6">
-                              <label class="form-label" for="companyName">Company Name</label>
+                              <label class="form-label" for="companyName">Company Name <span class="text-warning">*Required</span></label>
                               <input type="text" name="companyName" id="companyName" class="form-control" />
                            </div>
                            <div class="col-sm-6">
@@ -112,19 +112,19 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                               <p>Enter Your Account Details</p>
                            </div>
                            <div class="col-sm-6">
-                              <label class="form-label" for="firstName">First Name</label>
+                              <label class="form-label" for="firstName">First Name <span class="text-warning">*Required</span></label>
                               <input type="text" name="firstName" id="firstName" class="form-control" placeholder="john" />
                            </div>
                            <div class="col-sm-6">
-                              <label class="form-label" for="lastName">Last Name</label>
+                              <label class="form-label" for="lastName">Last Name <span class="text-warning">*Required</span></label>
                               <input type="text" name="lastName" id="lastName" class="form-control" placeholder="doe" />
                            </div>
                            <div class="col-md-12">
-                              <label class="form-label" for="address">Street/Address</label>
+                              <label class="form-label" for="address">Street/Address <span class="text-warning">*Required</span></label>
                               <input type="text" name="address" id="address" class="form-control" placeholder="address" aria-label="address" />
                            </div>
                            <div class="col-sm-6">
-                              <label class="form-label" for="zip">Zip Code</label>
+                              <label class="form-label" for="zip">Zip Code <span class="text-warning">*Required</span></label>
                               <input type="text" name="zip" id="zip" class="form-control" />
                            </div>
                            <div class="col-sm-6">
@@ -140,19 +140,19 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                               <p>Enter Your Account Login Details</p>
                            </div>
                            <div class="col-sm-6">
-                              <label class="form-label" for="email">Email</label>
+                              <label class="form-label" for="email">Email <span class="text-warning">*Required</span></label>
                               <input type="email" name="email" id="email" class="form-control" placeholder="john@gmail.com" />
                            </div>
                            <div class="col-sm-6">
-                              <label class="form-label" for="password">Password</label>
+                              <label class="form-label" for="password">Password <span class="text-warning">*Required</span></label>
                               <input type="password" name="password" id="password" class="form-control" placeholder="***" aria-label="***" />
                            </div>
                            <div class="col-sm-6">
-                              <label class="form-label" for="cocnumber">C.O.C Number</label>
+                              <label class="form-label" for="cocnumber">C.O.C Number <span class="text-warning">*Required</span></label>
                               <input type="text" name="cocnumber" id="cocnumber" class="form-control" placeholder="9545" />
                            </div>
                            <div class="col-sm-6">
-                              <label class="form-label" for="taxnumber">Tax Number</label>
+                              <label class="form-label" for="taxnumber">Tax Number <span class="text-warning">*Required</span></label>
                               <input type="text" name="taxnumber" id="taxnumber" class="form-control" placeholder="1234" aria-label="1234" />
                            </div>
                            <div class="col-12 d-flex justify-content-between mt-4">
@@ -181,7 +181,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                         <div class="row g-3">
                            <!-- package start -->
                            @foreach($package as $pack)
-                           <div class="col-lg-4 mb-md-0 mb-4">
+                           <div class="col-lg-3 mb-md-0 mb-4">
                               <div class="card border rounded shadow-none">
                                  <div class="card-body">
                                     <h3 class="card-title fw-semibold text-center text-capitalize mb-1">{{$pack->package_title}}</h3>
@@ -201,7 +201,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                                     $names = explode(',', $myString1);
                                     @endphp
                                     @foreach( $codes as $index => $code )
-                                    <div class="col-md mb-md-0 ps-2 my-2 pt-1">
+                                    <div class="col-md-12">
                                        <div class="form-check custom-option custom-option-icon" style="padding:0px;">
                                           <label class="form-check-label custom-option-content" for="{{$names[$index].$pack->id}}" style="padding:0px;">
                                           <span class="custom-option-body">
@@ -509,7 +509,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
 
       </div>
       <!-- / Multi Steps Registration -->
-      <div class="d-flex col-lg-2 align-items-center p-3"></div>
+      <div class="d-flex col-lg-1 align-items-center p-3"></div>
    </div>
 </div>
 <script>
