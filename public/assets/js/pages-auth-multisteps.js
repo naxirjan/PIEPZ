@@ -285,7 +285,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
        // package details
        const multiSteps2 = FormValidation.formValidation(stepsValidationFormStep2, {
         fields: {
-        
+          package_duration: {
+            validators: {
+              notEmpty: {
+                message: 'Please select atleast 1 package'
+              }
+            }
+          },
         },
         plugins: {
           trigger: new FormValidation.plugins.Trigger(),
@@ -293,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             // Use this for enabling/changing valid/invalid class
             // eleInvalidClass: '',
             eleValidClass: '',
-            rowSelector: '.col-sm-6'
+            rowSelector: '.col-md-12'
           }),
           autoFocus: new FormValidation.plugins.AutoFocus(),
           submitButton: new FormValidation.plugins.SubmitButton()
@@ -401,13 +407,36 @@ document.addEventListener('DOMContentLoaded', function (e) {
            url:"ajaxRequest",
            data:{data:data},
            success: function(data) {
-           
-            window.location.href = "payment?total="+total+"&id="+data.id;
+       
+                window.location.href = "payment?total="+total+"&id="+data.id;
 
+            
 
            },
            error: function(data){
-            console.log('error');
+          
+// Set the options that I want
+toastr.options = {
+  "closeButton": true,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+
+
+    toastr.warning("Email Aready Exist");
+        
+        
            },
         });
       });

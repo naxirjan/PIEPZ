@@ -1,21 +1,18 @@
 @extends('layouts/layoutMaster')
 
 @section('title', 'DataTables - Tables')
-
-
-
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
 
 
 @section('vendor-style')
 
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/swiper/swiper.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/typography.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/katex.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/editor.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-select/bootstrap-select.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/typeahead-js/typeahead.css')}}" />
 @endsection
@@ -26,11 +23,7 @@
 @section('vendor-script')
 
 <script src="{{asset('assets/vendor/libs/swiper/swiper.js')}}"></script>
-<script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
-<script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script>
-<script src="{{asset('assets/vendor/libs/dropzone/dropzone.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
-<script src="{{asset('assets/vendor/libs/tagify/tagify.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/bootstrap-select/bootstrap-select.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/typeahead-js/typeahead.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/bloodhound/bloodhound.js')}}"></script>
@@ -39,10 +32,7 @@
 @section('page-script')
 
 <script src="{{asset('assets/js/ui-carousel.js')}}"></script>
-<script src="{{asset('assets/js/forms-editors.js')}}"></script>
-<script src="{{asset('assets/js/forms-file-upload.js')}}"></script>
 <script src="{{asset('assets/js/forms-selects.js')}}"></script>
-<script src="{{asset('assets/js/forms-tagify.js')}}"></script>
 <script src="{{asset('assets/js/forms-typeahead.js')}}"></script>
 @endsection
 
@@ -55,77 +45,70 @@
 <h4 class="fw-bold py-3 mb-4">
   <span class="text-muted fw-light">Admin /</span> Product Edit
 </h4>
-
+<form action="{{route('admin.product.update')}}" method="POST" enctype="multipart/form-data" >
+@csrf
+<input type="hidden" value="{{$product->id}}" name="product_id">
 <div class="row">
 
 
   <!-- Earning Reports -->
   <div class="col-lg-8 mb-4">
+  @if ($errors->any())
+          <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+      @endif
+      @if(session('success'))
+       <div class="alert alert-sucess">
+          <h1>{{session('success')}}</h1>
+       </div>
+     @endif
     <div class="card h-100">
       <div class="card-body">
 
       <!-- Product Name Field -->
       <div>
           <label for="defaultFormControlInput" class="form-label">Title</label>
-          <input type="text" class="form-control" id="defaultFormControlInput" placeholder="simply dummy text of the printing and typesetting industry" aria-describedby="defaultFormControlHelp"  value="{{$product->name}}" />
+          <input type="text" class="form-control" name="name" id="defaultFormControlInput" placeholder="simply dummy text of the printing and typesetting industry" aria-describedby="defaultFormControlHelp"  value="{{$product->name}}" />
         </div>
       <!-- Product Description  -->
       <hr class="my-5">
+      <div>
       <label for="defaultFormControlInput" class="form-label">Product Description</label>
+      <br>
+     <textarea name="description" id="summernote"></textarea>
 
-        <div id="snow-toolbar">
-          <span class="ql-formats">
-            <select class="ql-font"></select>
-            <select class="ql-size"></select>
-          </span>
-          <span class="ql-formats">
-            <button class="ql-bold"></button>
-            <button class="ql-italic"></button>
-            <button class="ql-underline"></button>
-            <button class="ql-strike"></button>
-          </span>
-          <span class="ql-formats">
-            <select class="ql-color"></select>
-            <select class="ql-background"></select>
-          </span>
-          <span class="ql-formats">
-            <button class="ql-script" value="sub"></button>
-            <button class="ql-script" value="super"></button>
-          </span>
-          <span class="ql-formats">
-            <button class="ql-header" value="1"></button>
-            <button class="ql-header" value="2"></button>
-            <button class="ql-blockquote"></button>
-            <button class="ql-code-block"></button>
-          </span>
-        </div>
-        <div id="snow-editor">
-          <h6>Quill Rich Text Editor</h6>
-          <p> {{$product->description}} </p>
+    </div>
+     <hr class="my-5">
+
+     <div>
+          <label for="defaultFormControlInput" class="form-label">Short Descirption</label>
+          <br>
+
+     <textarea name="short_description" id="summernote"></textarea>
+
         </div>
 
-
-      <!-- Product Description End -->
-
-      <!-- File Upload -->
-          <!-- Basic  -->
-          <hr class="my-5">
-  <label for="defaultFormControlInput" class="form-label">Products Images</label>
+      <label for="defaultFormControlInput" class="form-label">Products Images</label>
 
 
 
-      <!-- /Basic  -->
- <!-- Gallery effect-->
  <div class="col-12">
-    <h6 class="text-muted mt-3">Thumbs Gallery</h6>
+    <h6 class="text-muted mt-3">Product Gallery</h6>
+
+    <div class="col-12">
+    <h6 class="text-muted mt-3">Product Gallery</h6>
     <div id="swiper-gallery">
       <div class="swiper gallery-top">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" style="background-image:url({{asset('assets/img/backgrounds/2.jpg')}})">Slide 1</div>
-          <div class="swiper-slide" style="background-image:url({{asset('assets/img/backgrounds/1.jpg')}})">Slide 2</div>
-          <div class="swiper-slide" style="background-image:url({{asset('assets/img/backgrounds/3.jpg')}})">Slide 3</div>
-          <div class="swiper-slide" style="background-image:url({{asset('assets/img/backgrounds/4.jpg')}})">Slide 4</div>
-          <div class="swiper-slide" style="background-image:url({{asset('assets/img/backgrounds/6.jpg')}})">Slide 5</div>
+          <div class="swiper-slide" style="background-image:url({{asset('storage/'.$product->image)}})"></div>
+       @foreach($product->images as $img)
+          <div class="swiper-slide" style="background-image:url({{asset('storage/'.$img->media_url)}})"></div>
+       @endforeach
         </div>
         <!-- Add Arrows -->
         <div class="swiper-button-next swiper-button-white"></div>
@@ -133,14 +116,18 @@
       </div>
       <div class="swiper gallery-thumbs">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" style="background-image:url({{asset('assets/img/backgrounds/2.jpg')}})">Slide 1</div>
-          <div class="swiper-slide" style="background-image:url({{asset('assets/img/backgrounds/1.jpg')}})">Slide 2</div>
-          <div class="swiper-slide" style="background-image:url({{asset('assets/img/backgrounds/3.jpg')}})">Slide 3</div>
-          <div class="swiper-slide" style="background-image:url({{asset('assets/img/backgrounds/4.jpg')}})">Slide 4</div>
-          <div class="swiper-slide" style="background-image:url({{asset('assets/img/backgrounds/6.jpg')}})">Slide 5</div>
+          <div class="swiper-slide" style="background-image:url({{asset('storage/'.$product->image)}})"></div>
+          @foreach($product->images as $img)
+          <div class="swiper-slide" style="background-image:url({{asset('storage/'.$img->media_url)}})"></div>
+          @endforeach
+
         </div>
       </div>
     </div>
+  </div>
+
+    <input name="images[]" type="file" /  multiple>
+
   </div>
       <!-- File Upload End -->
 
@@ -149,17 +136,24 @@
       <!-- prices -->
     <div class="row">
 
+    <div class="col-md-12">
+         <div class="input-group">
+          <span class="input-group-text">SKU</span>
+          <input type="text" class="form-control" placeholder="149" aria-label="Dollar amount (with dot and two decimal places)" name="sku" value="{{$product->sku}}">
+        </div>
+    </div>
+
     <div class="col-md-6">
          <div class="input-group">
-          <span class="input-group-text">$</span>
-          <input type="text" class="form-control" placeholder="149" aria-label="Dollar amount (with dot and two decimal places)">
+          <span class="input-group-text">Price ($)</span>
+          <input type="text" class="form-control" value="{{$product->price}}" placeholder="149" aria-label="Dollar amount (with dot and two decimal places)" name="price">
         </div>
     </div>
 
       <div class="col-md-6">
         <div class="input-group">
-          <span class="input-group-text">$</span>
-          <input type="text" class="form-control" placeholder="1349" aria-label="Dollar amount (with dot and two decimal places)">
+          <span class="input-group-text">Stock</span>
+          <input type="number" class="form-control" value="{{$product->stock}}" placeholder="1349" aria-label="Dollar amount (with dot and two decimal places)" name="stock">
         </div>
       </div>
 
@@ -168,8 +162,14 @@
 
       <div class="col-md-6">
         <div class="input-group">
-          <span class="input-group-text">$</span>
-          <input type="text" class="form-control" placeholder="349" aria-label="Dollar amount (with dot and two decimal places)">
+          <span class="input-group-text">In Stock</span>
+          <input type="number" class="form-control" value="{{$product->in_stock}}" placeholder="349" aria-label="Dollar amount (with dot and two decimal places)" name="in_stock">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-text">Low Stock</span>
+          <input type="number" class="form-control" value="{{$product->low_stock}}" placeholder="349" aria-label="Dollar amount (with dot and two decimal places)" name="low_stock">
         </div>
       </div>
 
@@ -191,18 +191,17 @@
 
     <div class="mb-3">
           <label for="defaultSelect" class="form-label">Status</label>
-          <select id="defaultSelect" class="form-select">
-            <option>Default select</option>
-            <option value="1">Active</option>
-            <option value="2">Draft</option>
-            <option value="3">UnAvailable</option>
+          <select id="defaultSelect" class="form-select" name="status">
+            <option value="1" @if($product->status==1) selected @endif>Active</option>
+            <!-- <option value="2">Draft</option> -->
+            <option value="0" @if($product->status==0) selected @endif>UnAvailable</option>
           </select>
     </div>
 
 
 
     <hr class="my-5">
-
+<!--
     <label for="defaultFormControlInput" class="form-label">Sales channels and apps Manage</label>
 <br><br>
     <ul class="list-unstyled mb-0">
@@ -262,33 +261,39 @@
             <h6>Inzichten</h6> <span style="margin-left:20px;"></span><h6>    Afgelopen 90 dagen</h6>
             </div>
             <p>12 eenheden verkocht aan 14 klantvoor € 1.197,01 aan netto-omzet.</p>
-            <a href="#">Details bekijken</a>
+            <a href="#">Details bekijken</a> -->
 
             <hr class="my-5">
 
             <label for="select2Basic" class="form-label">Product Categories</label>
-            <select id="select2Basic1" class="select2 form-select form-select-lg" data-allow-clear="true">
-              <option value="AK">Option 1</option>
-              <option value="HI">Option 2</option>
-              <option value="CA">Option 3</option>
-              <option value="NV">Option 4</option>
+            <select id="select2Basic1" class="select2 form-select form-select-lg" data-allow-clear="true" name="category[]" multiple>
+              @if($categories->count())
+                @foreach($categories as $category)
+                  @foreach($product->category as $p_cat)
+                  <option value="{{$category->name}}" @if($p_cat->id==$category->id) selected @endif>{{$category->name}}</option>
+                @endforeach
+
+                @endforeach
+              @endif
+
             </select>
 
 
-        <label for="select2Basic" class="form-label">Product Type</label>
-        <select id="select2Basic" class="select2 form-select form-select-lg" data-allow-clear="true">
-          <option value="AK">Option 1</option>
-          <option value="HI">Option 2</option>
+            <label for="select2Basic" class="form-label">Product Type</label>
+        <select id="select2Basic" class="select2 form-select form-select-lg" data-allow-clear="true" name="type">
+          <option value="simple">Simple</option>
+          <!-- <option value="HI">Option 2</option>
           <option value="CA">Option 3</option>
-          <option value="NV">Option 4</option>
+          <option value="NV">Option 4</option> -->
         </select>
 
         <label for="select2Basic" class="form-label">Seller</label>
-        <select id="select2Basic2" class="select2 form-select form-select-lg" data-allow-clear="true">
-          <option value="AK">Option 1</option>
-          <option value="HI">Option 2</option>
-          <option value="CA">Option 3</option>
-          <option value="NV">Option 4</option>
+        <select id="select2Basic2" class="select2 form-select form-select-lg" data-allow-clear="true" name="seller">
+          @if($vendors->count())
+            @foreach($vendors as $vendor)
+                <option value="{{$vendor->id}}" @if($product->user_id==$vendor->id) selected @endif>{{$vendor->first_name ." ".$vendor->last_name}}</option>
+            @endforeach
+          @endif
         </select>
 
         <label for="select2Multiple" class="form-label">Product Tags</label>
@@ -299,13 +304,20 @@
               </optgroup>
               </select>
 
-              <hr class="my-5">
+              <!-- <hr class="my-5">
               <label for="select2Basic" class="form-label">Online Store</label>
             <select id="select2Basic3" class="select2 form-select form-select-lg" data-allow-clear="true">
               <option value="AK">Option 1</option>
               <option value="HI">Option 2</option>
               <option value="CA">Option 3</option>
               <option value="NV">Option 4</option>
+            </select> -->
+            <hr class="my-5">
+              <label for="select2Basic" class="form-label">Is Feature</label>
+            <select id="select2Basic3" class="select2 form-select form-select-lg" data-allow-clear="true" name="is_featured">
+              <option value="1" @if($product->is_featured==1) selected @endif>Yes</option>
+
+              <option value="0" @if($product->is_featured==0) selected @endif>No</option>
             </select>
 
     </div>
@@ -316,7 +328,43 @@
   <!--/ Earning Reports -->
 
 
-<hr class="my-5">
 
+<div class="row">
+
+<div class="col-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="demo-inline-spacing">
+          <button type="submit" class="btn btn-primary">EDIT SAVE</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</form>
+
+
+<script>
+  $('textarea#summernote').summernote({
+        placeholder: 'Description',
+        tabsize: 2,
+        height: 100,
+  toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'italic', 'underline', 'clear']],
+        // ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+        //['fontname', ['fontname']],
+       // ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'hr']],
+        //['view', ['fullscreen', 'codeview']],
+        ['help', ['help']]
+      ],
+      });
+</script>
 
 @endsection

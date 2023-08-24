@@ -119,6 +119,7 @@ function Validate()
   <!-- Vendor -->
   <div class="col-xl-4 col-md-4 col-6 mb-4">
     <div class="card">
+<<<<<<< Updated upstream
       <div class="card-body">
          <label for="idVendor" class="form-label">Vendor</label>
             <select id="idVendor" class="select2 form-select form-select-lg" data-allow-clear="true">
@@ -127,6 +128,21 @@ function Validate()
              @foreach($objVendors as $objVendor) 
                 <option value="{{$objVendor->id}}">{{$objVendor->first_name}} {{$objVendor->last_name}}</option>
              @endforeach
+=======
+      <div class="card-header pb-3">
+        <h5 class="card-title mb-0">Status</h5>
+
+      </div>
+      <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center gap-3">
+          <select id="select2Basic3" class="select2 form-select form-select-lg" data-allow-clear="true">
+              <option value="AK">John</option>
+              <option value="HI">Smith</option>
+              <option value="CA">Robb</option>
+              <option value="NV">Kenn</option>
+
+>>>>>>> Stashed changes
             </select>
        
       </div>
@@ -136,6 +152,7 @@ function Validate()
   <!-- Category -->
   <div class="col-xl-4 col-md-4 col-6 mb-4">
     <div class="card">
+<<<<<<< Updated upstream
       <div class="card-body">
           <label for="idCategorys" class="form-label">Category</label>
             <select id="idCategory" class="select2 form-select form-select-lg" data-allow-clear="true">
@@ -144,6 +161,21 @@ function Validate()
                 @foreach($objCategories as $objCategory) 
                     <option value="{{$objCategory->id}}">{{$objCategory->name}}</option>
                 @endforeach
+=======
+      <div class="card-header pb-0">
+        <h5 class="card-title mb-0">Vendor</h5>
+
+      </div>
+
+      <div class="card-body pt-0">
+        <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
+         <select id="select2Basic3" class="select2 form-select form-select-lg" data-allow-clear="true">
+              <option value="AK">John</option>
+              <option value="HI">Smith</option>
+              <option value="CA">Robb</option>
+              <option value="NV">Kenn</option>
+
+>>>>>>> Stashed changes
             </select>
 
       </div>
@@ -215,3 +247,14 @@ function Validate()
 </div>
 @endsection
 
+<<<<<<< Updated upstream
+=======
+@section('vendor-script')
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>
+$( document ).ready(function() {
+   $("#GetProducts").load('ajax-get-bulk-edit-products');
+});
+</script>
+@endsection
+>>>>>>> Stashed changes

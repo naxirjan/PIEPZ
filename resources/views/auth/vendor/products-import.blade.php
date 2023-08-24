@@ -117,6 +117,23 @@ var user_data={
   'cocnumber':$("[name='cocnumber']").val(),
   'taxnumber':$("[name='taxnumber']").val(),
 };
+var validation_=false;
+
+$.each(form_data_, function(key, value) {
+  if(value==" "){
+
+    $(".field_messages").append("<span>Please select "+key+" field to upload</span><br>");
+
+
+    console.log("KEE",key)
+    validation_=true;
+  }
+  console.log("KEE",key,"VAL",value)
+});
+if (validation_) {
+  return 0;
+}
+
   let file = jQuery('.excel_upload_file')[0].files[0];
 
         if (typeof file=='undefined') {
@@ -304,7 +321,7 @@ jQuery.ajax({
                 </div>
                 <div class="row g-3">
                 <div class="col-sm-6">
-                    <label class="form-label" for="companyName">Company Name</label>
+                    <label class="form-label" for="companyName">Company Name<span class="text-warning">*Required</span></label>
                     <input type="text" name="companyName" id="companyName" class="form-control" placeholder="Piepz" aria-label="johndoe" />
                   </div>
                   <div class="col-sm-6">
@@ -317,11 +334,11 @@ jQuery.ajax({
                   </div>
 
                   <div class="col-sm-6">
-                    <label class="form-label" for="firstName">First Name</label>
+                    <label class="form-label" for="firstName">First Name<span class="text-warning">*Required</span></label>
                     <input type="text" name="firstName" id="firstName" class="form-control" placeholder="john" />
                   </div>
                   <div class="col-sm-6">
-                    <label class="form-label" for="lastName">Last Name</label>
+                    <label class="form-label" for="lastName">Last Name<span class="text-warning">*Required</span></label>
                     <input type="text" name="lastName" id="lastName" class="form-control" placeholder="doe" />
                   </div>
 
@@ -330,7 +347,7 @@ jQuery.ajax({
                     <input type="text" name="address" id="address" class="form-control" placeholder="address" aria-label="address" />
                   </div>
                   <div class="col-sm-6">
-                              <label class="form-label" for="zip">Zip Code</label>
+                              <label class="form-label" for="zip">Zip Code<span class="text-warning">*Required</span></label>
                               <input type="text" name="zip" id="zip" class="form-control" />
                            </div>
                   <div class="col-sm-6">
@@ -347,21 +364,21 @@ jQuery.ajax({
                   </div>
 
                   <div class="col-sm-6">
-                    <label class="form-label" for="email">Email</label>
+                    <label class="form-label" for="email">Email<span class="text-warning">*Required</span></label>
                     <input type="email" name="email" id="email" class="form-control" placeholder="john@gmail.com" />
                   </div>
                   <div class="col-sm-6">
-                    <label class="form-label" for="password">Password</label>
+                    <label class="form-label" for="password">Password<span class="text-warning">*Required</span></label>
                     <input type="password" name="password" id="password" class="form-control" placeholder="*" aria-label="*" />
                   </div>
 
 
                   <div class="col-sm-6">
-                    <label class="form-label" for="cocnumber">C.O.C Number</label>
+                    <label class="form-label" for="cocnumber">C.O.C <span class="text-warning">*Required</span></label>
                     <input type="text" name="cocnumber" id="cocnumber" class="form-control" placeholder="9545" />
                   </div>
                   <div class="col-sm-6">
-                    <label class="form-label" for="taxnumber">Tax Number</label>
+                    <label class="form-label" for="taxnumber">Tax Number<span class="text-warning">*Required</span></label>
                     <input type="text" name="taxnumber" id="taxnumber" class="form-control" placeholder="1234" aria-label="1234" />
                   </div>
 
@@ -386,7 +403,7 @@ jQuery.ajax({
                        <h3 class="mb-1">Personal Information</h3>
                        <button class="btn btn-primary"> <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Help - Support</span> <i class="ti ti-arrow-right ti-xs"></i></button>
                     <div class="d-flex">
-                      <button class="btn btn-primary btn-next khalid_upload_btn"> <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Skip Now</span> <i class="ti ti-arrow-right ti-xs"></i></button>
+                      <button class="btn btn-primary  khalid_upload_btn"> <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Skip Now</span> <i class="ti ti-arrow-right ti-xs"></i></button>
                     </div>
                   </div>
                 </div>
@@ -491,6 +508,7 @@ jQuery.ajax({
               </div>
               <!-- Billing Links -->
               <div id="billingLinksValidation" class="content">
+                <p class="field_messages"></p>
                 <div class="content-header">
                   <h3 class="mb-1">Select Plan</h3>
                   <p>Select plan as per your requirement</p>
@@ -520,80 +538,91 @@ jQuery.ajax({
                   <tr>
                       <td>Product Name</td>
                       <td>
-                        <select id="" class="select1 form-control" data-allow-clear="true" name="name">
-                        </select>
+                        <select required id="" class="select1 form-control" data-allow-clear="true" name="name">
+                      <option value=" ">Select</option>
+                      </select>
                       </td>
                     </tr>
                     <tr>
                       <td>Product SKU</td>
                       <td>
-                        <select id="" class="select1 form-control" data-allow-clear="true" name="sku">
-                        </select>
+                        <select required id="" class="select1 form-control" data-allow-clear="true" name="sku">
+                      <option value=" ">Select</option>
+                      </select>
                       </td>
                     </tr>
 
                     <tr>
                       <td>Product  Stock</td>
                       <td>
-                        <select id="" class="select1 form-control" data-allow-clear="true" name="stock">
-                        </select>
+                        <select required id="" class="select1 form-control" data-allow-clear="true" name="stock">
+                      <option value=" ">Select</option>
+                      </select>
                       </td>
 
                     </tr>
                     <tr>
                       <td>Product In Stock</td>
                       <td>
-                        <select id="" class="select1 form-control" data-allow-clear="true" name="in_stock">
-                        </select>
+                        <select required id="" class="select1 form-control" data-allow-clear="true" name="in_stock">
+                      <option value=" ">Select</option>
+                      </select>
                       </td>
                     </tr>
                     <tr>
                       <td>Product Low Stock</td>
                       <td>
-                        <select id="" class="select1 form-control" data-allow-clear="true" name="low_stock">
-                        </select>
+                        <select required id="" class="select1 form-control" data-allow-clear="true" name="low_stock">
+                      <option value=" ">Select</option>
+                      </select>
                       </td>
                     </tr>
                     <tr>
                       <td>Product Image</td>
                       <td>
-                        <select id="" class="select1 form-control" data-allow-clear="true" name="image">
-                        </select>
+                        <select required id="" class="select1 form-control" data-allow-clear="true" name="image">
+                      <option value=" ">Select</option>
+                      </select>
                       </td>
                     </tr>
                     <tr>
                       <td>Product  Price</td>
                       <td>
-                        <select id="" class="select1 form-control" data-allow-clear="true" name="price">
-                        </select>
+                        <select required id="" class="select1 form-control" data-allow-clear="true" name="price">
+                      <option value=" ">Select</option>
+                      </select>
                       </td>
                     </tr>
                     <tr>
                       <td>Product Description</td>
                       <td>
-                        <select id="" class="select1 form-control" data-allow-clear="true" name="description">
-                        </select>
+                        <select required id="" class="select1 form-control" data-allow-clear="true" name="description">
+                      <option value=" ">Select</option>
+                      </select>
                       </td>
                     </tr>
                     <tr>
                       <td>Product  Short Description</td>
                       <td>
-                        <select id="" class="select1 form-control" data-allow-clear="true" name="short_description">
-                        </select>
+                        <select required id="" class="select1 form-control" data-allow-clear="true" name="short_description">
+                      <option value=" ">Select</option>
+                      </select>
                       </td>
                     </tr>
                     <tr>
                       <td>Product  Type</td>
                       <td>
-                        <select id="" class="select1 form-control" data-allow-clear="true" name="type">
-                        </select>
+                        <select required id="" class="select1 form-control" data-allow-clear="true" name="type">
+                      <option value=" ">Select</option>
+                      </select>
                       </td>
                     </tr>
                     <tr>
                       <td>Category</td>
                       <td>
-                        <select id="" class="select1 form-control" data-allow-clear="true" name="category">
-                        </select>
+                        <select required id="" class="select1 form-control" data-allow-clear="true" name="category">
+                      <option value=" ">Select</option>
+                      </select>
                       </td>
                     </tr>
 
