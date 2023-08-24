@@ -18,10 +18,10 @@
     <div class="card">
       <div class="card-header pb-3">
         <h5 class="card-title mb-0">Status</h5>
-    
+
       </div>
       <div class="card-body">
-    
+
         <div class="d-flex justify-content-between align-items-center gap-3">
           <select id="select2Basic3" class="select2 form-select form-select-lg" data-allow-clear="true">
               <option value="AK">John</option>
@@ -40,9 +40,9 @@
     <div class="card">
       <div class="card-header pb-0">
         <h5 class="card-title mb-0">Vendor</h5>
-        
+
       </div>
-    
+
       <div class="card-body pt-0">
         <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
          <select id="select2Basic3" class="select2 form-select form-select-lg" data-allow-clear="true">
@@ -87,14 +87,14 @@
        <table class="table">
          <thead>
             <tr>
-                <th><input class="form-check-input" type="checkbox" class="cb-select-all-products" /></th>
+                <th><input class="form-check-input" type="checkbox" id="cb-select-all-products" /></th>
                 <th>Product Name</th>
                 <th>Product Type</th>
                 <th>&nbsp;Price&nbsp;</th>
                 <th>Short Description</th>
                 <th>Is featured</th>
                 <th>Is Approved</th>
-                <th>Status</th>    
+                <th>Status</th>
             </tr>
          </thead>
          <tbody id ="GetProducts"></tbody>
@@ -107,15 +107,28 @@
 </div>
 <!--/ Scrollable -->
 
-    
+
 </div>
 @endsection
-    
+
 @section('vendor-script')
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script>
 $( document ).ready(function() {
    $("#GetProducts").load('ajax-get-bulk-edit-products');
+
+  $("#cb-select-all-products").change(function () {
+    $("input:checkbox").prop('checked', $(this).prop("checked"));
+  });
+
+  $('.cb-select-product').on('click', function () {
+    if ($('.cb-select-product:checked').length == $('.cb-select-product').length) {
+      $('#cb-select-all-products"').prop('checked', true);
+    } else {
+      $('#cb-select-all-products"').prop('checked', false);
+    }
+  });
+
 });
-</script>   
+</script>
 @endsection
