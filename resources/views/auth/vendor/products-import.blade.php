@@ -228,7 +228,7 @@ jQuery.ajax({
       },
       success:function(result){
           console.log(result);
-          result=result.replace("0", "");
+         // result=result.replace("0", "");
           //console.log(result);
           result = JSON.parse(result);
           console.log(result);

@@ -63,8 +63,8 @@
           </div>
       @endif
       @if(session('success'))
-       <div class="alert alert-sucess">
-          <h1>{{session('success')}}</h1>
+       <div class="alert alert-success">
+          {{session('success')}}
        </div>
      @endif
     <div class="card h-100">
@@ -77,28 +77,24 @@
         </div>
       <!-- Product Description  -->
       <hr class="my-5">
-      <div>
-      <label for="defaultFormControlInput" class="form-label">Product Description</label>
-      <br>
-     <textarea name="description" id="summernote"></textarea>
-
-    </div>
-     <hr class="my-5">
-
-     <div>
-          <label for="defaultFormControlInput" class="form-label">Short Descirption</label>
+        <div>
+          <label for="defaultFormControlInput" class="form-label">Product Description</label>
           <br>
-
-     <textarea name="short_description" id="summernote"></textarea>
-
+          <textarea name="description" id="summernote">{!! $product->description !!}</textarea>
         </div>
 
-      <label for="defaultFormControlInput" class="form-label">Products Images</label>
+
+     <hr class="my-5">
+        <div>
+          <label for="defaultFormControlInput" class="form-label">Short Descirption</label>
+          <br>
+          <textarea name="short_description" id="summernote">{!! $product->short_description !!}</textarea>
+        </div>
+
 
 
 
  <div class="col-12">
-    <h6 class="text-muted mt-3">Product Gallery</h6>
 
     <div class="col-12">
     <h6 class="text-muted mt-3">Product Gallery</h6>

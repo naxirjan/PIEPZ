@@ -112,7 +112,8 @@ Route::middleware(['admin'])->group(function () {
             route::get('/product/view/{id}', 'productView')->name('vendor.product.view');
             route::get('/product/delete/{id}', 'productDelete')->name('admin.delete.product');
             route::get('/product/edit/{id}', 'productEdit')->name('admin.edit.product');
-
+            route::post('/product/store', 'productStore')->name('admin.product.store');
+            route::post('/product/update', 'productUpdate')->name('admin.product.update');
         });
 
 //Admin Products Group

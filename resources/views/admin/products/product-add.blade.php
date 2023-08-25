@@ -57,91 +57,64 @@
   <div class="col-lg-8 mb-4">
 
       @if(session('success'))
-       <div class="alert alert-sucess">
-          <h1>{{session('success')}}</h1>
+       <div class="alert alert-success">
+          {{session('success')}}
        </div>
       @endif
+
+
     <div class="card h-100">
       <div class="card-body">
-      @if ($errors->any())
-          <div class="alert alert-danger">
-              <ul>
-                  @foreach ($errors->all() as $error)
-                      <li>{{ $error }}</li>
-                  @endforeach
-              </ul>
-          </div>
-      @endif
+
       <!-- Product Name Field -->
       <div>
           <label for="defaultFormControlInput" class="form-label">Title</label>
-          <input type="text" class="form-control" id="defaultFormControlInput" placeholder="simply dummy text of the printing and typesetting industry" aria-describedby="defaultFormControlHelp" / name="name">
+          <input type="text" class="form-control @error('name') is-invalid @enderror" id="defaultFormControlInput" placeholder="simply dummy text of the printing and typesetting industry" aria-describedby="defaultFormControlHelp" value="{{old('name')}}"
+ name="name">
+ <br>
+ @error('name')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
         </div>
       <!-- Product Description  -->
       <hr class="my-5">
       <div>
       <label for="defaultFormControlInput" class="form-label">Product Description</label>
       <br>
-     <textarea name="description" id="summernote"></textarea>
+     <textarea class="@error('description') is-invalid @enderror" name="description" id="summernote" >{{old('description')}}</textarea>
      </div>
+     <br>
+     @error('description')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
      <hr class="my-5">
 
      <div>
-          <label for="defaultFormControlInput" class="form-label">Short Descirption</label>
+          <label for="defaultFormControlInput" class="form-label" >Short Descirption</label>
           <br>
 
-     <textarea name="short_description" id="summernote"></textarea>
-
+     <textarea class="@error('short_description') is-invalid @enderror" name="short_description" id="summernote" >{{old('short_description')}}</textarea>
+<br>
+@error('short_description')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
         </div>
-         <!--<div id="snow-toolbar">
-          <span class="ql-formats">
-            <select class="ql-font"></select>
-            <select class="ql-size"></select>
-          </span>
-          <span class="ql-formats">
-            <button class="ql-bold"></button>
-            <button class="ql-italic"></button>
-            <button class="ql-underline"></button>
-            <button class="ql-strike"></button>
-          </span>
-          <span class="ql-formats">
-            <select class="ql-color"></select>
-            <select class="ql-background"></select>
-          </span>
-          <span class="ql-formats">
-            <button class="ql-script" value="sub"></button>
-            <button class="ql-script" value="super"></button>
-          </span>
-          <span class="ql-formats">
-            <button class="ql-header" value="1"></button>
-            <button class="ql-header" value="2"></button>
-            <button class="ql-blockquote"></button>
-            <button class="ql-code-block"></button>
-          </span>
-        </div>
-        <div id="snow-editor">
-          <h6></h6>
-          <p> </p>
-        </div> -->
 
 
-      <!-- Product Description End -->
 
       <!-- File Upload -->
           <!-- Basic  -->
           <hr class="my-5">
   <label for="defaultFormControlInput" class="form-label">Product Feature Image</label>
 
-        <!-- <form action="/upload" class="dropzone needsclick" id="dropzone-basic"> -->
-          <!-- <div class="dz-message needsclick">
-            Drop files here or click to upload
-            <span class="note needsclick">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
-          </div> -->
+
           <div class="fallback">
-            <input name="images[]" type="file" /  multiple>
+            <input name="images[]" type="file" class="@error('images') is-invalid @enderror"  multiple >
           </div>
-
-
+          <br>
+          @error('images')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
       <!-- /Basic  -->
       <!-- File Upload End -->
 
@@ -153,23 +126,35 @@
     <div class="col-md-6">
          <div class="input-group">
           <span class="input-group-text">SKU</span>
-          <input type="text" class="form-control" placeholder="149" aria-label="Dollar amount (with dot and two decimal places)" name="sku">
+          <input type="text" class="form-control @error('sku') is-invalid @enderror" placeholder="149" aria-label="Dollar amount (with dot and two decimal places)" value="{{old('sku')}}" name="sku">
         </div>
+        <br>
+        @error('sku')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
     </div>
     <br>
       <br>
     <div class="col-md-6">
          <div class="input-group">
           <span class="input-group-text">Price ($)</span>
-          <input type="text" class="form-control" placeholder="149" aria-label="Dollar amount (with dot and two decimal places)" name="price">
+          <input type="text" class="form-control @error('price') is-invalid @enderror" placeholder="149" aria-label="Dollar amount (with dot and two decimal places)" name="price" value="{{old('price')}}">
         </div>
+        <br>
+        @error('price')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
     </div>
 
       <div class="col-md-6">
         <div class="input-group">
           <span class="input-group-text">Stock</span>
-          <input type="number" class="form-control" placeholder="1349" aria-label="Dollar amount (with dot and two decimal places)" name="stock">
+          <input type="number" class="form-control @error('stock') is-invalid @enderror" placeholder="1349" aria-label="Dollar amount (with dot and two decimal places)" name="stock" value="{{old('stock')}}">
         </div>
+        <br>
+        @error('stock')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
       </div>
 
       <br>
@@ -178,14 +163,22 @@
       <div class="col-md-6">
         <div class="input-group">
           <span class="input-group-text">In Stock</span>
-          <input type="number" class="form-control" placeholder="349" aria-label="Dollar amount (with dot and two decimal places)" name="in_stock">
+          <input type="number" class="form-control @error('in_stock') is-invalid @enderror" placeholder="349" aria-label="Dollar amount (with dot and two decimal places)" name="in_stock" value="{{old('in_stock')}}">
         </div>
+        <br>
+        @error('in_stock')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
       </div>
       <div class="col-md-6">
         <div class="input-group">
           <span class="input-group-text">Low Stock</span>
-          <input type="number" class="form-control" placeholder="349" aria-label="Dollar amount (with dot and two decimal places)" name="low_stock">
+          <input type="number" class="form-control @error('low_stock') is-invalid @enderror" placeholder="349" aria-label="Dollar amount (with dot and two decimal places)" name="low_stock" value="{{old('low_stock')}}">
         </div>
+        <br>
+        @error('low_stock')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
       </div>
 
     </div>
@@ -215,73 +208,11 @@
 
 
 
-    <!-- <hr class="my-5">
-
-    <label for="defaultFormControlInput" class="form-label">Sales channels and apps Manage</label>
-<br><br>
-    <ul class="list-unstyled mb-0">
-
-              <li class="mb-3">
-                <div class="d-flex align-items-center">
-                  <div class="d-flex align-items-start">
-                    <div class="avatar me-2">
-                      <img src="{{ asset('assets/img/icons/brands/react-label.png') }}" alt="Avatar" class="rounded-circle" />
-                    </div>
-                    <div class="me-2 ms-1">
-                      <h6 class="mb-0">Onlinewinkel</h6>
-                      <small class="text-muted">Beschikbaarheid plannen</small>
-                    </div>
-                  </div>
-
-                </div>
-              </li>
-
-              <li class="mb-3">
-                <div class="d-flex align-items-center">
-                  <div class="d-flex align-items-start">
-                    <div class="avatar me-2">
-                      <img src="{{ asset('assets/img/icons/brands/react-label.png') }}" alt="Avatar" class="rounded-circle" />
-                    </div>
-                    <div class="me-2 ms-1">
-                      <h6 class="mb-0">Facebook & Instagram</h6>
-                      <small class="text-muted">Facebook & Instagram</small>
-                    </div>
-                  </div>
-
-                </div>
-              </li>
-              <li class="mb-3">
-                <div class="d-flex align-items-center">
-                  <div class="d-flex align-items-start">
-                    <div class="avatar me-2">
-                      <img src="{{ asset('assets/img/icons/brands/react-label.png') }}" alt="Avatar" class="rounded-circle" />
-                    </div>
-                    <div class="me-2 ms-1">
-                      <h6 class="mb-0">Google & YouTube</h6>
-                      <small class="text-muted">Beschikbaarheid plannen</small>
-                    </div>
-                  </div>
-
-                </div>
-              </li>
-
-              <li class="text-center">
-                <a href="javascript:;">View all teams</a>
-              </li> -->
-            <!-- </ul> -->
-
-            <!-- <hr class="my-5">
-
-            <div class="size" style="display:flex;">
-            <h6>Inzichten</h6> <span style="margin-left:20px;"></span><h6>    Afgelopen 90 dagen</h6>
-            </div>
-            <p>12 eenheden verkocht aan 14 klantvoor € 1.197,01 aan netto-omzet.</p>
-            <a href="#">Details bekijken</a> -->
 
             <hr class="my-5">
 
             <label for="select2Basic" class="form-label">Product Categories</label>
-            <select id="select2Basic1" class="select2 form-select form-select-lg" data-allow-clear="true" name="category[]" multiple>
+            <select id="select2Basic1" class="select2 form-select form-select-lg @error('category[]') is-invalid @enderror" data-allow-clear="true" name="category[]" multiple>
               @if($categories->count())
                 @foreach($categories as $category)
                   <option value="{{$category->name}}">{{$category->name}}</option>
@@ -289,7 +220,10 @@
               @endif
 
             </select>
-
+            <br>
+            @error('category')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
 
         <label for="select2Basic" class="form-label">Product Type</label>
         <select id="select2Basic" class="select2 form-select form-select-lg" data-allow-clear="true" name="type">
