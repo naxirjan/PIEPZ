@@ -137,7 +137,7 @@ function Validate()
   <div class="col-xl-4 col-md-4 col-6 mb-4">
     <div class="card">
       <div class="card-body">
-          <label for="idCategorys" class="form-label">Category</label>
+          <label for="idCategory" class="form-label">Category</label>
             <select id="idCategory" class="select2 form-select form-select-lg" data-allow-clear="true">
               <option value="">-</option>
               <option value="-1">All</option>
@@ -186,17 +186,19 @@ function Validate()
         {{ session('msg') }}
     </p>
     @endif
-   <div class="table-responsive text-nowrap">
+    <div class="row">
+   <div class="table-responsive">
       <form action="bulk-update-procducts-process" method="post" >
        <table class="table">
          <thead>
             <tr>
                 <th><input class="form-check-input" type="checkbox" id="checkAll" /></th>
-                <th>Product Name</th>
-                <th>Product Type</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Category</th>
                 <th>&nbsp;Price&nbsp;</th>
                 <th>Short Description</th>
-                <th>Is featured</th>
+                <th>Is Featured</th>
                 <th>Is Approved</th>
                 <th>Status</th>
             </tr>
@@ -208,6 +210,7 @@ function Validate()
        <button name="submit" class="btn btn-success btn-lg waves-effect waves-light" type="submit" value="submit">Update All</button>
        </form>
    </div>
+    </div>
 </div>
 <!--/ Scrollable -->
 

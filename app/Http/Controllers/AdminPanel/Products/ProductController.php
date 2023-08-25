@@ -130,7 +130,9 @@ class ProductController extends Controller
     public function AjaxGetBulkEditProducts()
     {
         $aProducts = DB::table('products')->orderBy('id', 'desc')->limit(10)->get()->toArray();
-        return view('admin.products.ajax.ajax-get-bulk-edit-products', ["aProducts" => $aProducts]);
+        $objCategories = Category::where("status", "1")->get();
+       
+        return view('admin.products.ajax.ajax-get-bulk-edit-products', ["aProducts" => $aProducts, "objCategories" => $objCategories]);
 
     } // End Method
 
@@ -140,6 +142,7 @@ class ProductController extends Controller
         $iCategoryId = $request->Input('iCategoryId');
         $iStatusId = $request->Input('iStatusId');
         $iVendor = $request->Input('iVendor');
+        $objCategories = Category::where("status", "1")->get();
 
         $sQuery = DB::table('products');
 
@@ -157,7 +160,7 @@ class ProductController extends Controller
 
         $aProducts = $sQuery->get()->toArray();
 
-        return view('admin.products.ajax.ajax-get-bulk-edit-products', ["aProducts" => $aProducts]);
+        return view('admin.products.ajax.ajax-get-bulk-edit-products', ["aProducts" => $aProducts, "objCategories" => $objCategories]);
 
     } // End Method
 
@@ -171,18 +174,23 @@ class ProductController extends Controller
             $objProduct = Product::find($iId);
             $objProduct->name = $aFormData["name_" . $iIndex];
             $objProduct->type = $aFormData["type_" . $iIndex];
+            $objProduct->category_id = $aFormData["category_id_" . $iIndex];
             $objProduct->price = $aFormData["price_" . $iIndex];
             $objProduct->short_description = $aFormData["short_description_" . $iIndex];
+            $objProduct->is_featured = (($aFormData["is_featured_" . $iIndex] ?? "") == "on" ? 1 : 0);
+            $objProduct->is_approved = (($aFormData["is_approved_" . $iIndex] ?? "") == "on" ? 1 : 0);
+            $objProduct->status = (($aFormData["status_" . $iIndex] ?? "") == "on" ? 1 : 0);
+            
             if ($objProduct->isDirty()) {
                 $iCount++;
             }
 
             $objProduct->save();
         }
-
+        
         return redirect("admin/products/bulk-edit-products")->with("msg", "Product(s) Updated Successfully !...");
 
-        echo "$iCount Record(s) Updated !... <br />";
+    
 
     }
     public function productCustomization()
