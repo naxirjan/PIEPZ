@@ -253,6 +253,10 @@ Route::middleware(['vendor'])->group(function () {
             route::get('/products', 'index')->name('vendor.products');
             route::get('/products/customization', 'productCustomization')->name('vendor.products.customization');
             route::get('/product/add', 'productAdd')->name('vendor.product.add');
+            route::get('/product/delete/{id}', 'productDelete')->name('vendor.delete.product');
+            route::post('/product/store', 'productStore')->name('vendor.product.store');
+            route::post('/product/update', 'productUpdate')->name('vendor.product.update');
+            route::get('/product/edit/{id}', 'productEdit')->name('vendor.edit.product');
         });
 // Product Import Setup Group
     Route::controller(VendorImportProductController::class)
