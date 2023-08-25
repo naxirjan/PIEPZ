@@ -105,6 +105,17 @@ class VendorProductController extends Controller
             return redirect()->back()->withSuccess('Product Added Successfuly');
         }
     }
+    public function productView($id)
+    {
+        $product = Product::with('images')->findOrFail($id);
+
+        // foreach ($product->categories as $cat) {
+        //     echo $cat->name;
+        //     echo "<br>";
+        // }
+
+        return view('vendors.products.product-view', compact('product'));
+    } // End Method
     public function productEdit($id)
     {
         $product = Product::with('category')->findOrFail($id);

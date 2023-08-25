@@ -109,7 +109,7 @@ Route::middleware(['admin'])->group(function () {
             route::post('/products/bulk-update-procducts-process', 'BulkUpdateProductsProcess')->name('admin.products.bulkupdateproductsprocess');
 
             route::get('/product/add', 'productAdd')->name('admin.product.add');
-            route::get('/product/view/{id}', 'productView')->name('vendor.product.view');
+            route::get('/product/view/{id}', 'productView')->name('admin.product.view');
             route::get('/product/delete/{id}', 'productDelete')->name('admin.delete.product');
             route::get('/product/edit/{id}', 'productEdit')->name('admin.edit.product');
             route::post('/product/store', 'productStore')->name('admin.product.store');
@@ -257,6 +257,7 @@ Route::middleware(['vendor'])->group(function () {
             route::post('/product/store', 'productStore')->name('vendor.product.store');
             route::post('/product/update', 'productUpdate')->name('vendor.product.update');
             route::get('/product/edit/{id}', 'productEdit')->name('vendor.edit.product');
+            route::get('/product/view/{id}', 'productView')->name('vendor.product.view');
         });
 // Product Import Setup Group
     Route::controller(VendorImportProductController::class)

@@ -212,7 +212,7 @@
             <hr class="my-5">
 
             <label for="select2Basic" class="form-label">Product Categories</label>
-            <select id="select2Basic1" class="select2 form-select form-select-lg @error('category[]') is-invalid @enderror" data-allow-clear="true" name="category[]" multiple>
+            <select id="select2Basic1" class="select2 form-select form-select-lg @error('category[]') is-invalid @enderror" data-allow-clear="true" name="category[]" multiple >
               @if($categories->count())
                 @foreach($categories as $category)
                   <option value="{{$category->name}}">{{$category->name}}</option>
@@ -280,7 +280,6 @@
   <!--/ Earning Reports -->
 
 
-<hr class="my-5">
 
 
 <script>

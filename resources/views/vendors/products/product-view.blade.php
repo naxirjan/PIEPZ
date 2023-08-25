@@ -71,7 +71,7 @@
         @endif
         @if(!empty($product->short_description))
         <div>
-          <label for="defaultFormControlInput" class="form-label">Product Short Description : {{$product->short_description}}</label>
+          <label for="defaultFormControlInput" class="form-label">Product Short Description : {!!$product->short_description!!}</label>
         </div>
         @endif
 
@@ -167,7 +167,7 @@
 @if(!empty($product->description))
 <label for="select2Multiple1" class="form-label">Product Description</label>
 
-                <h6 class="mb-0">{{$product->description}}</h6>
+                <h6 class="mb-0">{!!$product->description!!}</h6>
 
 
 @endif
@@ -196,45 +196,6 @@
       @endif
     </div>
 
-    <hr class="my-1">
-
-        <label for="select2Basic" class="form-label">Product Type</label>
-        <select id="select2Basic" class="select2 form-select form-select-lg" data-allow-clear="true">
-          <option value="AK">Option 1</option>
-          <option value="HI">Option 2</option>
-          <option value="CA">Option 3</option>
-          <option value="NV">Option 4</option>
-        </select>
-
-        <label for="select2Basic" class="form-label">Seller</label>
-        <select id="select2Basic2" class="select2 form-select form-select-lg" data-allow-clear="true">
-          <option value="AK">Option 1</option>
-          <option value="HI">Option 2</option>
-          <option value="CA">Option 3</option>
-          <option value="NV">Option 4</option>
-        </select>
-
-        <label for="select2Multiple" class="form-label">Product Tags</label>
-            <select id="select2Multiple" class="select2 form-select" multiple readonly>
-              <optgroup label="Alaskan/Hawaiian Time Zone">
-                <option value="AK" selected>option 1</option>
-                <option value="HI" selected>option 2</option>
-              </optgroup>
-              </select>
-
-              <hr class="my-2">
-              <label for="select2Basic" class="form-label">Online Store</label>
-            <select id="select2Basic3" class="select2 form-select form-select-lg" data-allow-clear="true">
-              <option value="AK">Option 1</option>
-              <option value="HI">Option 2</option>
-              <option value="CA">Option 3</option>
-              <option value="NV">Option 4</option>
-            </select>
-            <ul>
-          <li>Tag 1</li>
-          <li>Tag 2</li>
-          <li>Tag 3</li>
-         </ul>
     </div>
     </div>
 </div>

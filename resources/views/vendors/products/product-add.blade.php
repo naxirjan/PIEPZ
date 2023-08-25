@@ -280,7 +280,7 @@
   <!--/ Earning Reports -->
 
 
-<hr class="my-5">
+
 
 
 <script>

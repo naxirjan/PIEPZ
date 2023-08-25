@@ -38,7 +38,7 @@ class ProductController extends Controller
         $insert_data = [
             'sku' => $request->sku,
             'slug' => uniqid() . time(),
-            'user_id' => $request->seller,
+            'user_id' => Auth::id(),
             'price' => $request->price,
             'name' => $request->name,
             'short_description' => $request->short_description,

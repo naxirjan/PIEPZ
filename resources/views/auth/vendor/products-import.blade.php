@@ -118,11 +118,29 @@ var user_data={
   'taxnumber':$("[name='taxnumber']").val(),
 };
 var validation_=false;
+toastr.options = {
+  "closeButton": true,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 
 $.each(form_data_, function(key, value) {
   if(value==" "){
+// Set the options that I want
 
-    $(".field_messages").append("<span>Please select "+key+" field to upload</span><br>");
+
+    toastr.warning("<span>Please select "+key+" field to upload</span><br>");
 
 
     console.log("KEE",key)
@@ -646,7 +664,11 @@ jQuery.ajax({
     <!-- / Multi Steps Registration -->
   </div>
 </div>
-
+	<!-- jQuery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Toastr -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script>
   // Check selected custom option
   window.Helpers.initCustomOptionCheck();

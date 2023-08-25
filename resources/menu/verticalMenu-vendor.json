@@ -46,16 +46,15 @@
           "name": "Bulk Edit Products",
           "icon": "menu-icon tf-icons ti ti-messages",
           "slug": "vendor-bulk-edit-products"
-        }
-        ,
+        },
         {
           "url": "vendor/product/add",
-          "name": "Product Detail",
+          "name": "Add Product",
           "icon": "menu-icon tf-icons ti ti-messages",
           "slug": "vendor-product-add"
         }
       ]
-    }, 
+    },
     {
       "name": "Import Setup",
       "icon": "menu-icon tf-icons ti ti-smart-home",
@@ -83,7 +82,6 @@
           "icon": "menu-icon tf-icons ti ti-messages",
           "slug": "vendor-feed-products"
         }
-        
       ]
     },
     {
@@ -101,20 +99,18 @@
           "icon": "menu-icon tf-icons ti ti-messages",
           "slug": "vendor-orders"
         },
-       
         {
           "url": "vendor/order/details",
           "name": "Order Detail",
           "icon": "menu-icon tf-icons ti ti-messages",
           "slug": "vendor-order-detail"
-        }, {
+        },
+        {
           "url": "vendor/order/invoice",
           "name": "Order Invoice",
           "icon": "menu-icon tf-icons ti ti-messages",
           "slug": "vendor-order-invoice"
         }
-    
-        
       ]
     },
     {
@@ -130,12 +126,12 @@
           "url": "/vendor/tickets",
           "name": "All Tickets",
           "slug": "vendor-tickets"
-        }, {
+        },
+        {
           "url": "/vendor/single/ticket",
           "name": "View Ticket",
           "slug": "vendor-single-ticket"
         }
-       
       ]
     },
     {
@@ -151,29 +147,32 @@
           "url": "vendor/my-account/page",
           "name": "My Account",
           "slug": "my-account-page"
-        },{
+        },
+        {
           "url": "vendor/my-account/feedback",
           "name": "Feedback",
           "slug": "my-account-feedback"
-        },{
+        },
+        {
           "url": "vendor/my-account/user-information",
           "name": "User Information",
           "slug": "vendor-my-account-user-information"
-        }
-        ,{
+        },
+        {
           "url": "vendor/my-account/invoice-information",
           "name": "Invoice Information",
           "slug": "vendor-my-account-invoice-information"
-        },{
+        },
+        {
           "url": "vendor/my-account/sync",
           "name": "Sync Information",
           "slug": "vendor-my-account-sync"
-        },{
+        },
+        {
           "url": "vendor/my-account/packages",
           "name": "Packages",
           "slug": "vendor-my-account-packages"
         }
-       
       ]
     },
     {
@@ -190,7 +189,6 @@
           "name": "Logout",
           "slug": "logut"
         }
-       
       ]
     }
   ]
