@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\AdminPanel\Products;
 
 use App\Http\Controllers\Controller;
@@ -12,6 +13,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -165,8 +167,9 @@ class ProductController extends Controller
 
     public function BulkUpdateProductsProcess(Request $request)
     {
-        $aFormData = $request->all();    
-        
+        $aFormData = $request->all();
+        $iCount = 0;
+
         for ($iIndex = 0;isset($aFormData["SelectedProduct_" . $iIndex]); $iIndex++) {
             $iId = base64_decode($aFormData["SelectedProduct_" . $iIndex]);
             $objProduct = Product::find($iId);
@@ -178,6 +181,10 @@ class ProductController extends Controller
             $objProduct->is_featured = (($aFormData["is_featured_" . $iIndex] ?? "") == "on" ? 1 : 0);
             $objProduct->is_approved = (($aFormData["is_approved_" . $iIndex] ?? "") == "on" ? 1 : 0);
             $objProduct->status = (($aFormData["status_" . $iIndex] ?? "") == "on" ? 1 : 0);
+            
+            if ($objProduct->isDirty()) {
+                $iCount++;
+            }
 
             $objProduct->save();
         }

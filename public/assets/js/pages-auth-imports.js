@@ -145,7 +145,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
               },
               emailAddress: {
                 message: 'The value is not a valid email address'
-              }
+              },
+
             }
           },
           password: {
@@ -340,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
       }).on('core.form.valid', function () {
         // Jump to the next step when all fields in the current step are valid
         var fileUpload = document.getElementById("fileUpload");
-       
+
         var validExts = [".xlsx", ".xls",'.csv'];
         var fileExt = fileUpload.value;
         fileExt = fileExt.substring(fileExt.lastIndexOf('.'));

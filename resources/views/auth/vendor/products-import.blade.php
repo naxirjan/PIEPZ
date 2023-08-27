@@ -35,6 +35,48 @@ $configData = Helper::appClasses();
 
 <script src="{{asset('assets/js/pages-auth-imports.js')}}"></script>
 <script>
+
+$(document).ready(function(){
+
+$(".txtEmail").change(function(){
+
+
+jQuery.ajax({
+  url:"/vendor-check-email-exists",
+  type:"post",
+  datatype:"json",
+  headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+   data: {
+           "_token": "{{ csrf_token() }}",
+           email:$(this).val()
+	},
+
+        error: function(err){
+          console.log(err);
+      },
+      success:function(sResult)
+      {
+       if(sResult.bReturn == true)
+       {
+         toastr.options = { "closeButton": true, "newestOnTop": false, "progressBar": true, "positionClass": "toast-top-right", "preventDuplicates": false, "onclick": null, "showDuration": "300", "hideDuration": "1000", "timeOut": "5000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "linear", "showMethod": "fadeIn", "hideMethod": "fadeOut"};         
+       	 toastr.warning(sResult.sMessage);
+         $(".btnNext").removeClass('btn-next');
+         $(".btnNex").attr('disabled', true);
+       }
+       else 
+       {
+          $(".btnNext").addClass('btn-next');
+          $(".btnNex").attr('disabled', false); 
+       }
+       }
+     });
+   });
+});
+
+
+
 var total=0;
 function Upload() {
         //Reference the FileUpload element.
@@ -91,6 +133,7 @@ function Upload() {
 
 jQuery(document).on("click",".khalid_upload_btn",function(){
 
+var sAction = $(this).attr('action');
 
   var form_data_={'price':$("[name='price']").val(),'type':$("[name='type']").val(),
     'short_description':$("[name='short_description']").val(),'description':$("[name='description']").val(),
@@ -99,11 +142,7 @@ jQuery(document).on("click",".khalid_upload_btn",function(){
     'sku':$("[name='sku']").val(),'name':$("[name='name']").val(),
     'category':$("[name='category']").val(),'type':$("[name='type']").val(),
   };
-  // $(".select1").each(function(i,val){
-  //   if ($(val).val()='') {
-  //     alert();
-  //   }
-  // })
+
 var user_data={
   'companyName':$("[name='companyName']").val(),
   'websiteLink':$("[name='websiteLink']").val(),
@@ -117,7 +156,9 @@ var user_data={
   'cocnumber':$("[name='cocnumber']").val(),
   'taxnumber':$("[name='taxnumber']").val(),
 };
+
 var validation_=false;
+
 toastr.options = {
   "closeButton": true,
   "newestOnTop": false,
@@ -135,8 +176,9 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 
+
 $.each(form_data_, function(key, value) {
-  if(value==" "){
+  if(value=="" && sAction != "skip-now"){
 // Set the options that I want
 
 
@@ -275,14 +317,17 @@ jQuery.ajax({
              jQuery('#status').html("some thing wrong in excel file");
           }
       }
-
 })
 }
 //without excel
 
+//txtEmail
 
 })
+
 </script>
+
+
 @endsection
 
 @section('content')
@@ -383,7 +428,7 @@ jQuery.ajax({
 
                   <div class="col-sm-6">
                     <label class="form-label" for="email">Email<span class="text-warning">*Required</span></label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="john@gmail.com" />
+                    <input type="email" name="email" id="email" class="form-control txtEmail" placeholder="john@gmail.com" />
                   </div>
                   <div class="col-sm-6">
                     <label class="form-label" for="password">Password<span class="text-warning">*Required</span></label>
@@ -408,7 +453,7 @@ jQuery.ajax({
                     <button class="btn btn-label-secondary btn-prev" disabled> <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                       <span class="align-middle d-sm-inline-block d-none">Previous</span>
                     </button>
-                    <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span> <i class="ti ti-arrow-right ti-xs"></i></button>
+                    <button class="btn btn-primary btn-next btnNext"> <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span> <i class="ti ti-arrow-right ti-xs"></i></button>
                   </div>
                 </div>
               </div>
@@ -421,7 +466,7 @@ jQuery.ajax({
                        <h3 class="mb-1">Personal Information</h3>
                        <button class="btn btn-primary"> <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Help - Support</span> <i class="ti ti-arrow-right ti-xs"></i></button>
                     <div class="d-flex">
-                      <button class="btn btn-primary  khalid_upload_btn"> <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Skip Now</span> <i class="ti ti-arrow-right ti-xs"></i></button>
+                      <button class="btn btn-primary  khalid_upload_btn" action="skip-now"> <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Skip Now</span> <i class="ti ti-arrow-right ti-xs"></i></button>
                     </div>
                   </div>
                 </div>
@@ -652,7 +697,7 @@ jQuery.ajax({
                     <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                       <span class="align-middle d-sm-inline-block d-none">Previous</span>
                     </button>
-                    <button type="button" class="btn btn-success btn-next btn-submit khalid_upload_btn">Submit</button>
+                    <button type="button" class="btn btn-success btn-next btn-submit khalid_upload_btn" action="submit">Submit</button>
                   </div>
 
               </div>

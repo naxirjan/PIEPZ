@@ -290,4 +290,15 @@ class UserManagement extends Controller
         return view('content.tables.products-advanced');
 
     }
+
+   public function CheckEmailExists(Request $request)
+   {
+     $objUser = User::where('email', $request->email)->first();
+    
+     if($objUser->id ?? 0) return response()->json(['bReturn' => true, "sMessage" => "Email Already Exists !..."]);
+     else return response()->json(['bReturn' => false, "sMessage" => "Email not exists !..."]);
+
+    
+  } 
+	
 }

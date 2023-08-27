@@ -45,7 +45,8 @@ $customizerHidden = 'customizer-hide';
           <h4 class="mb-1 pt-2">Adventure starts here 🚀</h4>
           <p class="mb-4">Make your app management easy and fun!</p>
 
-          <form id="formAuthentication" class="mb-3" action="{{url('/')}}" method="POST">
+          <form id="formAuthentication" class="mb-3" action="{{url('auth-register-basic-post')}}" method="POST">
+             
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
               <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" autofocus>
@@ -71,7 +72,7 @@ $customizerHidden = 'customizer-hide';
                 </label>
               </div>
             </div>
-            <button class="btn btn-primary d-grid w-100">
+            <button class="btn btn-primary d-grid w-100" type="submit">
               Sign up
             </button>
           </form>

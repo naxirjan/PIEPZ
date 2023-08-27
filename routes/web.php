@@ -21,6 +21,7 @@ use App\Http\Controllers\Vendor\Products\VendorProductController;
 use App\Http\Controllers\Vendor\Support\VendorSupportController;
 use App\Http\Controllers\Vendor\VendorController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cache;
 
 $controller_path = 'App\Http\Controllers';
 Route::get('/dashboard/analytics', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
@@ -39,6 +40,7 @@ Route::get('/dashboard/analytics', $controller_path . '\dashboard\Analytics@inde
 // Cache clear route
 //fakecommit
 Route::get('products/advance', [UserManagement::class, 'productsDatatable'])->name('products.datatable');
+route::post('vendor-check-email-exists',  [UserManagement::class, 'CheckEmailExists'])->name('vendor.checkemailexists');
 
 //payment Routes Start
 Route::get('auth/payment', [PaymentController::class, 'payment'])->name('payment');
@@ -103,11 +105,8 @@ Route::middleware(['admin'])->group(function () {
             route::get('/products', 'index')->name('admin.products');
             route::get('/products/bulk-edit-products', 'BulkEditProducts')->name('admin.products.bulkeditproduts');
             route::get('/products/ajax-get-bulk-edit-products', 'AjaxGetBulkEditProducts')->name('admin.products.ajax.get.bulkeditproducts');
-
-            route::post('/products/ajax-get-bulk-edit-products-by-filters', 'AjaxGetBulkEditProductsByFilters')->name('admin.products.ajax.get.bulkeditproductsbyproducts');
-
+            route::post('/products/ajax-get-bulk-edit-products-by-filters', 'AjaxGetBulkEditProductsByFilters')->name('admin.products.ajax.get.bulkeditproductsbyfilters');
             route::post('/products/bulk-update-procducts-process', 'BulkUpdateProductsProcess')->name('admin.products.bulkupdateproductsprocess');
-
             route::get('/product/add', 'productAdd')->name('admin.product.add');
             route::get('/product/view/{id}', 'productView')->name('admin.product.view');
             route::get('/product/delete/{id}', 'productDelete')->name('admin.delete.product');
@@ -115,6 +114,7 @@ Route::middleware(['admin'])->group(function () {
             route::post('/product/store', 'productStore')->name('admin.product.store');
             route::post('/product/update', 'productUpdate')->name('admin.product.update');
         });
+
 
 //Admin Products Group
 
@@ -232,6 +232,8 @@ Route::middleware(['vendor'])->group(function () {
         ->group(function () {
             //  route::get('/dashboard', 'index')->name('vendor.dashboard');
             route::get('/', 'index')->name('vendor.dashboard');
+          	
+		
         });
 
 //vendor my account
@@ -258,6 +260,11 @@ Route::middleware(['vendor'])->group(function () {
             route::post('/product/update', 'productUpdate')->name('vendor.product.update');
             route::get('/product/edit/{id}', 'productEdit')->name('vendor.edit.product');
             route::get('/product/view/{id}', 'productView')->name('vendor.product.view');
+            route::get('/products/bulk-edit-products', 'BulkEditProducts')->name('vendor.products.bulkeditproduts');
+            route::get('/products/ajax-get-bulk-edit-products', 'AjaxGetBulkEditProducts')->name('vendor.products.ajax.get.bulkeditproducts');
+            route::post('/products/ajax-get-bulk-edit-products-by-filters', 'AjaxGetBulkEditProductsByFilters')->name('vendor.products.ajax.get.bulkeditproductsbyfilters');
+            route::post('/products/bulk-update-procducts-process', 'BulkUpdateProductsProcess')->name('vendor.products.bulkupdateproductsprocess');
+           
         });
 // Product Import Setup Group
     Route::controller(VendorImportProductController::class)
@@ -396,9 +403,10 @@ Route::get('/auth/login-cover', $controller_path . '\authentications\LoginCover@
 Route::get('/auth/register-front', $controller_path . '\authentications\RegisterFront@index')->name(
     'auth-register-front'
 );
-Route::get('/auth/register-basic', $controller_path . '\authentications\RegisterBasic@index')->name(
-    'auth-register-basic'
-);
+Route::get('/auth/register-basic', $controller_path . '\authentications\RegisterBasic@index')->name('auth-register-basic');
+    
+Route::post('/auth-register-basic-post', $controller_path . '\authentications\RegisterBasicPost@index')->name('auth-register-basic-post');
+    
 Route::get('/auth/register-cover', $controller_path . '\authentications\RegisterCover@index')->name(
     'auth-register-cover'
 );

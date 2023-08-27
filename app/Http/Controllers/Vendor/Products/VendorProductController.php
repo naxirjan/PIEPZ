@@ -11,7 +11,12 @@ use App\Models\Image;
 use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 class VendorProductController extends Controller
 {
@@ -76,6 +81,86 @@ class VendorProductController extends Controller
         return redirect()->back()->withSuccess('Product Updated Successfuly');
 
     }
+    
+
+    public function BulkEditProducts()
+    {
+        $objVendors = User::where("role", "vendor")->get();
+        $objCategories = Category::where("status", "1")->get();
+        return view('vendors.products.product-bulk-edit', ["objVendors" => $objVendors, "objCategories" => $objCategories]);
+    } // End Method
+
+    public function AjaxGetBulkEditProducts()
+    {
+
+        $aProducts = DB::table('products')->orderBy('id', 'desc')->limit(10)->get()->toArray();
+        $objCategories = Category::where("status", "1")->get();
+       
+        return view('vendors.products.ajax.ajax-get-bulk-edit-products', ["aProducts" => $aProducts, "objCategories" => $objCategories]);
+
+    } // End Method
+
+    public function AjaxGetBulkEditProductsByFilters(Request $request)
+    {
+        $aFilters = $request->all();
+        $iCategoryId = $request->Input('iCategoryId');
+        $iStatusId = $request->Input('iStatusId');
+        $iVendor = $request->Input('iVendor');
+        $objCategories = Category::where("status", "1")->get();
+
+        $sQuery = DB::table('products');
+
+        if ($iCategoryId > 0) {
+            $sQuery->where('category_id', $iCategoryId);
+        }
+
+        if ($iStatusId > 0) {
+            $sQuery->where('status', $iStatusId);
+        }
+
+        if ($iVendor > 0) {
+            $sQuery->where('user_id', $iVendor);
+        }
+
+        $aProducts = $sQuery->get()->toArray();
+
+        return view('vendors.products.ajax.ajax-get-bulk-edit-products', ["aProducts" => $aProducts, "objCategories" => $objCategories]);
+
+    } // End Method
+
+    public function BulkUpdateProductsProcess(Request $request)
+    {
+        $aFormData = $request->all();
+        $iCount = 0;
+
+        for ($iIndex = 0;isset($aFormData["SelectedProduct_" . $iIndex]); $iIndex++) {
+            $iId = base64_decode($aFormData["SelectedProduct_" . $iIndex]);
+            $objProduct = Product::find($iId);
+            $objProduct->name = $aFormData["name_" . $iIndex];
+            $objProduct->type = $aFormData["type_" . $iIndex];
+            $objProduct->category_id = $aFormData["category_id_" . $iIndex];
+            $objProduct->price = $aFormData["price_" . $iIndex];
+            $objProduct->short_description = $aFormData["short_description_" . $iIndex];
+            $objProduct->is_featured = (($aFormData["is_featured_" . $iIndex] ?? "") == "on" ? 1 : 0);
+            $objProduct->is_approved = (($aFormData["is_approved_" . $iIndex] ?? "") == "on" ? 1 : 0);
+            $objProduct->status = (($aFormData["status_" . $iIndex] ?? "") == "on" ? 1 : 0);
+            
+            if ($objProduct->isDirty()) {
+                $iCount++;
+            }
+
+            $objProduct->save();
+        }
+        
+        return redirect("vendor/products/bulk-edit-products")->with("msg", "Product(s) Updated Successfully !...");
+
+    
+
+    }
+    
+    
+    
+    
     public function productStore(ProductRequest $request)
     {
         $validated = $request->validated();

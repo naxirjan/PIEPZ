@@ -43,10 +43,10 @@
                 <tr>
                     <td>{{$product->id}}</td>
                     <td><div class="avatar-wrapper"><div class="avatar me-2"><span class="avatar-initial rounded-circle bg-label-danger"><img src="{{asset('storage/'.$product->image)}}" alt=""></span></div></div></td>
-                    <td><a href="{{route('admin.edit.product',['id'=>$product->id])}}" class="text-body">{{$product->name}}</a></td>
+                    <td><a href="{{ route('admin.product.view', ['id' => $product->id]) }}" class="text-body">{{$product->name}}</a></td>
                     <td>{{$product->price}}</td>
                     <td>{{$product->stock}}</td>
-                    <td><div class="d-flex align-items-center"><a href="{{route('admin.edit.product',['id'=>$product->id])}}" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a><a href="{{route('admin.delete.product',['id'=>$product->id])}}" class="text-body delete-record " id="confirm-color"><i class="ti ti-trash ti-sm mx-2"></i></a><a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a><div class="dropdown-menu dropdown-menu-end m-0"><a href="{{route('admin.product.view',['id'=>$product->id])}}" class="dropdown-item">View</a><a href="javascript:;" class="dropdown-item">Suspend</a></div></div></td>
+                    <td><div class="d-flex align-items-center"><a href="{{ route('admin.edit.product', ['id' => $product->id]) }}" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a><a href="{{ route('admin.delete.product', ['id' => $product->id]) }}" class="text-body delete-record " id="confirm-color"><i class="ti ti-trash ti-sm mx-2"></i></a><a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a><div class="dropdown-menu dropdown-menu-end m-0"><a href="{{ route('admin.product.view', ['id' => $product->id]) }}" class="dropdown-item">View</a><a href="javascript:;" class="dropdown-item">Suspend</a></div></div></td>
                 </tr>
                 @endforeach
             @endif

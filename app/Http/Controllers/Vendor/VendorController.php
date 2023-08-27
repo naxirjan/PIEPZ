@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
+
+  	
+
   //
   public function index()
   {
@@ -42,4 +45,6 @@ class VendorController extends Controller
   {
     return view('vendors.account.packages');
   } // End Method
+
+
 }
