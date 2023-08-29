@@ -40,7 +40,11 @@ $(document).ready(function(){
 
 $(".txtEmail").change(function(){
 
+var sEmail = $(this).val();
 
+if(sEmail.trim() != "" || sEmail.trim() != null || sEmail.trim() != 'null')
+
+{
 jQuery.ajax({
   url:"/vendor-check-email-exists",
   type:"post",
@@ -50,7 +54,7 @@ jQuery.ajax({
     },
    data: {
            "_token": "{{ csrf_token() }}",
-           email:$(this).val()
+           email:sEmail
 	},
 
         error: function(err){
@@ -71,9 +75,15 @@ jQuery.ajax({
           $(".btnNex").attr('disabled', false); 
        }
        }
-     });
-   });
-});
+
+     });// Ajax   
+
+    }
+
+   }); // onChange
+
+
+});// document ready
 
 
 
