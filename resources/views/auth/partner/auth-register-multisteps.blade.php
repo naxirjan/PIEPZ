@@ -1,5 +1,81 @@
 <head>
    <meta name="csrf-token" content="{{ csrf_token() }}">
+   <style>
+
+
+/*== start of code for tooltips ==*/
+.tool {
+    cursor: help;
+    position: relative;
+}
+
+
+/*== common styles for both parts of tool tip ==*/
+.tool::before,
+.tool::after {
+    left: 50%;
+    opacity: 0;
+    position: absolute;
+    z-index: -100;
+}
+
+.tool:hover::before,
+.tool:focus::before,
+.tool:hover::after,
+.tool:focus::after {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    z-index: 100;
+}
+
+
+/*== pointer tip ==*/
+.tool::before {
+    border-style: solid;
+    border-width: 1em 0.75em 0 0.75em;
+    border-color: #3E474F transparent transparent transparent;
+    bottom: 100%;
+    content: "";
+    margin-left: -0.5em;
+    transition: all .65s cubic-bezier(.84,-0.18,.31,1.26), opacity .65s .5s;
+    transform:  scale(.6) translateY(-90%);
+}
+
+.tool:hover::before,
+.tool:focus::before {
+    transition: all .65s cubic-bezier(.84,-0.18,.31,1.26) .2s;
+}
+
+
+/*== speech bubble ==*/
+.tool::after {
+    background: #3E474F;
+    border-radius: .25em;
+    bottom: 180%;
+    color: #EDEFF0;
+    content: attr(data-tip);
+    margin-left: -8.75em;
+    padding: 1em;
+    transition: all .65s cubic-bezier(.84,-0.18,.31,1.26) .2s;
+    transform:  scale(.6) translateY(50%);
+    width: 17.5em;
+}
+
+.tool:hover::after,
+.tool:focus::after  {
+    transition: all .65s cubic-bezier(.84,-0.18,.31,1.26);
+}
+
+@media (max-width: 760px) {
+  .tool::after {
+        font-size: .75em;
+        margin-left: -5em;
+        width: 10em;
+  }
+}
+
+
+   </style>
 </head>
 @php
 $customizerHidden = 'customizer-hide';
@@ -34,7 +110,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
 <script src="{{asset('assets/vendor/libs/bootstrap-select/bootstrap-select.js')}}"></script>
 @endsection
 @section('page-script')
-<script src="{{asset('assets/js/pages-auth-multisteps.js')}}"></script>
+
 @endsection
 @section('content')
 <div class="authentication-wrapper authentication-cover authentication-bg">
@@ -96,7 +172,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                      <!-- Account Details -->
                      <div id="accountDetailsValidation" class="content">
                         <div class="content-header mb-4">
-                           <p>Enter Your Company Details</p>
+                           <h4 class="fw-bold py-3 mb-4">Company Details</h4>
                         </div>
                         <div class="row g-3">
 
@@ -109,16 +185,27 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                               <input type="text" name="websiteLink" id="websiteLink" class="form-control" placeholder="https://piepz.com" aria-label="johndoe" />
                            </div>
                            <div class="content-header mb-1">
-                              <p>Enter Your Account Details</p>
+                              <h4 class="fw-bold py-3 mb-4"> Account Details</h4>
                            </div>
-                           <div class="col-sm-6">
-                              <label class="form-label" for="firstName">First Name <span class="text-warning">*Required</span></label>
+                           @if(!Auth::check())
+                              <div class="col-sm-6">
+                              <label class="form-label" for="firstName">First Name<span class="text-warning">*Required</span></label>
                               <input type="text" name="firstName" id="firstName" class="form-control" placeholder="john" />
-                           </div>
-                           <div class="col-sm-6">
-                              <label class="form-label" for="lastName">Last Name <span class="text-warning">*Required</span></label>
+                              </div>
+                              <div class="col-sm-6">
+                              <label class="form-label" for="lastName">Last Name<span class="text-warning">*Required</span></label>
                               <input type="text" name="lastName" id="lastName" class="form-control" placeholder="doe" />
-                           </div>
+                              </div>
+                              @else
+                              <div class="col-sm-6">
+                              <label class="form-label" for="firstName">First Name<span class="text-warning">*Required</span></label>
+                              <input type="text" name="firstName" value="{{auth::user()->first_name}}" id="firstName" class="form-control" placeholder="john" / readonly>
+                              </div>
+                              <div class="col-sm-6">
+                              <label class="form-label" for="lastName">Last Name<span class="text-warning">*Required</span></label>
+                              <input type="text" name="lastName" value="{{auth::user()->last_name}}" id="lastName" class="form-control" placeholder="doe" / readonly>
+                              </div>
+                              @endif
                            <div class="col-md-12">
                               <label class="form-label" for="address">Street/Address <span class="text-warning">*Required</span></label>
                               <input type="text" name="address" id="address" class="form-control" placeholder="address" aria-label="address" />
@@ -137,22 +224,35 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                               <input type="text" name="country" id="country" class="form-control" placeholder="country" aria-label="country" />
                            </div>
                            <div class="content-header mb-1">
-                              <p>Enter Your Account Login Details</p>
+                              <h4 class="fw-bold py-3 mb-4">Login Details</h4>
+                           </div>
+                           @if(!Auth::check())
+                           <div class="col-sm-6">
+                           <label class="form-label" for="email">Email<span class="text-warning">*Required</span></label>
+                           <input type="email" name="email" id="email" class="form-control txtEmail" placeholder="john@gmail.com" />
                            </div>
                            <div class="col-sm-6">
-                              <label class="form-label" for="email">Email <span class="text-warning">*Required</span></label>
-                              <input type="email" name="email" id="email" class="form-control" placeholder="john@gmail.com" />
+                           <label class="form-label" for="password">Password<span class="text-warning">*Required</span></label>
+                           <input type="password" name="password" id="password" class="form-control" placeholder="*" aria-label="*" />
+                           </div>
+                           @else
+                           <div class="col-sm-6">
+                           <label class="form-label" for="email">Email<span class="text-warning">*Required</span></label>
+                           <input type="email" name="email" id="email" value="{{auth::user()->email}}" class="form-control txtEmail" placeholder="john@gmail.com"  readonly/>
                            </div>
                            <div class="col-sm-6">
-                              <label class="form-label" for="password">Password <span class="text-warning">*Required</span></label>
-                              <input type="password" name="password" id="password" class="form-control" placeholder="***" aria-label="***" />
+                           <label class="form-label" for="password">Password<span class="text-warning">*Required</span></label>
+                           <input type="password" name="password" value="{{auth::user()->password}}" id="password" class="form-control" placeholder="*" aria-label="*" / readonly>
                            </div>
+
+                           @endif
                            <div class="col-sm-6">
-                              <label class="form-label" for="cocnumber">C.O.C Number <span class="text-warning">*Required</span></label>
+
+                              <label class="form-label tool" data-tip="Business registration number at Chamber of Commerce" for="cocnumber">C.O.C Number <i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="text-warning"> *Required </label>
                               <input type="text" name="cocnumber" id="cocnumber" class="form-control" placeholder="9545" />
                            </div>
                            <div class="col-sm-6">
-                              <label class="form-label" for="taxnumber">Tax Number <span class="text-warning">*Required</span></label>
+                              <label class="form-label tool" data-tip="TAX number for TAX Authorities" for="taxnumber">Tax Number <i class="fa fa-info-circle" aria-hidden="true"></i><span class="text-warning">*Required</span></label>
                               <input type="text" name="taxnumber" id="taxnumber" class="form-control" placeholder="1234" aria-label="1234" />
                            </div>
                            <div class="col-12 d-flex justify-content-between mt-4">
@@ -168,13 +268,12 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                         <div class="content-header mb-4">
                            <div class="d-flex justify-content-between">
                               <div>
-                                 <span> Select Your Package</span>
+                                 <h4 class="fw-bold py-3 mb-4"> Select Your Package</h4>
                               </div>
-                              <div>
-                                 <span class="btn btn-primary d-grid w-100" id="1" onClick="reply_click(this.id)">Start For Free
+                              <div style="display: inline-flex; height: 40px;">
+                                 <span style="margin-right:10px;" class="btn btn-primary d-grid w-100" id="1" onClick="reply_click(this.id)">Start For Free</span>
+                                 <button class="btn btn-warning btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span> <i class="ti ti-arrow-right ti-xs"></i></button>
 
-
-                                 </span>
                               </div>
                            </div>
                         </div>
@@ -185,8 +284,8 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                               <div class="card border rounded shadow-none">
                                  <div class="card-body">
                                     <h3 class="card-title fw-semibold text-center text-capitalize mb-1">{{$pack->package_title}}</h3>
-                                    <p class="text-center">Package Fees ${{$pack->package_price}}</p>
-                                    <p class="text-center">Registration Fees $50</p>
+                                    <p class="text-center">Package Fees €{{$pack->package_price}}</p>
+                                    <p class="text-center">Registration Fees €50</p>
                                     <div class="text-center">
                                     </div>
                                     <ul class="ps-3 my-4 pt-2">
@@ -205,7 +304,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                                        <div class="form-check custom-option custom-option-icon" style="padding:0px;">
                                           <label class="form-check-label custom-option-content" for="{{$names[$index].$pack->id}}" style="padding:0px;">
                                           <span class="custom-option-body">
-                                          <span class="custom-option-title">${{$names[$index]}}</span>
+                                          <span class="custom-option-title">€{{$names[$index]}}</span>
                                           <small> {{$code}}</small>
                                           </span>
                                           <input name="package_duration"   class="form-check-input package_duration" type="radio" value="{{ $code.','.$names[$index].','.$pack->id.','.$pack->package_price }}" id="{{$names[$index].$pack->id}}"  />
@@ -251,7 +350,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                      <!-- Personal Info -->
                      <div id="personalInfoValidation" class="content">
                         <div class="content-header mb-4">
-                           <p>SELECT ADDONS FOR MORE CUSTOMIZE PACKAGE</p>
+                           <h4 class="fw-bold py-3 mb-4">SELECT ADDONS FOR MORE CUSTOMIZE PACKAGE</h4>
                         </div>
                         <!-- package addons   -->
                         <h4 class="fw-bold py-3 mb-4">
@@ -268,7 +367,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                               <span class="switch-on"><i class="ti ti-check"></i></span>
                               <span class="switch-off"><i class="ti ti-x"></i></span>
                               </span>
-                              <span class="switch-label">Yes - ${{$addon->price}}</span>
+                              <span class="switch-label">Yes - €{{$addon->price}}</span>
                               </label>
                            </div>
                            @endforeach
@@ -286,7 +385,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                                  <input class="form-check-input checkbox" name="marketplaces[]" type="checkbox" value="{{$marketplace->id}}" id="marketplace.{{ $marketplace->id}}"  data-price="{{ $marketplace->price }}"/>
                                  <span class="custom-option-header">
                                  <span class="h6 mb-0">{{$marketplace->title}}</span>
-                                 <span class="text-muted">${{$marketplace->price}}</span>
+                                 <span class="text-muted">€{{$marketplace->price}}</span>
                                  </span>
                                  <span class="custom-option-body">
                                  <small class="option-text">{{$marketplace->type}}</small>
@@ -309,7 +408,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                                  <input class="form-check-input checkbox" name="functionalities[]" type="checkbox" value="{{ $func->id}}" id="function.{{ $func->id}}" data-price="{{$func->price}}" />
                                  <span class="custom-option-header">
                                  <span class="h6 mb-0">{{$func->title}}</span>
-                                 <span class="text-muted">${{$func->price}}</span>
+                                 <span class="text-muted">€{{$func->price}}</span>
                                  </span>
                                  <span class="custom-option-body">
                                  <small class="option-text">{{$func->type}}</small>
@@ -331,7 +430,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                                  <input class="form-check-input checkbox" name="webshops[]" type="checkbox"  id="customCheckTemp4" value="399"/ data-price="399">
                                  <span class="custom-option-header">
                                  <span class="h6 mb-0">Shopify All in One</span>
-                                 <span class="text-muted">$399</span>
+                                 <span class="text-muted">€399</span>
                                  </span>
                                  <span class="custom-option-body">
                                  <small>Ecommerce Webshop</small>
@@ -362,7 +461,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                               <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                               <span class="align-middle d-sm-inline-block d-none">Previous</span>
                               </button>
-                              <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span> <i class="ti ti-arrow-right ti-xs"></i></button>
+                              <button class="btn btn-primary payment btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span> <i class="ti ti-arrow-right ti-xs"></i></button>
                            </div>
                         </div>
                      </div>
@@ -376,66 +475,78 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                         <!--/ Custom plan options -->
                         <div class="content-header mb-4">
                            <h3 class="mb-1">Payment Information</h3>
-                           <p>Enter your card information</p>
+                           <p> card information</p>
                         </div>
                         <!-- Custom Svg Icon Radios -->
 
                               <div class="row">
-                                 <div class="col-sm-2">
-                                    <div class="form-check custom-option custom-option-icon">
-                                       <label class="form-check-label custom-option-content" for="customRadioSvg1">
-                                       <span class="custom-option-body">
-                                       <i class="ti ti-credit-card ti-sm"></i>
-                                       <span class="custom-option-title"> Credit Card </span>
-                                       </span>
-                                       <input name="customRadioSvg" class="form-check-input" type="radio" value="" id="customRadioSvg1" />
-                                       </label>
-                                    </div>
-                                 </div>
-                                 <div class="col-sm-2">
-                                    <div class="form-check custom-option custom-option-icon">
-                                       <label class="form-check-label custom-option-content" for="customRadioSvg2">
-                                       <span class="custom-option-body">
-                                       <i class="ti ti-brand-paypal ti-sm"></i>
-                                       <span class="custom-option-title"> Ideal </span>
-                                       </span>
-                                       <input name="customRadioSvg" class="form-check-input" type="radio" value="" id="customRadioSvg2" />
-                                       </label>
-                                    </div>
-                                 </div>
-                                 <div class="col-sm-2">
-                                    <div class="form-check custom-option custom-option-icon">
-                                       <label class="form-check-label custom-option-content" for="customRadioSvg3">
-                                       <span class="custom-option-body">
-                                       <i class="ti ti-credit-card ti-sm"></i>
-                                       <span class="custom-option-title"> Bancontact </span>
-                                       </span>
-                                       <input name="customRadioSvg" class="form-check-input" type="radio" value="" id="customRadioSvg3" />
-                                       </label>
-                                    </div>
-                                 </div>
-                                 <div class="col-sm-2">
-                                    <div class="form-check custom-option custom-option-icon">
-                                       <label class="form-check-label custom-option-content" for="customRadioSvg4">
-                                       <span class="custom-option-body">
-                                       <i class="ti ti-brand-paypal ti-sm"></i>
-                                       <span class="custom-option-title"> Paypal </span>
-                                       </span>
-                                       <input name="customRadioSvg" class="form-check-input" type="radio" value="" id="customRadioSvg4" />
-                                       </label>
-                                    </div>
-                                 </div>
-                                 <div class="col-sm-2">
-                                    <div class="form-check custom-option custom-option-icon">
-                                       <label class="form-check-label custom-option-content" for="customRadioSvg5">
-                                       <span class="custom-option-body">
-                                       <i class="ti ti-wallet ti-sm" aria-hidden="true"></i>
-                                       <span class="custom-option-title"> Stripe </span>
-                                       </span>
-                                       <input name="customRadioSvg" class="form-check-input" type="radio" value="" id="customRadioSvg5" />
-                                       </label>
-                                    </div>
-                                 </div>
+                                 <!--<div class="col-sm-2">-->
+                                 <!--   <div class="form-check custom-option custom-option-icon">-->
+                                 <!--      <label class="form-check-label custom-option-content" for="customRadioSvg1">-->
+                                 <!--      <span class="custom-option-body">-->
+                                 <!--      <i class="ti ti-credit-card ti-sm"></i>-->
+                                 <!--      <span class="custom-option-title"> Credit Card </span>-->
+                                 <!--      </span>-->
+                                 <!--      <input name="customRadioSvg" class="form-check-input" type="radio" value="" id="customRadioSvg1" />-->
+                                 <!--      </label>-->
+                                 <!--   </div>-->
+                                 <!--</div>-->
+                                 <!--<div class="col-sm-2">-->
+                                 <!--   <div class="form-check custom-option custom-option-icon">-->
+                                 <!--      <label class="form-check-label custom-option-content" for="customRadioSvg2">-->
+                                 <!--      <span class="custom-option-body">-->
+                                 <!--      <i class="ti ti-brand-paypal ti-sm"></i>-->
+                                 <!--      <span class="custom-option-title"> Ideal </span>-->
+                                 <!--      </span>-->
+                                 <!--      <input name="customRadioSvg" class="form-check-input" type="radio" value="" id="customRadioSvg2" />-->
+                                 <!--      </label>-->
+                                 <!--   </div>-->
+                                 <!--</div>-->
+                                 <!--<div class="col-sm-2">-->
+                                 <!--   <div class="form-check custom-option custom-option-icon">-->
+                                 <!--      <label class="form-check-label custom-option-content" for="customRadioSvg3">-->
+                                 <!--      <span class="custom-option-body">-->
+                                 <!--      <i class="ti ti-credit-card ti-sm"></i>-->
+                                 <!--      <span class="custom-option-title"> Bancontact </span>-->
+                                 <!--      </span>-->
+                                 <!--      <input name="customRadioSvg" class="form-check-input" type="radio" value="" id="customRadioSvg3" />-->
+                                 <!--      </label>-->
+                                 <!--   </div>-->
+                                 <!--</div>-->
+                                 <!--<div class="col-sm-2">-->
+                                 <!--   <div class="form-check custom-option custom-option-icon">-->
+                                 <!--      <label class="form-check-label custom-option-content" for="customRadioSvg4">-->
+                                 <!--      <span class="custom-option-body">-->
+                                 <!--      <i class="ti ti-brand-paypal ti-sm"></i>-->
+                                 <!--      <span class="custom-option-title"> Paypal </span>-->
+                                 <!--      </span>-->
+                                 <!--      <input name="customRadioSvg" class="form-check-input" type="radio" value="" id="customRadioSvg4" />-->
+                                 <!--      </label>-->
+                                 <!--   </div>-->
+                                 <!--</div>-->
+                                 <!--<div class="col-sm-2">-->
+                                 <!--   <div class="form-check custom-option custom-option-icon">-->
+                                 <!--      <label class="form-check-label custom-option-content" for="customRadioSvg5">-->
+                                 <!--      <span class="custom-option-body">-->
+                                 <!--      <i class="ti ti-wallet ti-sm" aria-hidden="true"></i>-->
+                                 <!--      <span class="custom-option-title"> Stripe </span>-->
+                                 <!--      </span>-->
+                                 <!--      <input name="customRadioSvg" class="form-check-input" type="radio" value="" id="customRadioSvg5" />-->
+                                 <!--      </label>-->
+                                 <!--   </div>-->
+                                 <!--</div>-->
+                                  <div id="link-authentication-element">
+        <!--Stripe.js injects the Link Authentication Element-->
+                                      </div>
+                                      <div id="payment-element">
+                                        <!--Stripe.js injects the Payment Element-->
+                                      </div>
+                                      <br>
+                                      <button id="submit" class="btn btn-success">
+                                        <div class="spinner hidden" id="spinner"></div>
+                                        <span id="button-text">Pay now</span>
+                                      </button>
+                                      <div id="payment-message" class="hidden"></div>
                               </div>
 
                         <!-- /Custom Svg Icon Radios -->
@@ -469,6 +580,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                                     <td>Total</td>
                                     <td>
                                        <p class="total">€50</p>
+                                       <input type="hidden" class="amount" name="amount"  value="1">
                                     </td>
                                  </tr>
                               </table>
@@ -477,7 +589,7 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
                               <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                               <span class="align-middle d-sm-inline-block d-none">Previous</span>
                               </button>
-                              <button type="submit" class="btn btn-success btn-next btn-submit">Submit</button>
+                            
                            </div>
                         </div>
                         <!--/ Credit Card Details -->
@@ -500,5 +612,14 @@ $functionalities = App\Models\PurchasePackageFunctionality::get();
    // Check selected custom option
    window.Helpers.initCustomOptionCheck();
 
+</script>
+<script src="{{asset('assets/js/pages-auth-multisteps.js')}}"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{{asset('assets/js/stripe.js')}}"></script>
+<script>
+$(".payment").click(function(){
+   initialize();
+checkStatus();
+});
 </script>
 @endsection

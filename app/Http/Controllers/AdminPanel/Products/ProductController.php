@@ -10,10 +10,10 @@ use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\User;
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Auth;
 
 class ProductController extends Controller
 {
@@ -65,17 +65,23 @@ class ProductController extends Controller
     {
         $product = Product::with('images')->findOrFail($id);
 
-        // foreach ($product->categories as $cat) {
-        //     echo $cat->name;
-        //     echo "<br>";
-        // }
-
         return view('admin.products.product-view', compact('product'));
     } // End Method
-    public function productDelete($id)
+    public function productDelete(Request $request)
     {
-        $product = Product::findOrFail($id)->delete();
-        return redirect()->back()->with('status', 'product deleted successfully!');
+        $ProductId = $request->input('ProductId');
+        $ProductId = base64_decode($ProductId);
+        $product = Product::findOrFail($ProductId)->delete();
+	if($product)
+	    return response()->json(['return' => true, 'msg' => 'Product Deleted Successfully !...']);
+	else
+	    return response()->json(['return' => false, 'msg' => 'Sorry, Something went wrong !...']);
+
+
+
+
+
+    //    return redirect('admin/products')->with('status', 'product deleted successfully!');
 
     } // End Method
     public function productEdit($id)
@@ -132,7 +138,7 @@ class ProductController extends Controller
     {
         $aProducts = DB::table('products')->orderBy('id', 'desc')->limit(10)->get()->toArray();
         $objCategories = Category::where("status", "1")->get();
-       
+
         return view('admin.products.ajax.ajax-get-bulk-edit-products', ["aProducts" => $aProducts, "objCategories" => $objCategories]);
 
     } // End Method
@@ -181,17 +187,15 @@ class ProductController extends Controller
             $objProduct->is_featured = (($aFormData["is_featured_" . $iIndex] ?? "") == "on" ? 1 : 0);
             $objProduct->is_approved = (($aFormData["is_approved_" . $iIndex] ?? "") == "on" ? 1 : 0);
             $objProduct->status = (($aFormData["status_" . $iIndex] ?? "") == "on" ? 1 : 0);
-            
+
             if ($objProduct->isDirty()) {
                 $iCount++;
             }
 
             $objProduct->save();
         }
-        
-        return redirect("admin/products/bulk-edit-products")->with("msg", "Product(s) Updated Successfully !...");
 
-    
+        return redirect("admin/products/bulk-edit-products")->with("msg", "Product(s) Updated Successfully !...");
 
     }
     public function productCustomization()

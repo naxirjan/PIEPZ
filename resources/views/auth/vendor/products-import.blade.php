@@ -13,6 +13,82 @@ $configData = Helper::appClasses();
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-select/bootstrap-select.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/formvalidation/dist/css/formValidation.min.css')}}" />
+<style>
+
+
+/*== start of code for tooltips ==*/
+.tool {
+    cursor: help;
+    position: relative;
+}
+
+
+/*== common styles for both parts of tool tip ==*/
+.tool::before,
+.tool::after {
+    left: 50%;
+    opacity: 0;
+    position: absolute;
+    z-index: -100;
+}
+
+.tool:hover::before,
+.tool:focus::before,
+.tool:hover::after,
+.tool:focus::after {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    z-index: 100;
+}
+
+
+/*== pointer tip ==*/
+.tool::before {
+    border-style: solid;
+    border-width: 1em 0.75em 0 0.75em;
+    border-color: #3E474F transparent transparent transparent;
+    bottom: 100%;
+    content: "";
+    margin-left: -0.5em;
+    transition: all .65s cubic-bezier(.84,-0.18,.31,1.26), opacity .65s .5s;
+    transform:  scale(.6) translateY(-90%);
+}
+
+.tool:hover::before,
+.tool:focus::before {
+    transition: all .65s cubic-bezier(.84,-0.18,.31,1.26) .2s;
+}
+
+
+/*== speech bubble ==*/
+.tool::after {
+    background: #3E474F;
+    border-radius: .25em;
+    bottom: 180%;
+    color: #EDEFF0;
+    content: attr(data-tip);
+    margin-left: -8.75em;
+    padding: 1em;
+    transition: all .65s cubic-bezier(.84,-0.18,.31,1.26) .2s;
+    transform:  scale(.6) translateY(50%);
+    width: 17.5em;
+}
+
+.tool:hover::after,
+.tool:focus::after  {
+    transition: all .65s cubic-bezier(.84,-0.18,.31,1.26);
+}
+
+@media (max-width: 760px) {
+  .tool::after {
+        font-size: .75em;
+        margin-left: -5em;
+        width: 10em;
+  }
+}
+
+
+   </style>
 @endsection
 
 @section('page-style')
@@ -37,6 +113,8 @@ $configData = Helper::appClasses();
 <script>
 var total=0;
 function Upload() {
+
+
         //Reference the FileUpload element.
         var fileUpload = document.getElementById("fileUpload");
 
@@ -334,8 +412,8 @@ jQuery.ajax({
               <!-- Account Details -->
               <div id="accountDetailsValidation" class="content">
                 <div class="content-header mb-4">
-                  <h3 class="mb-1">Account Information</h3>
-                  <p>Enter Your Account Details</p>
+                <h4 class="fw-bold py-3 mb-4">Company Details</h4>
+
                 </div>
                 <div class="row g-3">
                 <div class="col-sm-6">
@@ -348,18 +426,28 @@ jQuery.ajax({
                   </div>
 
                   <div class="content-header mb-1">
-                    <p>Enter Your Account Details</p>
+                    <h4 class="fw-bold py-3 mb-4">Account Details</h4>
                   </div>
 
-                  <div class="col-sm-6">
-                    <label class="form-label" for="firstName">First Name<span class="text-warning">*Required</span></label>
-                    <input type="text" name="firstName" id="firstName" class="form-control" placeholder="john" />
-                  </div>
-                  <div class="col-sm-6">
-                    <label class="form-label" for="lastName">Last Name<span class="text-warning">*Required</span></label>
-                    <input type="text" name="lastName" id="lastName" class="form-control" placeholder="doe" />
-                  </div>
-
+                  @if(!Auth::check())
+                              <div class="col-sm-6">
+                              <label class="form-label" for="firstName">First Name<span class="text-warning">*Required</span></label>
+                              <input type="text" name="firstName" id="firstName" class="form-control" placeholder="john" />
+                              </div>
+                              <div class="col-sm-6">
+                              <label class="form-label" for="lastName">Last Name<span class="text-warning">*Required</span></label>
+                              <input type="text" name="lastName" id="lastName" class="form-control" placeholder="doe" />
+                              </div>
+                              @else
+                              <div class="col-sm-6">
+                              <label class="form-label" for="firstName">First Name<span class="text-warning">*Required</span></label>
+                              <input type="text" name="firstName" value="{{auth::user()->first_name}}" id="firstName" class="form-control" placeholder="john" / readonly>
+                              </div>
+                              <div class="col-sm-6">
+                              <label class="form-label" for="lastName">Last Name<span class="text-warning">*Required</span></label>
+                              <input type="text" name="lastName" value="{{auth::user()->last_name}}" id="lastName" class="form-control" placeholder="doe" / readonly>
+                              </div>
+                              @endif
                   <div class="col-md-12">
                     <label class="form-label" for="address">Street/Address</label>
                     <input type="text" name="address" id="address" class="form-control" placeholder="address" aria-label="address" />
@@ -378,25 +466,37 @@ jQuery.ajax({
                   </div>
 
                   <div class="content-header mb-1">
-                    <p>Enter Your Account Login Details</p>
+                    <h4>Login Details</h4>
                   </div>
 
-                  <div class="col-sm-6">
-                    <label class="form-label" for="email">Email<span class="text-warning">*Required</span></label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="john@gmail.com" />
-                  </div>
-                  <div class="col-sm-6">
-                    <label class="form-label" for="password">Password<span class="text-warning">*Required</span></label>
-                    <input type="password" name="password" id="password" class="form-control" placeholder="*" aria-label="*" />
-                  </div>
+                  @if(!Auth::check())
+                           <div class="col-sm-6">
+                           <label class="form-label" for="email">Email<span class="text-warning">*Required</span></label>
+                           <input type="email" name="email" id="email" class="form-control txtEmail" placeholder="john@gmail.com" />
+                           </div>
+                           <div class="col-sm-6">
+                           <label class="form-label" for="password">Password<span class="text-warning">*Required</span></label>
+                           <input type="password" name="password" id="password" class="form-control" placeholder="*" aria-label="*" />
+                           </div>
+                           @else
+                           <div class="col-sm-6">
+                           <label class="form-label" for="email">Email<span class="text-warning">*Required</span></label>
+                           <input type="email" name="email" id="email" value="{{auth::user()->email}}" class="form-control txtEmail" placeholder="john@gmail.com"  readonly/>
+                           </div>
+                           <div class="col-sm-6">
+                           <label class="form-label" for="password">Password<span class="text-warning">*Required</span></label>
+                           <input type="password" name="password" value="{{auth::user()->password}}" id="password" class="form-control" placeholder="*" aria-label="*" / readonly>
+                           </div>
+
+                           @endif
 
 
                   <div class="col-sm-6">
-                    <label class="form-label" for="cocnumber">C.O.C <span class="text-warning">*Required</span></label>
+                    <label class="form-label tool" data-tip="Business registration number at Chamber of Commerce" for="cocnumber">C.O.C <i class="fa fa-info-circle" aria-hidden="true"></i><span class="text-warning">*Required</span></label>
                     <input type="text" name="cocnumber" id="cocnumber" class="form-control" placeholder="9545" />
                   </div>
                   <div class="col-sm-6">
-                    <label class="form-label" for="taxnumber">Tax Number<span class="text-warning">*Required</span></label>
+                    <label class="form-label tool" data-tip="TAX number for TAX Authorities" for="taxnumber">Tax Number <i class="fa fa-info-circle" aria-hidden="true"></i><span class="text-warning">*Required</span></label>
                     <input type="text" name="taxnumber" id="taxnumber" class="form-control" placeholder="1234" aria-label="1234" />
                   </div>
 
@@ -421,8 +521,9 @@ jQuery.ajax({
                        <h3 class="mb-1">Personal Information</h3>
                        <button class="btn btn-primary"> <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Help - Support</span> <i class="ti ti-arrow-right ti-xs"></i></button>
                     <div class="d-flex">
-                      <button class="btn btn-primary  khalid_upload_btn"> <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Skip Now</span> <i class="ti ti-arrow-right ti-xs"></i></button>
-                    </div>
+                    <span style="margin-right:10px;" class="btn btn-primary d-grid w-100" id="1" onClick="reply_click1()">Skip Now</span>
+
+                  </div>
                   </div>
                 </div>
 

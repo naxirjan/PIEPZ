@@ -29,5 +29,11 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT'),
+        'client_secret' =>  env('GOOGLE_SECRET'),
+        'redirect' => 'http://piepz.epiqintl.com/auth/google/callback',
+
+    ],
 
 ];

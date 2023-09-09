@@ -28,9 +28,9 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->text('short_description')->nullable();
-            $table->enum('status',[0,1])->default(1);
-            $table->enum('is_featured',[0,1])->default(0);
-            $table->enum('is_approved',[0,1,2])->default(0);
+            $table->smallInteger('status')->default(1);
+            $table->smallInteger('is_featured')->default(0);
+            $table->smallInteger('is_approved')->default(0);
             $table->timestamps();
             $table->softDeletes();
             $table->index(['name','category_id','price','user_id']);

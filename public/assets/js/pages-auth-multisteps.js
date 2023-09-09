@@ -14,41 +14,44 @@ function reply_click(clicked_id)
         }
       });
        var data = $("#multiStepsForm").serialize();
-      
-      $.ajax({
-         type:'POST',
-         url:"ajaxRequest1",
-         data:{data:data},
-         success: function(data) {
-          console.log(data.id);
-          window.location.href = "partner-confirmation?id="+data.id;
+     
+       $.ajax({
+        type:'POST',
+        url:"ajaxRequest1",
+        data:{data:data},
+        success: function(data) {
+          if(data.success == true ){  
+           
+         // Set the options that I want
+                toastr.options = {
+                  "closeButton": true,
+                  "newestOnTop": false,
+                  "progressBar": true,
+                  "positionClass": "toast-top-right",
+                  "preventDuplicates": false,
+                  "onclick": null,
+                  "showDuration": "300",
+                  "hideDuration": "1000",
+                  "timeOut": "5000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                }
+                  toastr.warning("Email Aready Exist");
+                      } else {
+                        window.location.href = "partner-confirmation?id="+data.id;
 
+                      };
 
-         },
-         error: function(data){
-          
-          // Set the options that I want
-toastr.options = {
-  "closeButton": true,
-  "newestOnTop": false,
-  "progressBar": true,
-  "positionClass": "toast-top-right",
-  "preventDuplicates": false,
-  "onclick": null,
-  "showDuration": "300",
-  "hideDuration": "1000",
-  "timeOut": "5000",
-  "extendedTimeOut": "1000",
-  "showEasing": "swing",
-  "hideEasing": "linear",
-  "showMethod": "fadeIn",
-  "hideMethod": "fadeOut"
-}
+                      },
+                    error: function(data){
+         
+        },
+     });
 
-
-    toastr.warning("Email Aready Exist");
-         },
-      });
+    
   }
 
 
@@ -73,9 +76,11 @@ var s = strarray[1];
   });
 
   $('#price').text("€"+tempsum);
-  $("#package_price").text(s);
+  $("#package_price").text("€"+s);
   total=parseFloat(s)+parseFloat(tempsum)+50;
-  $("p.total").text(total);
+  $("p.total").text("€"+total);
+    $(".amount").val(total);
+
   console.log(total);
   }
 
@@ -212,13 +217,27 @@ document.addEventListener('DOMContentLoaded', function (e) {
             validators: {
               notEmpty: {
                 message: 'Please enter  C.O.C Number'
-              }
+              }, 
+              stringLength: {
+                min: 8,
+                max: 30,
+                message: 'The C.O.C must be 8 and less than 30 characters long'
+              },
             }
           },
           taxnumber: {
             validators: {
               notEmpty: {
                 message: 'Please enter Tax Number'
+              },
+              stringLength: {
+                min: 9,
+                max: 30,
+                message: 'The tx must be 9 and less than 30 characters long'
+              },
+               regexp: {
+                regexp: /^[A-Za-z]{2}/,
+                message: 'The tx can consist of alphabetical 2 alphabets like NL/DE/FR then numbers'
               }
             }
           },
@@ -427,34 +446,40 @@ document.addEventListener('DOMContentLoaded', function (e) {
            url:"ajaxRequest",
            data:{data:data},
            success: function(data) {
-       
-                window.location.href = "payment?total="+total+"&id="+data.id;
+            if(data.success == true ){  
+           
+              // Set the options that I want
+                     toastr.options = {
+                       "closeButton": true,
+                       "newestOnTop": false,
+                       "progressBar": true,
+                       "positionClass": "toast-top-right",
+                       "preventDuplicates": false,
+                       "onclick": null,
+                       "showDuration": "300",
+                       "hideDuration": "1000",
+                       "timeOut": "5000",
+                       "extendedTimeOut": "1000",
+                       "showEasing": "swing",
+                       "hideEasing": "linear",
+                       "showMethod": "fadeIn",
+                       "hideMethod": "fadeOut"
+                     }
+                       toastr.warning("Email Aready Exist");
+                           } else {
+                            window.location.href = "payment?total="+total+"&id="+data.id;
+     
+                           };
+               
 
             
 
            },
            error: function(data){
-          
-// Set the options that I want
-toastr.options = {
-  "closeButton": true,
-  "newestOnTop": false,
-  "progressBar": true,
-  "positionClass": "toast-top-right",
-  "preventDuplicates": false,
-  "onclick": null,
-  "showDuration": "300",
-  "hideDuration": "1000",
-  "timeOut": "5000",
-  "extendedTimeOut": "1000",
-  "showEasing": "swing",
-  "hideEasing": "linear",
-  "showMethod": "fadeIn",
-  "hideMethod": "fadeOut"
-}
 
 
-    toastr.warning("Email Aready Exist");
+
+    toastr.warning("Try again");
         
         
            },

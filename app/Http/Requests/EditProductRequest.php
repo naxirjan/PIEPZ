@@ -25,23 +25,22 @@ class EditProductRequest extends FormRequest
     {
 
         return [
-            
-            'product_id'=>"required|exists:products,id",
-            'sku' => "required|unique:products,sku,".$this->product_id,
+
+            'product_id' => "required|exists:products,id",
+            'sku' => "required|unique:products,sku," . $this->product_id,
             'seller' => "required|exists:users,id",
-            'price' =>"required|numeric",
-            'name' =>  "required" ,
+            'price' => "required|numeric",
+            'name' => "required",
             'short_description' => "required",
-            'is_featured'=>"required|",
-            'stock' =>  "required|numeric",
+            'is_featured' => "required|",
+            'stock' => "required|numeric",
             'in_stock' => "required|numeric",
             'low_stock' => "required|numeric",
             'description' => "required",
-            'status'=>"required",
-            'images'=>"nullable",
-            'category'=>"required",
-
-            'type' =>"required"
+            'status' => "required",
+            'images' => "nullable",
+            'category' => "required",
+            'type' => "required",
         ];
     }
 }

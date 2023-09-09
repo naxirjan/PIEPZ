@@ -21,7 +21,6 @@ use App\Http\Controllers\Vendor\Products\VendorProductController;
 use App\Http\Controllers\Vendor\Support\VendorSupportController;
 use App\Http\Controllers\Vendor\VendorController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Cache;
 
 $controller_path = 'App\Http\Controllers';
 Route::get('/dashboard/analytics', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
@@ -40,14 +39,18 @@ Route::get('/dashboard/analytics', $controller_path . '\dashboard\Analytics@inde
 // Cache clear route
 //fakecommit
 Route::get('products/advance', [UserManagement::class, 'productsDatatable'])->name('products.datatable');
-route::post('vendor-check-email-exists',  [UserManagement::class, 'CheckEmailExists'])->name('vendor.checkemailexists');
+route::post('vendor-check-email-exists', [UserManagement::class, 'CheckEmailExists'])->name('vendor.checkemailexists');
 
 //payment Routes Start
 Route::get('auth/payment', [PaymentController::class, 'payment'])->name('payment');
+Route::post('auth/payment1', [PaymentController::class, 'payment1'])->name('payment1');
+
 Route::get('success', [PaymentController::class, 'success'])->name('success');
 Route::get('cancel', [PaymentController::class, 'cancel'])->name('cancel');
 
 // authentication
+Route::get('auth/google', [UserManagement::class, 'googleLogin'])->name('auth.google');
+Route::get('auth/google/callback', [UserManagement::class, 'handleGoogleCallback'])->name('auth.google');
 
 //vendor registration routes
 Route::controller(AuthVendorController::class)
@@ -56,6 +59,8 @@ Route::controller(AuthVendorController::class)
         route::get('/vendor-confirmation', 'confirmation')->name('vendor.confirmation');
         route::get('/vendor', 'productsImport')->name('vendor.register');
         route::post('/productsImport', 'Import')->name('vendor.products.import');
+        Route::post('ajaxRequest2', 'ajaxRequestPost2')->name('ajaxRequest.post2');
+        Route::post('vendor-email-verify', 'vendorExist')->name('vendorexist');
 
     });
 
@@ -109,12 +114,11 @@ Route::middleware(['admin'])->group(function () {
             route::post('/products/bulk-update-procducts-process', 'BulkUpdateProductsProcess')->name('admin.products.bulkupdateproductsprocess');
             route::get('/product/add', 'productAdd')->name('admin.product.add');
             route::get('/product/view/{id}', 'productView')->name('admin.product.view');
-            route::get('/product/delete/{id}', 'productDelete')->name('admin.delete.product');
+            route::post('/product/delete', 'productDelete')->name('admin.delete.product');
             route::get('/product/edit/{id}', 'productEdit')->name('admin.edit.product');
             route::post('/product/store', 'productStore')->name('admin.product.store');
             route::post('/product/update', 'productUpdate')->name('admin.product.update');
         });
-
 
 //Admin Products Group
 
@@ -232,8 +236,7 @@ Route::middleware(['vendor'])->group(function () {
         ->group(function () {
             //  route::get('/dashboard', 'index')->name('vendor.dashboard');
             route::get('/', 'index')->name('vendor.dashboard');
-          	
-		
+
         });
 
 //vendor my account
@@ -264,7 +267,7 @@ Route::middleware(['vendor'])->group(function () {
             route::get('/products/ajax-get-bulk-edit-products', 'AjaxGetBulkEditProducts')->name('vendor.products.ajax.get.bulkeditproducts');
             route::post('/products/ajax-get-bulk-edit-products-by-filters', 'AjaxGetBulkEditProductsByFilters')->name('vendor.products.ajax.get.bulkeditproductsbyfilters');
             route::post('/products/bulk-update-procducts-process', 'BulkUpdateProductsProcess')->name('vendor.products.bulkupdateproductsprocess');
-           
+
         });
 // Product Import Setup Group
     Route::controller(VendorImportProductController::class)
@@ -404,9 +407,9 @@ Route::get('/auth/register-front', $controller_path . '\authentications\Register
     'auth-register-front'
 );
 Route::get('/auth/register-basic', $controller_path . '\authentications\RegisterBasic@index')->name('auth-register-basic');
-    
+
 Route::post('/auth-register-basic-post', $controller_path . '\authentications\RegisterBasicPost@index')->name('auth-register-basic-post');
-    
+
 Route::get('/auth/register-cover', $controller_path . '\authentications\RegisterCover@index')->name(
     'auth-register-cover'
 );

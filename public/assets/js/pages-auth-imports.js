@@ -3,7 +3,55 @@
  */
 
 'use strict';
+// free package
+function reply_click1()
+  {
+      
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+       var data = $("#multiStepsForm").serialize();
+     
+       $.ajax({
+        type:'POST',
+        url:"ajaxRequest2",
+        data:{data:data},
+        success: function(data) {
+          if(data.success == true ){  
+           
+         // Set the options that I want
+                toastr.options = {
+                  "closeButton": true,
+                  "newestOnTop": false,
+                  "progressBar": true,
+                  "positionClass": "toast-top-right",
+                  "preventDuplicates": false,
+                  "onclick": null,
+                  "showDuration": "300",
+                  "hideDuration": "1000",
+                  "timeOut": "5000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                }
+                  toastr.warning("Email Aready Exist");
+                      } else {
+                        window.location.href = "vendor-confirmation?id="+data.id;
 
+                      };
+
+                      },
+                    error: function(data){
+         
+        },
+     });
+
+    
+  }
 // Select2 (jquery)
 $(function () {
   var select2 = $('.select2');
@@ -121,7 +169,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
             validators: {
               notEmpty: {
                 message: 'Please enter  C.O.C Number'
-              }
+              }, stringLength: {
+                min: 8,
+                max: 30,
+                message: 'The C.O.C must be 8 and less than 30 characters long'
+              },
             }
           },
           taxnumber: {
@@ -268,6 +320,14 @@ document.addEventListener('DOMContentLoaded', function (e) {
             validators: {
               notEmpty: {
                 message: 'Please enter Tax Number'
+              } , stringLength: {
+                min: 9,
+                max: 30,
+                message: 'The tx must be 9 and less than 30 characters long'
+              },
+               regexp: {
+                regexp: /^[A-Za-z]{2}/,
+                message: 'The tx can consist of alphabetical 2 alphabets like NL/DE/FR then numbers'
               }
             }
           },
@@ -339,6 +399,54 @@ document.addEventListener('DOMContentLoaded', function (e) {
           submitButton: new FormValidation.plugins.SubmitButton()
         }
       }).on('core.form.valid', function () {
+        
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+         var data = $("#multiStepsForm").serialize();
+       
+         $.ajax({
+          type:'POST',
+          async: false,
+          url:"vendor-email-verify",
+          data:{data:data},
+          success: function(data) {
+            if(data.success == true ){  
+             
+           // Set the options that I want
+                  toastr.options = {
+                    "closeButton": true,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                  }
+                    toastr.warning("Email Aready Exist");
+                    window.location.href = "vendor";
+                    
+                    
+                  } else {
+                            console.log("next")
+                        };
+  
+                        },
+                      error: function(data){
+           
+          },
+       });
+  
+
         // Jump to the next step when all fields in the current step are valid
         var fileUpload = document.getElementById("fileUpload");
 
@@ -346,11 +454,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
         var fileExt = fileUpload.value;
         fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
         if (validExts.indexOf(fileExt) < 0) {
-            alert("Invalid file selected, valid files are of " +
+          toastr.warning("Invalid file selected, valid files are of " +
                 validExts.toString() + " types.");
             document.getElementById("fileUpload").value="";
             return false;
-        }
+          }
 
         validationStepper.next();
       });
@@ -399,7 +507,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         // stepsValidationForm.submit()
         // or send the form data to server via an Ajax request
         // To make the demo simple, I just placed an alert
-        alert('Submitted..!!');
+        // alert('Submitted..!!');
       });
 
       stepsValidationNext.forEach(item => {

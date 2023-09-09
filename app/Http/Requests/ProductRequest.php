@@ -25,7 +25,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'sku' => "required|unique:products,sku",
-            'seller' => "required|exists:users,id",
+           // 'seller' => "required|exists:users,id",
             'price' =>"required|numeric",
             'name' =>  "required" ,
             'short_description' => "required",

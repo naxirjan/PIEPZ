@@ -18,9 +18,7 @@ class PiepzController extends Controller
     public function packages()
     {
         $packages = Package::get();
-
         $pack = Package::whereNot('package_title', "Free")->get();
-
         return view('admin.piepz.packages', ['packages' => $packages, 'pack' => $pack]);
     } // End Method
 
@@ -35,7 +33,6 @@ class PiepzController extends Controller
 
         $id = $request->id;
         $package = Package::find($id);
-
         $package->package_title = $request->name;
         $package->package_price = $request->price;
         $package->package_description = $request->description;

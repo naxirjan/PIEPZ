@@ -101,6 +101,7 @@ $customizerHidden = 'customizer-hide';
                           </div>
                     </div>
 
+                    <a href="{{route('logout')}}" >logout</a>
         </div>
       </div>
       <!-- /Register -->

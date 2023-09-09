@@ -9,6 +9,8 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
+use Redirect;
 
 class UserManagement extends Controller
 {
@@ -291,14 +293,62 @@ class UserManagement extends Controller
 
     }
 
-   public function CheckEmailExists(Request $request)
-   {
-     $objUser = User::where('email', $request->email)->first();
-    
-     if($objUser->id ?? 0) return response()->json(['bReturn' => true, "sMessage" => "Email Already Exists !..."]);
-     else return response()->json(['bReturn' => false, "sMessage" => "Email not exists !..."]);
+    public function CheckEmailExists(Request $request)
+    {
+        $objUser = User::where('email', $request->email)->first();
 
-    
-  } 
-	
+        if ($objUser->id ?? 0) {
+            return response()->json(['bReturn' => true, "sMessage" => "Email Already Exists !..."]);
+        } else {
+            return response()->json(['bReturn' => false, "sMessage" => "Email not exists !..."]);
+        }
+
+    }
+
+    public function googleLogin()
+    {
+        return Socialite::driver('google')->stateless()->redirect();
+
+    }
+
+    public function handleGoogleCallback()
+    {
+        try {
+
+            $user = Socialite::driver('google')->stateless()->user();
+
+            $finduser = User::where('platform_token', $user->id)->first();
+
+            if ($finduser) {
+                Auth::login($finduser);
+                if ($finduser->role == 'vendor') {
+                    return Redirect::to('auth/vendor-confirmation?id=' . $finduser->id);
+
+                }
+                if ($finduser->role == 'partner') {
+                    return Redirect::to('auth/partner-confirmation?id=' . $finduser->id);
+
+                } else {
+                    return Redirect::to('login');
+                }
+
+            } else {
+                $newUser = User::create([
+                    'first_name' => $user->user['given_name'],
+                    'last_name' => $user->user['family_name'],
+                    'email' => $user->email,
+                    'platform_token' => $user->id,
+                    'password' => encrypt('123456dummy'),
+                ]);
+                Auth::login($newUser);
+
+                return Redirect::to('login');
+
+            }
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
 }

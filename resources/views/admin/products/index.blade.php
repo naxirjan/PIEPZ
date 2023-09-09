@@ -46,7 +46,11 @@
                     <td><a href="{{ route('admin.product.view', ['id' => $product->id]) }}" class="text-body">{{$product->name}}</a></td>
                     <td>{{$product->price}}</td>
                     <td>{{$product->stock}}</td>
-                    <td><div class="d-flex align-items-center"><a href="{{ route('admin.edit.product', ['id' => $product->id]) }}" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a><a href="{{ route('admin.delete.product', ['id' => $product->id]) }}" class="text-body delete-record " id="confirm-color"><i class="ti ti-trash ti-sm mx-2"></i></a><a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a><div class="dropdown-menu dropdown-menu-end m-0"><a href="{{ route('admin.product.view', ['id' => $product->id]) }}" class="dropdown-item">View</a><a href="javascript:;" class="dropdown-item">Suspend</a></div></div></td>
+                    <td>
+			<div class="d-flex align-items-center">
+			<a href="{{ route('admin.edit.product', ['id' => $product->id]) }}" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a>
+			<span class="show_confirm" id="{{base64_encode($product->id)}}"><i class="ti ti-trash ti-sm mx-2"></i></span>
+			<a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a><div class="dropdown-menu dropdown-menu-end m-0"><a href="{{ route('admin.product.view', ['id' => $product->id]) }}" class="dropdown-item">View</a><a href="javascript:;" class="dropdown-item">Suspend</a></div></div></td>
                 </tr>
                 @endforeach
             @endif
@@ -67,7 +71,41 @@
 <script>
   new DataTable('#example');
 </script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+ 
+     $('.show_confirm').click(function(event) {
+          var ProductId = $(this).attr("id");
+	
+          event.preventDefault();
+          swal({
+              title: `Are you sure you want to delete this record?`,
+              text: "If you delete this, it will be gone forever.",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                          
+		$.ajax({
+                type:'POST',
+                url:'product/delete',
+                data:{
+                    _token: "{{ csrf_token() }}",
+                    ProductId:ProductId,
+                  },
+                success: function( sResponse )
+                {
+		  if(sResponse.return == true)
+                     window.location = 'products';
+		}
+            });
+	     }
+          });
+      });
+  
+</script>
 @endsection
 
 

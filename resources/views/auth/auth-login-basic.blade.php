@@ -51,6 +51,7 @@ $customizerHidden = 'customizer-hide';
                     {{session('message')}}
                 </div>
             @endif
+            @if(!Auth::check())
 
           <form id="formAuthentication" class="mb-3" action="{{ route('auth-login-post') }}" method="POST">
           @csrf
@@ -90,11 +91,17 @@ $customizerHidden = 'customizer-hide';
             </div>
           </form>
 
+          @endif
 
 
           <div class="divider my-4">
+          @if(!Auth::check())
+
             <div class="divider-text">or</div>
             <p>New to our platform? Create an account</p>
+            @else
+            <p>Please select role</p>
+            @endif
           </div>
           <div class="d-flex justify-content-center">
            <a class="btn btn-primary  d-grid w-100" href="{{route('vendor.register')}}" style="margin:1px;">Sign Up Manufecturer and Brand</a>
@@ -104,6 +111,8 @@ $customizerHidden = 'customizer-hide';
 
           </div>
           <br>
+          @if(!Auth::check())
+
           <div class="d-flex justify-content-center">
             <a href="https://www.facebook.com/people/Piepzcom/100089846934182/?sk=about" class="btn btn-icon btn-label-facebook me-3">
               <i class="tf-icons fa-brands fa-facebook-f fs-5"></i>
@@ -116,7 +125,11 @@ $customizerHidden = 'customizer-hide';
             <a href="https://www.instagram.com/piepzcom/" class="btn btn-icon btn-label-instagram">
               <i class="tf-icons fa-brands fa-instagram fs-5"></i>
             </a>
+            <a href="{{ url('auth/google') }}">
+                    <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;">
+                </a>
           </div>
+          @endif
         </div>
       </div>
       <!-- /Register -->
