@@ -16,7 +16,7 @@ public $product;
      	$images = UploadedFile::fake()->image('product-'.rand(1,100).'.jpg');
 
    		 // Add new product
-    	$response = $this->from(route('admin.product.add'))->post(route('admin.product.store'),[
+    	$response = $this->from(route('admin.products.add'))->post(route('admin.product.store'),[
       		'user_id' => $this->user->id,
       		'seller' => $this->user->id,
       		'is_featured' => 1,
@@ -33,7 +33,7 @@ public $product;
             'short_description' => Str::random(30),
             'description' => Str::random(30),
             'images' => $images
-            
+
     	]);
 
 
@@ -73,7 +73,7 @@ public $product;
             'short_description' => Str::random(30),
             'description' => Str::random(30),
             'images' => $images
-            
+
     	]);
 
 

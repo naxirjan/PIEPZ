@@ -67,7 +67,7 @@ $customizerHidden = 'customizer-hide';
                             <div class="card mb-4">
                               <div class="card-body">
                                 <h5 class="card-title">Company Information</h5>
-                                <div class="card-subtitle text-muted mb-3">Company Name: {{$user->company->company_name}}</div>
+                                <div class="card-subtitle text-muted mb-3">Company Name: {{($user->company->company_name ?? "-")}}</div>
 
                               </div>
                             </div>

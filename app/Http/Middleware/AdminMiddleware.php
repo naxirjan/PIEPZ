@@ -17,17 +17,12 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check()) {
-            return redirect('login');
-        }
+      if (!Auth::check()) return redirect('login');
 
-        if (Auth::check() && Auth::user()->role=='admin' ) {
-           
-            return $next($request);
-
-        }else{
-            return redirect('login');
-
-        }
+      if (Auth::check() && Auth::user()->role_id == 1 ) {
+        if(Auth::user()->status != 1) return redirect("login")->withSuccess('Sorry, your account is currently inactive, please call an administrator !...');
+        return $next($request);
+      }
+        else return redirect('login');
     }
 }

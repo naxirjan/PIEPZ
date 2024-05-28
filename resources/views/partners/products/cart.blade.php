@@ -52,27 +52,32 @@
           </div>
           <button type="button" class="btn-close btn-pinned" data-bs-dismiss="alert" aria-label="Close"></button>
         </div> -->
-
+        @php $total=0; @endphp
         <!-- Shopping bag -->
-        <h5>My Shopping Bag (3 Items)</h5>
+        <h5>My Shopping Bag (@if(!empty(session('cart'))) {{count(session('cart'))}} @else 0 @endif Items)</h5>
         <ul class="list-group mb-3">
+
+          @if(!empty(session('cart')))
+          @foreach(session('cart') as $id => $details)
           <li class="list-group-item p-4">
             <div class="d-flex gap-3">
               <div class="flex-shrink-0 d-flex align-items-center">
-                <img src="{{ asset('assets/img/products/1.png') }}" alt="google home" class="w-px-100">
+                <img src="{{$details['image']}}" alt="google home" class="w-px-100">
               </div>
               <div class="flex-grow-1">
                 <div class="row">
                   <div class="col-md-8">
-                    <p class="me-3"><a href="javascript:void(0)" class="text-body">Google - Google Home - White</a></p>
+                    <p class="me-3"><a href="javascript:void(0)" class="text-body">{{ $details['name'] }} </a></p>
                     <div class="text-muted mb-2 d-flex flex-wrap"><span class="me-1">Sold by:</span> <a href="javascript:void(0)" class="me-3">Apple</a> <span class="badge bg-label-success">In Stock</span></div>
                     <div class="read-only-ratings mb-3" data-rateyo-read-only="true"></div>
-                    <input type="number" class="form-control form-control-sm w-px-75" value="1" min="1" max="5">
+                    <input type="number" class="form-control form-control-sm w-px-75 update-cart" value="{{$details['quantity']}}" min="1" max="5" data-product="{{$id}}" data-price="{{$details['price']}}" data-oldprice="{{ $details['price'] * $details['quantity']}}">
+                    <input type="hidden" class="product_price" value="{{$details['price'] * $details['quantity']}}">
+
                   </div>
                   <div class="col-md-4">
                     <div class="text-md-end">
-                      <button type="button" class="btn-close btn-pinned" aria-label="Close"></button>
-                      <div class="my-2 my-md-4 mb-md-5"><span class="text-primary">$299/</span><s class="text-muted">$359</s></div>
+                      <button type="button" class="btn-close btn-pinned remove-cart" aria-label="Close" data-product="{{$id}}"></button>
+                      <div class="my-2 my-md-4 mb-md-5"><span class="text-primary product_total{{$id}}">€{{ $details['price'] * $details['quantity']}}/</span><s class="text-muted">€359</s></div>
                       <!-- <button type="button" class="btn btn-sm btn-label-primary">Move to wishlist</button> -->
                     </div>
                   </div>
@@ -80,54 +85,9 @@
               </div>
             </div>
           </li>
-          <li class="list-group-item p-4">
-            <div class="d-flex gap-3">
-              <div class="flex-shrink-0 d-flex align-items-center">
-                <img src="{{ asset('assets/img/products/2.png') }}" alt="google home" class="w-px-100">
-              </div>
-              <div class="flex-grow-1">
-                <div class="row">
-                  <div class="col-md-8">
-                    <p class="me-3"><a href="javascript:void(0)" class="text-body">Apple iPhone 11 (64GB, Black)</a></p>
-                    <div class="text-muted mb-2 d-flex flex-wrap"><span class="me-1">Sold by:</span> <a href="javascript:void(0)" class="me-3">Apple</a> <span class="badge bg-label-success">In Stock</span></div>
-                    <div class="read-only-ratings mb-3" data-rateyo-read-only="true"></div>
-                    <input type="number" class="form-control form-control-sm w-px-75" value="1" min="1" max="5">
-                  </div>
-                  <div class="col-md-4">
-                    <div class="text-md-end">
-                      <button type="button" class="btn-close btn-pinned" aria-label="Close"></button>
-                      <div class="my-2 my-md-4 mb-md-5"><span class="text-primary">$299/</span><s class="text-muted">$359</s></div>
-                      <!-- <button type="button" class="btn btn-sm btn-label-primary">Move to wishlist</button> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="list-group-item p-4">
-            <div class="d-flex gap-3">
-              <div class="flex-shrink-0 d-flex align-items-center">
-                <img src="{{ asset('assets/img/products/1.png') }}" alt="google home" class="w-px-100">
-              </div>
-              <div class="flex-grow-1">
-                <div class="row">
-                  <div class="col-md-8">
-                    <p class="me-3"><a href="javascript:void(0)" class="text-body">Google - Google Home - White</a></p>
-                    <div class="text-muted mb-2 d-flex flex-wrap"><span class="me-1">Sold by:</span> <a href="javascript:void(0)" class="me-3">Apple</a> <span class="badge bg-label-success">In Stock</span></div>
-                    <div class="read-only-ratings mb-3" data-rateyo-read-only="true"></div>
-                    <input type="number" class="form-control form-control-sm w-px-75" value="1" min="1" max="5">
-                  </div>
-                  <div class="col-md-4">
-                    <div class="text-md-end">
-                      <button type="button" class="btn-close btn-pinned" aria-label="Close"></button>
-                      <div class="my-2 my-md-4 mb-md-5"><span class="text-primary">$299/</span><s class="text-muted">$359</s></div>
-                      <!-- <button type="button" class="btn btn-sm btn-label-primary">Move to wishlist</button> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
+          @php  $total=$total+ $details['price'] * $details['quantity']; @endphp
+          @endforeach
+        @endif
         </ul>
 
         <!-- Wishlist -->
@@ -193,15 +153,94 @@
           <hr class="mx-n4">
           <dl class="row mb-0">
             <dt class="col-6">Total</dt>
-            <dd class="col-6 fw-semibold text-end mb-0">$1100.00</dd>
+            <dd class="col-6 fw-semibold text-end mb-0 "> <span class="order_total">@if(!empty(session('cart'))) {{ $total }} @endif</span></dd>
           </dl>
         </div>
         <div class="d-grid">
-          <button class="btn btn-primary btn-next">Place Order</button>
+          <!-- <button class="btn btn-primary btn-next">Place Order</button> -->
+          <a class="btn btn-primary btn-next" href="{{route('checkout')}}">Place Order</a>
+
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Toastr -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script>
+      $(document).on('change', '.update-cart', function(e) {
+                toastr.success("<span>Your cart updated successfully...</span>");
+      });
+      $(document).on('change', '.update-cart', function(e) {
+
+            var product_id=$(this).data("product");
+            var price=$(this).data("price");
+            var qty=$(this).val();
+            var pre_price=$(this).data("oldprice");
+            var product_total=parseFloat(price)*parseFloat(qty);
+            var order_total=$(".order_total").html();
+            $(".product_total"+product_id).html(product_total);
+            $(this).closest('.product_price').val(product_total);
+            $(this).next('.product_price').val(product_total);
+
+           
+
+            jQuery.ajax({
+            url:"{{route('updateCart')}}",
+            type:"post",
+            headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+            data: {
+                product_id:product_id,
+                qty:qty
+                },
+
+                    error: function(err){
+                    console.log(err);
+                },
+                success:function(result){
+                    // location.reload();
+                    var totalPrice = 0;
+                    $('.product_price').each(function (i,val) {
+                        totalPrice += parseFloat($(val).val());
+                        console.log($(val).val());
+                    });
+                   $(".order_total").text(totalPrice);
+                }
+            });
+        });
+        $(document).on('click', '.remove-cart', function(e) {
+            var product_id=$(this).data("product");
+            $(this).closest('li').remove();
+            jQuery.ajax({
+            url:"{{route('removeCart')}}",
+            type:"post",
+            headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+            data: {
+                product_id:product_id,
+                },
+
+                    error: function(err){
+                    console.log(err);
+                },
+                success:function(result){
+                    // location.reload();
+                    var totalPrice = 0;
+                    $('.product_price').each(function (i,val) {
+                        totalPrice += parseFloat($(val).val());
+                        console.log($(val).val());
+                    });
+                   $(".order_total").text(totalPrice);
+                    console.log(result)
+                }
+            });
+        });
+</script>
 @endsection

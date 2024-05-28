@@ -11,6 +11,8 @@ use App\Models\PurchasePackage;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Auth;
+use App\Models\CustomerOrder;
 
 class PaymentController extends Controller
 {
@@ -18,7 +20,7 @@ class PaymentController extends Controller
     public function payment(Request $request)
     {
         $amount = !empty($request->total) ? $request->total : 50;
-        \Stripe\Stripe::setApiKey('sk_test_FOL8T70wHhBoMSzdVoIPC5qs00zCh2HlPQ');
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         header('Content-Type: application/json');
         $checkout_session = \Stripe\Checkout\Session::create([
             'line_items' => [[
@@ -32,6 +34,8 @@ class PaymentController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
+            'payment_method_types'=> [""],
+
             'success_url' => route('success') . '?amount=' . $amount . "&id=" . $request->id . "&session_id={CHECKOUT_SESSION_ID}",
             'cancel_url' => route('cancel'),
         ]);
@@ -43,7 +47,7 @@ class PaymentController extends Controller
     {
 
     }
-    public function success(Request $request)
+    public function success1(Request $request)
     {
         // dd($request->all());
        $user= $this->ajaxRequestPost1($request->all());
@@ -67,7 +71,7 @@ class PaymentController extends Controller
     }
 
     public function payment1(){
-        $stripe = new \Stripe\StripeClient("sk_test_FOL8T70wHhBoMSzdVoIPC5qs00zCh2HlPQ");
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
 
 
@@ -107,11 +111,11 @@ class PaymentController extends Controller
                 return 100*$items;
             }
 
-    
+
         public function checkout(){
             return view('checkout');
         }
-        
+
 
 public function ajaxRequestPost1( $output)
     {
@@ -127,7 +131,7 @@ public function ajaxRequestPost1( $output)
         $package_id = $myArrays[2];
 
         $user = new User();
-        $user->role = "partner";
+        $user->role_id = 3;
         $user->first_name = $output["firstName"];
         $user->last_name = $output["lastName"];
         $user->address = $output["address"];
@@ -179,4 +183,33 @@ public function ajaxRequestPost1( $output)
         return $user;
         return response()->json(['success' => 'Got Simple Ajax Request.', 'id' => $user->id]);
     }
+
+    public function success(Request $request)
+    {
+        $data = [
+            'sender_id' => 1,
+            'receiver_id' => Auth::user()->id,
+            'module' => 'subscribe',
+            'module_id' => 1,
+            'total_charges' => $request['amount'],
+            'net_amount' => 0,
+            'gateway_fee' => 0,
+            'platform_fee' => 0,
+            'gateway_transaction_id' => $request['session_id'],
+            'gateway_response' => null,
+            'created_at' => Carbon::now(),
+        ];
+
+        $transactiondata = UserTransaction::insertData($data);
+        if($request['module']=='order'){
+            CustomerOrder::where('id','=',$request['id'])->update(['payment_status'=>1,'transaction_id'=>$request['session_id']]);
+        }
+        return redirect()->to($request['return_back'])->with('success', 'Order submited ')
+        ;
+        return $transactiondata;
+    }
+    
 }
+
+
+//card, acss_debit, affirm, afterpay_clearpay, alipay, au_becs_debit, bacs_debit, bancontact, blik, boleto, cashapp, customer_balance, eps, fpx, giropay, grabpay, ideal, klarna, konbini, link, oxxo, p24, paynow, paypal, pix, promptpay, sepa_debit, sofort, us_bank_account, wechat_pay, or zip

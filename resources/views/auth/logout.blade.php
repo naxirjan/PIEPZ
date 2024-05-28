@@ -5,7 +5,7 @@ $configData = Helper::appClasses();
 
 @extends('layouts/layoutMaster')
 
-@section('title', 'Not Authorized - Pages')
+@section('title', 'Not Authorized')
 
 @section('page-style')
 <!-- Page -->
@@ -23,7 +23,7 @@ $configData = Helper::appClasses();
     </div>
     <br><br>
     <a href="{{url('/')}}" class="btn btn-primary mb-4">Back to home</a>
-   
+
   </div>
 </div>
 

@@ -12,10 +12,7 @@ class media
             foreach ($file as $value) {
                 $extension = $value->extension();
                 $fileUrl = Storage::put($destination_path, $value);
-                if ($extension == 'jpg' || $extension = 'png' || $extension == 'jpeg') {
-                    $filename[] = $fileUrl;
-                }
-
+                $filename[] = $fileUrl;
             }
         } else {
             $extension = $file->extension();

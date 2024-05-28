@@ -1,12 +1,12 @@
 @extends('layouts/layoutMaster')
-@section('title', 'DataTables - Tables')
+@section('title', 'Order Invoice')
 @section('vendor-style')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}">
 @endsection
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
-   <span class="text-muted fw-light">Admin /</span> Orders KKKK
+   <span class="text-muted fw-light">Admin /</span> Order Invoices
 </h4>
 <!-- Scrollable -->
 <div class="card" style="padding:20px;">
@@ -27,7 +27,7 @@
                <th>Action</th>
             </tr>
          </thead>
-         @php 
+         @php
          use Illuminate\Support\Str;
          $randomString1 = Str::random(10);
          $randomString2 = Str::random(5);

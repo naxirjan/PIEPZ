@@ -1,143 +1,39 @@
 {
   "menu": [
     {
-      "name": "Dashboards",
-      "icon": "menu-icon tf-icons ti ti-smart-home",
-      "slug": "dashboard",
-      "badge": [
-        "primary",
-        "3"
-      ],
-      "submenu": [
-        {
-          "url": "/dashboard/analytics",
-          "name": "Analytics",
-          "slug": "dashboard-analytics"
-        },
-        {
-          "url": "/dashboard/crm",
-          "name": "CRM",
-          "slug": "dashboard-crm"
-        },
-        {
-          "url": "/dashboard/ecommerce",
-          "name": "eCommerce",
-          "slug": "dashboard-ecommerce"
-        }
-      ]
+      "name": "Dashboard",
+      "icon": "menu-icon tf-icons ti ti-table",
+      "slug": "vendor.dashboard",
+      "url": "vendor/dashboard"
     },
     {
       "name": "Products",
-      "icon": "menu-icon tf-icons ti ti-file",
-      "slug": "products",
-      "badge": [
-        "primary",
-        "3"
-      ],
-      "submenu": [
-        {
-          "url": "vendor/products",
-          "name": "All Products",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "vendor-products"
-        },
-        {
-          "url": "vendor/products/bulk-edit-products",
-          "name": "Bulk Edit Products",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "vendor-bulk-edit-products"
-        },
-        {
-          "url": "vendor/product/add",
-          "name": "Add Product",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "vendor-product-add"
-        }
-      ]
-    },
-    {
-      "name": "Import Setup",
-      "icon": "menu-icon tf-icons ti ti-smart-home",
-      "slug": "import",
-      "badge": [
-        "primary",
-        "3"
-      ],
-      "submenu": [
-        {
-          "url": "vendor/import/products",
-          "name": "Import Products",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "vendor-import-products"
-        },
-        {
-          "url": "vendor/mapping/products",
-          "name": "Import Mapping",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "vendor-mapping-products"
-        },
-        {
-          "url": "vendor/feed/products",
-          "name": "Upload Feed",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "vendor-feed-products"
-        }
-      ]
+      "icon": "menu-icon tf-icons ti ti-list",
+      "slug": "vendor.products|vendor.products.with.params|vendor.products.add|vendor.bulk.edit.products|vendor.import.products|vendor.mapping.products|vendor.feed.products",
+      "url": "vendor/products"
     },
     {
       "name": "Orders",
-      "icon": "menu-icon tf-icons ti ti-smart-home",
-      "slug": "Orders",
-      "badge": [
-        "primary",
-        "3"
-      ],
-      "submenu": [
-        {
-          "url": "vendor/orders",
-          "name": "My Orders",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "vendor-orders"
-        },
-        {
-          "url": "vendor/order/details",
-          "name": "Order Detail",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "vendor-order-detail"
-        },
-        {
-          "url": "vendor/order/invoice",
-          "name": "Order Invoice",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "vendor-order-invoice"
-        }
-      ]
+      "icon": "menu-icon tf-icons ti ti-shopping-cart",
+      "slug": "vendor.orders|vendor.orders.details|vendor.orders.with.params",
+      "url": "vendor/orders"
+    },
+    {
+      "name": "Invoice",
+      "icon": "menu-icon tf-icons ti ti-file-dollar",
+      "slug": "vendor.invoices|vendor.invoices.with.params|vendor.invoice.details",
+      "url": "vendor/invoices"
     },
     {
       "name": "Support",
-      "icon": "menu-icon tf-icons ti ti-file",
-      "slug": "support",
-      "badge": [
-        "primary",
-        "2"
-      ],
-      "submenu": [
-        {
-          "url": "/vendor/tickets",
-          "name": "All Tickets",
-          "slug": "vendor-tickets"
-        },
-        {
-          "url": "/vendor/single/ticket",
-          "name": "View Ticket",
-          "slug": "vendor-single-ticket"
-        }
-      ]
+      "icon": "menu-icon tf-icons ti ti-lifebuoy",
+      "slug": "vendor.tickets|vendor.tickets.with.params|vendor.ticket.details",
+      "url": "/vendor/tickets"
     },
     {
       "name": "My Account",
-      "icon": "menu-icon tf-icons ti ti-file",
-      "slug": "feedback",
+      "icon": "menu-icon tf-icons ti ti-user",
+      "slug": "vendor.myaccount.myaccount|vendor.myaccount.feedback|vendor.myaccount.user.information|vendor.myaccount.invoice.information|vendor.myaccount.sync|vendor.myaccount.packages",
       "badge": [
         "primary",
         "5"
@@ -146,50 +42,40 @@
         {
           "url": "vendor/my-account/page",
           "name": "My Account",
-          "slug": "my-account-page"
+          "slug": "vendor.myaccount.myaccount"
         },
         {
           "url": "vendor/my-account/feedback",
           "name": "Feedback",
-          "slug": "my-account-feedback"
+          "slug": "vendor.myaccount.feedback"
         },
         {
           "url": "vendor/my-account/user-information",
           "name": "User Information",
-          "slug": "vendor-my-account-user-information"
+          "slug": "vendor.myaccount.user.information"
         },
         {
           "url": "vendor/my-account/invoice-information",
           "name": "Invoice Information",
-          "slug": "vendor-my-account-invoice-information"
+          "slug": "vendor.myaccount.invoice.information"
         },
         {
           "url": "vendor/my-account/sync",
           "name": "Sync Information",
-          "slug": "vendor-my-account-sync"
+          "slug": "vendor.myaccount.sync"
         },
         {
           "url": "vendor/my-account/packages",
           "name": "Packages",
-          "slug": "vendor-my-account-packages"
+          "slug": "vendor.myaccount.packages"
         }
       ]
     },
     {
       "name": "Logout",
-      "icon": "menu-icon tf-icons ti ti-file",
+      "icon": "menu-icon tf-icons ti ti-lock",
       "slug": "logout",
-      "badge": [
-        "primary",
-        "0"
-      ],
-      "submenu": [
-        {
-          "url": "logout",
-          "name": "Logout",
-          "slug": "logut"
-        }
-      ]
+      "url": "logout"
     }
   ]
 }

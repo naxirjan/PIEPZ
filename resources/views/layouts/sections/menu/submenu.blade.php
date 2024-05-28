@@ -8,8 +8,9 @@
       $active = $configData["layout"] === 'vertical' ? 'active open':'active';
       $currentRouteName =  Route::currentRouteName();
 
+
       if ($currentRouteName === $submenu->slug) {
-          $activeClass = 'active';
+          $activeClass = 'active open';
       }
       elseif (isset($submenu->submenu)) {
         if (gettype($submenu->slug) === 'array') {

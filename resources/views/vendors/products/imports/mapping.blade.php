@@ -24,11 +24,7 @@
 @endsection
 
 
-
-
 @section('content')
-
-
    <!-- Basic Bootstrap Table -->
 <div class="card">
   <h5 class="card-header"><i class="fa-solid fa-forward" aria-hidden="true" style="font-size:24px"></i> Change Mapping</h5>
@@ -39,8 +35,8 @@
           <th>Import Field</th>
           <th>Project</th>
           <th>Select</th>
-         
-        
+
+
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
@@ -49,7 +45,7 @@
       <tr>
           <td>Product Name</td>
           <td>
-          
+
             <select id="selectpickerBasic" class="selectpicker w-100" data-style="btn-default">
               <option>Field 1</option>
               <option>Field 2</option>
@@ -60,13 +56,13 @@
         </tr>
 
     @endfor
-       
-     
+
+
       </tbody>
     </table>
   </div>
 </div>
 <!--/ Basic Bootstrap Table -->
- 
+
 
 @endsection

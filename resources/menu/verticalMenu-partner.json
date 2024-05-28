@@ -1,134 +1,38 @@
 {
   "menu": [
     {
-      "name": "Dashboards",
-      "icon": "menu-icon tf-icons ti ti-smart-home",
-      "slug": "dashboard",
-      "badge": [
-        "primary",
-        "3"
-      ],
-      "submenu": [
-        {
-          "url": "/dashboard/analytics",
-          "name": "Analytics",
-          "slug": "dashboard-analytics"
-        },
-        {
-          "url": "/dashboard/crm",
-          "name": "CRM",
-          "slug": "dashboard-crm"
-        },
-        {
-          "url": "/dashboard/ecommerce",
-          "name": "eCommerce",
-          "slug": "dashboard-ecommerce"
-        }
-      ]
+      "name": "Dashboard",
+      "icon": "menu-icon tf-icons ti ti-table",
+      "slug": "partner.dashboard",
+      "url": "partner/dashboard"
     },
     {
       "name": "Order Panel",
-      "icon": "menu-icon tf-icons ti ti-smart-home",
-      "slug": "dashboard",
-      "badge": [
-        "primary",
-        "5"
-      ],
-      "submenu": [
-        {
-          "url": "/partner/products/search",
-          "name": "Search Product",
-          "slug": "partner-products-search"
-        },
-        {
-          "url": "/partner/products/collection",
-          "name": "Collection",
-          "slug": "partner-products-collection"
-        },{
-          "url": "/partner/products/view-product",
-          "name": "View Product",
-          "slug": "partner-products-view-product"
-        },{
-          "url": "/partner/products/checkout",
-          "name": "View Checkout",
-          "slug": "partner-products-checkout"
-        },{
-          "url": "/partner/products/cart",
-          "name": "View Cart",
-          "slug": "partner-products-cart"
-        }
-      ]
+      "url": "/partner/products/home",
+      "icon": "menu-icon tf-icons ti ti-truck",
+      "slug": "partner.products.filter"
     },
     {
       "name": "My Orders",
-      "icon": "menu-icon tf-icons ti ti-smart-home",
-      "slug": "Orders",
-      "badge": [
-        "primary",
-        "3"
-      ],
-      "submenu": [
-        {
-          "url": "partner/orders",
-          "name": "My Orders",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "partner-orders"
-        },
-       
-        {
-          "url": "partner/order/details",
-          "name": "Order Detail",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "partner-order-detail"
-        }
-        
-      ]
+      "icon": "menu-icon tf-icons ti ti-shopping-cart",
+      "slug": "partner.orders|partner.order.details|partner.orders.with.params",
+      "url": "partner/orders"
     },
     {
-      "name": "invoices",
-      "icon": "menu-icon tf-icons ti ti-smart-home",
-      "slug": "Orders",
-      "badge": [
-        "primary",
-        "1"
-      ],
-      "submenu": [
-        {
-  
-          "url": "partner/order/invoice",
-          "name": "Order Invoice",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "partner-order-invoice"
-        }
-    
-        
-      ]
+      "name": "Invoices",
+      "icon": "menu-icon tf-icons ti ti-file-dollar",
+      "slug": "partner.invoices|partner.invoices.with.params|partner.invoice.details|partner.order.invoice",
+      "url": "partner/invoices"
     },
     {
       "name": "Support",
-      "icon": "menu-icon tf-icons ti ti-file",
-      "slug": "Support",
-      "badge": [
-        "primary",
-        "2"
-      ],
-      "submenu": [
-        {
-          "url": "partner/support",
-          "name": "Support",
-          "slug": "partner-support"
-        },
-        {
-          "url": "partner/chat",
-          "name": "Chat",
-          "slug": "partner-chat"
-        }
-       
-      ]
+      "icon": "menu-icon tf-icons ti ti-lifebuoy",
+      "slug": "partner.tickets|partner.tickets.with.params|partner.ticket.details",
+      "url": "/partner/tickets"
     },
     {
       "name": "Add-ons",
-      "icon": "menu-icon tf-icons ti ti-file",
+      "icon": "menu-icon tf-icons ti ti-components",
       "slug": "Add-ons",
       "badge": [
         "primary",
@@ -139,7 +43,7 @@
           "url": "partner/add-ons/choice",
           "name": "Addon Choice 1",
           "slug": "partner-add-ons-choice"
-        }, 
+        },
         {
           "url": "partner/add-ons/services",
           "name": "Addon Services 2",
@@ -185,14 +89,11 @@
           "name": "Addon webshop 10",
           "slug": "partner-add-ons/websop"
         }
-        
-       
-       
       ]
     },
     {
       "name": "Account",
-      "icon": "menu-icon tf-icons ti ti-file",
+      "icon": "menu-icon tf-icons ti ti-user",
       "slug": "account",
       "badge": [
         "primary",
@@ -203,61 +104,40 @@
           "url": "partner/my-account",
           "name": "My Account",
           "slug": "partner-my-account"
-        },{
+        },
+        {
           "url": "partner/user-information",
           "name": "User Information",
           "slug": "partner-user-information"
-        }
-        ,{
+        },
+        {
           "url": "partner/invoice-information",
           "name": "Invoice Information",
           "slug": "partner-invoice-information"
-        },{
+        },
+        {
           "url": "partner/sync",
           "name": "Sync Information",
           "slug": "partner-sync"
-        }
-        ,{
+        },
+        {
           "url": "partner/sync-piepz",
           "name": "Sync Piepz",
           "slug": "partner-sync-piepz"
         }
-       
       ]
     },
     {
       "name": "Feedback",
-      "icon": "menu-icon tf-icons ti ti-file",
-      "slug": "feedback",
-      "badge": [
-        "primary",
-        "1"
-      ],
-      "submenu": [
-        {
-          "url": "partner/feedback",
-          "name": "Feedback",
-          "slug": "partner-feedback"
-        }
-       
-      ]
+      "url": "partner/feedback",
+      "icon": "menu-icon tf-icons ti ti-messages",
+      "slug": "partner.feedback"
     },
     {
       "name": "Logout",
-      "icon": "menu-icon tf-icons ti ti-file",
-      "slug": "logout",
-      "badge": [
-        "primary",
-        "0"
-      ],
-      "submenu": [
-        {
-          "url": "logout",
-          "name": "Logout",
-          "slug": "logut"
-        }
-       
-      ]
+      "url": "logout",
+      "icon": "menu-icon tf-icons ti ti-lock",
+      "slug": "logout"
     }
   ]
 }

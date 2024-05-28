@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('purchase_package_addons', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->string('description')->nullable();
             $table->integer('price')->nullable();
-            $table->string('type')->nullable();
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

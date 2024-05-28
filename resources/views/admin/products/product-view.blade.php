@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'DataTables - Tables')
+@section('title', 'Product Details')
 
 
 @section('vendor-style')
@@ -41,17 +41,17 @@
 
 
 
-
-
-
-
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
   <span class="text-muted fw-light">Admin /</span> Product Detail
+  <a href="/admin/products/{{base64_encode(($product->status ?? ""))}}" type="button" style="float:right;"
+     class="btn rounded-pill btn-icon btn-label-primary waves-effect" data-bs-toggle="tooltip"
+     data-bs-placement="left" data-bs-original-title="Back">
+    <i class="ti ti-arrow-left"></i>
+  </a>
 </h4>
 
 <div class="row">
-
 
   <!-- Earning Reports -->
   <div class="col-lg-8 mb-4">

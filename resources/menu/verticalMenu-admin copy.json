@@ -1,0 +1,225 @@
+{
+  "menu": [
+    {
+      "name": "Dashboards",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "slug": "admin.dashboard",
+      "badge": [
+        "primary",
+        "1"
+      ],
+      "submenu": [
+        {
+          "url": "admin/dashboard",
+          "name": "Dashboard",
+          "slug": "admin.dashboard"
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "slug": "admin.products|admin.products.add",
+      "badge": [
+        "primary",
+        "3"
+      ],
+      "submenu": [
+        {
+          "url": "admin/products",
+          "name": "All Products",
+          "icon": "menu-icon tf-icons ti ti-messages",
+          "slug": "admin.products"
+        },
+        {
+          "url": "admin/product/add",
+          "name": "Product Add",
+          "icon": "menu-icon tf-icons ti ti-messages",
+          "slug": "admin.products.add"
+        }
+      ]
+    },
+    {
+      "name": "Piepz Products",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "slug": "admin.piepz.products|admin.piepz.packages|admin.piepz.addons|admin.piepz.marketplaces|admin.piepz.functionalities|admin.piepz.store",
+      "badge": [
+        "primary",
+        "5"
+      ],
+      "submenu": [
+        {
+          "url": "/admin/piepz/products",
+          "name": "Piepz Products",
+          "slug": "admin.piepz.products"
+        },
+        {
+          "url": "/admin/piepz/packages",
+          "name": "Products Packages",
+          "slug": "admin.piepz.packages",
+          "menuHeader": "piepz"
+        },
+        {
+          "url": "/admin/piepz/addons",
+          "name": "Products Addons",
+          "slug": "admin.piepz.addons"
+        },
+        {
+          "url": "/admin/piepz/marketplaces",
+          "name": "Products Marketplaces",
+          "slug": "admin.piepz.marketplaces"
+        },
+        {
+          "url": "/admin/piepz/functionalities",
+          "name": "Products Functionalities",
+          "slug": "admin.piepz.functionalities"
+        },
+        {
+          "url": "/admin/piepz/store",
+          "name": "Store Products",
+          "slug": "admin.piepz.store"
+        }
+      ]
+    },
+    {
+      "name": "Import Setup",
+      "icon": "menu-icon tf-icons ti ti-smart-home",
+      "slug": "admin.import.products|admin.mapping.products|admin.feed.products",
+      "badge": [
+        "primary",
+        "3"
+      ],
+      "submenu": [
+        {
+          "url": "admin/import/products",
+          "name": "Import Products",
+          "icon": "menu-icon tf-icons ti ti-messages",
+          "slug": "admin.import.products"
+        },
+        {
+          "url": "admin/mapping/products",
+          "name": "Import Mapping",
+          "icon": "menu-icon tf-icons ti ti-messages",
+          "slug": "admin.mapping.products"
+        },
+        {
+          "url": "admin/feed/products",
+          "name": "Upload Feed",
+          "icon": "menu-icon tf-icons ti ti-messages",
+          "slug": "admin.feed.products"
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "icon": "menu-icon tf-icons ti ti-smart-home",
+      "slug": "admin.orders|admin.orders.create|admin.orders.details",
+      "badge": [
+        "primary",
+        "3"
+      ],
+      "submenu": [
+        {
+          "url": "admin/orders",
+          "name": "All Orders",
+          "icon": "menu-icon tf-icons ti ti-messages",
+          "slug": "admin.orders"
+        },
+        {
+          "url": "admin/order/create",
+          "name": "Order Create",
+          "icon": "menu-icon tf-icons ti ti-messages",
+          "slug": "admin.orders.create"
+        },
+        {
+          "url": "admin/order/details",
+          "name": "Order Detail",
+          "icon": "menu-icon tf-icons ti ti-messages",
+          "slug": "admin.orders.details"
+        }
+      ]
+    },
+    {
+      "name": "Invoice",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "slug": "admin.orders.invoice",
+      "badge": [
+        "primary",
+        "1"
+      ],
+      "submenu": [
+        {
+          "url": "admin/order/invoice",
+          "name": "Order Invoice",
+          "icon": "menu-icon tf-icons ti ti-messages",
+          "slug": "admin.orders.invoice"
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "slug": "admin.analytics",
+      "badge": [
+        "primary",
+        "1"
+      ],
+      "submenu": [
+        {
+          "url": "/admin/analytics",
+          "name": "Dashboard",
+          "slug": "admin.analytics"
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "icon": "menu-icon tf-icons ti ti-users",
+      "slug": "admin.users",
+      "submenu": [
+        {
+          "url": "admin/users",
+          "name": "All Users",
+          "slug": "admin.users"
+        }
+      ]
+    },
+    {
+      "name": "Support Tickets",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "slug": "admin.tickets|admin.single.ticket",
+      "badge": [
+        "primary",
+        "2"
+      ],
+      "submenu": [
+        {
+          "url": "/admin/tickets",
+          "name": "All Tickets",
+          "slug": "admin.tickets"
+        },
+        {
+          "url": "/admin/single/ticket",
+          "name": "View Ticket",
+          "slug": "admin.single.ticket"
+        }
+      ]
+    },
+    {
+      "name": "Logout",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "slug": "logout",
+      "badge": [
+        "primary",
+        "0"
+      ],
+      "submenu": [
+        {
+          "url": "logout",
+          "name": "Logout",
+          "slug": "logut"
+        }
+      ]
+    }
+  ]
+}

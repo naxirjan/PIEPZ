@@ -213,7 +213,7 @@
           "slug": "pages-profile",
           "submenu": [
             {
-              "url": "/pages/profile-user",
+              "url": "/admin/profile",
               "name": "Profile",
               "slug": "pages-profile-user"
             },

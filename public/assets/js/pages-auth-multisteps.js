@@ -4,88 +4,6 @@
 
 'use strict';
 
-// free package
-function reply_click(clicked_id)
-  {
-      
-      $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
-       var data = $("#multiStepsForm").serialize();
-     
-       $.ajax({
-        type:'POST',
-        url:"ajaxRequest1",
-        data:{data:data},
-        success: function(data) {
-          if(data.success == true ){  
-           
-         // Set the options that I want
-                toastr.options = {
-                  "closeButton": true,
-                  "newestOnTop": false,
-                  "progressBar": true,
-                  "positionClass": "toast-top-right",
-                  "preventDuplicates": false,
-                  "onclick": null,
-                  "showDuration": "300",
-                  "hideDuration": "1000",
-                  "timeOut": "5000",
-                  "extendedTimeOut": "1000",
-                  "showEasing": "swing",
-                  "hideEasing": "linear",
-                  "showMethod": "fadeIn",
-                  "hideMethod": "fadeOut"
-                }
-                  toastr.warning("Email Aready Exist");
-                      } else {
-                        window.location.href = "partner-confirmation?id="+data.id;
-
-                      };
-
-                      },
-                    error: function(data){
-         
-        },
-     });
-
-    
-  }
-
-
-var total=0;
-var tot1=0;
-var tot2=0;
-// package price
-
-
-$('input[name=package_duration]').add('.checkbox').on('click', some_function);
-
-function some_function() {
-var v = $('input[name="package_duration"]:checked').val();
-var strarray = v.split(',');
-var s = strarray[1];
-  var tempsum=0;
-  $('.checkbox').filter(":checked").each(function() {
-     
-      //sum of all price values of this into price
-      tempsum +=  parseFloat($(this).attr('data-price'))
-     console.log(parseFloat($(this).attr('data-price')),tempsum)
-  });
-
-  $('#price').text("€"+tempsum);
-  $("#package_price").text("€"+s);
-  total=parseFloat(s)+parseFloat(tempsum)+50;
-  $("p.total").text("€"+total);
-    $(".amount").val(total);
-
-  console.log(total);
-  }
-
-
-
 // Select2 (jquery)
 $(function () {
   var select2 = $('.select2');
@@ -113,11 +31,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
       const stepsValidationForm = stepsValidation.querySelector('#multiStepsForm');
       // Form steps
       const stepsValidationFormStep1 = stepsValidationForm.querySelector('#accountDetailsValidation');
-      const stepsValidationFormStep2 = stepsValidationForm.querySelector('#package');
-      
-      const stepsValidationFormStep3 = stepsValidationForm.querySelector('#personalInfoValidation');
-      const stepsValidationFormStep4 = stepsValidationForm.querySelector('#billingLinksValidation');
-      
       // Multi steps next prev button
       const stepsValidationNext = [].slice.call(stepsValidationForm.querySelectorAll('.btn-next'));
       const stepsValidationPrev = [].slice.call(stepsValidationForm.querySelectorAll('.btn-prev'));
@@ -180,10 +93,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
         linear: true
       });
 
-      // Account details
+
+
+      // Social links
       const multiSteps1 = FormValidation.formValidation(stepsValidationFormStep1, {
-       
-        
         fields: {
           companyName: {
             validators: {
@@ -217,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             validators: {
               notEmpty: {
                 message: 'Please enter  C.O.C Number'
-              }, 
+              },
               stringLength: {
                 min: 8,
                 max: 30,
@@ -296,126 +209,14 @@ document.addEventListener('DOMContentLoaded', function (e) {
               // field is the field name
               // ele is the field element
               switch (field) {
-              
+
                 case 'address':
                   return '.col-md-12';
                 default:
                   return '.col-sm-6';
               }
             }
-            
-          }),
-          autoFocus: new FormValidation.plugins.AutoFocus(),
-          submitButton: new FormValidation.plugins.SubmitButton()
-        },
-        init: instance => {
-          instance.on('plugins.message.placed', function (e) {
-            if (e.element.parentElement.classList.contains('input-group')) {
-              e.element.parentElement.insertAdjacentElement('afterend', e.messageElement);
-            }
-          });
-        }
-      }).on('core.form.valid', function () {
-        // Jump to the next step when all fields in the current step are valid
-        validationStepper.next();
-      });
 
-
-       // package details
-       const multiSteps2 = FormValidation.formValidation(stepsValidationFormStep2, {
-        fields: {
-          package_duration: {
-            validators: {
-              notEmpty: {
-                message: 'Please select atleast 1 package'
-              }
-            }
-          },
-        },
-        plugins: {
-          trigger: new FormValidation.plugins.Trigger(),
-          bootstrap5: new FormValidation.plugins.Bootstrap5({
-            // Use this for enabling/changing valid/invalid class
-            // eleInvalidClass: '',
-            eleValidClass: '',
-            rowSelector: '.col-md-12'
-          }),
-          autoFocus: new FormValidation.plugins.AutoFocus(),
-          submitButton: new FormValidation.plugins.SubmitButton()
-        },
-        init: instance => {
-          instance.on('plugins.message.placed', function (e) {
-            if (e.element.parentElement.classList.contains('input-group')) {
-              e.element.parentElement.insertAdjacentElement('afterend', e.messageElement);
-            }
-          });
-        }
-      }).on('core.form.valid', function () {
-        // Jump to the next step when all fields in the current step are valid
-        validationStepper.next();
-      });
-
-      // Personal info
-      const multiSteps3 = FormValidation.formValidation(stepsValidationFormStep3, {
-        fields: {
-         
-         
-        },
-        plugins: {
-          trigger: new FormValidation.plugins.Trigger(),
-          bootstrap5: new FormValidation.plugins.Bootstrap5({
-            // Use this for enabling/changing valid/invalid class
-            // eleInvalidClass: '',
-            eleValidClass: '',
-            rowSelector: function (field, ele) {
-              // field is the field name
-              // ele is the field element
-              switch (field) {
-                case 'multiStepsFirstName':
-                  return '.col-sm-6';
-                case 'address':
-                  return '.col-md-12';
-                default:
-                  return '.row';
-              }
-            }
-          }),
-          autoFocus: new FormValidation.plugins.AutoFocus(),
-          submitButton: new FormValidation.plugins.SubmitButton()
-        }
-      }).on('core.form.valid', function () {
-        // Jump to the next step when all fields in the current step are valid
-        validationStepper.next();
-      });
-
-      // Social links
-      const multiSteps4 = FormValidation.formValidation(stepsValidationFormStep4, {
-        fields: {
-          multiStepsCard: {
-            validators: {
-              notEmpty: {
-                message: 'Please enter card number'
-              }
-            }
-          }
-        },
-        plugins: {
-          trigger: new FormValidation.plugins.Trigger(),
-          bootstrap5: new FormValidation.plugins.Bootstrap5({
-            // Use this for enabling/changing valid/invalid class
-            // eleInvalidClass: '',
-            eleValidClass: '',
-            rowSelector: function (field, ele) {
-              // field is the field name
-              // ele is the field element
-              switch (field) {
-                case 'multiStepsCard':
-                  return '.col-md-12';
-
-                default:
-                  return '.col-sm-6';
-              }
-            }
           }),
           autoFocus: new FormValidation.plugins.AutoFocus(),
           submitButton: new FormValidation.plugins.SubmitButton()
@@ -431,65 +232,39 @@ document.addEventListener('DOMContentLoaded', function (e) {
         // You can submit the form
         // stepsValidationForm.submit()
         // or send the form data to server via an Ajax request
-        // To make the demo simple, I just placed an alert
-       
-
+        
         $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
         });
          var data = $("#multiStepsForm").serialize();
-        
+
         $.ajax({
            type:'POST',
            url:"ajaxRequest",
            data:{data:data},
            success: function(data) {
-            if(data.success == true ){  
-           
+            if(data.success == true ){
+
               // Set the options that I want
-                     toastr.options = {
-                       "closeButton": true,
-                       "newestOnTop": false,
-                       "progressBar": true,
-                       "positionClass": "toast-top-right",
-                       "preventDuplicates": false,
-                       "onclick": null,
-                       "showDuration": "300",
-                       "hideDuration": "1000",
-                       "timeOut": "5000",
-                       "extendedTimeOut": "1000",
-                       "showEasing": "swing",
-                       "hideEasing": "linear",
-                       "showMethod": "fadeIn",
-                       "hideMethod": "fadeOut"
-                     }
+                
                        toastr.warning("Email Aready Exist");
                            } else {
-                            window.location.href = "payment?total="+total+"&id="+data.id;
-     
+                            window.location.href = "partner-confirmation?id="+data.id;
+
                            };
-               
-
-            
-
-           },
+             },
            error: function(data){
-
-
-
-    toastr.warning("Try again");
-        
-        
-           },
+             toastr.warning("Try again");
+         },
         });
+        // To make the demo simple, I just placed an alert
+       
       });
 
       stepsValidationNext.forEach(item => {
         item.addEventListener('click', event => {
-          window.scrollTo(0, 0);
-
           // When click the Next button, we will validate the current step
           switch (validationStepper._currentIndex) {
             case 0:
@@ -504,10 +279,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
               multiSteps3.validate();
               break;
 
-              case 3:
-              multiSteps4.validate();
-              break;
-
             default:
               break;
           }
@@ -516,13 +287,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
       stepsValidationPrev.forEach(item => {
         item.addEventListener('click', event => {
-          window.scrollTo(0, 0);
-
           switch (validationStepper._currentIndex) {
-            case 3:
-              validationStepper.previous();
-              break;
-
             case 2:
               validationStepper.previous();
               break;

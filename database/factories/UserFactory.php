@@ -17,10 +17,9 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $roles = array('admin', 'vendor');
         return [
             'first_name' => $this->faker->name(),
-            'role' => $roles[rand(0,1)],
+            'role_id' => rand(2, 3),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$6wNENh5k9We3501djkngXe0UqFW/l053Go6nQYapnc7U5iXHJw4H.', // password

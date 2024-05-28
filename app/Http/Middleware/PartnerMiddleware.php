@@ -16,17 +16,12 @@ class PartnerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check()) {
-            return redirect('login');
+        if (!Auth::check()) return redirect('login');
+
+        if (Auth::check() && Auth::user()->role_id == 3 ) {
+          if(Auth::user()->status != 1) return redirect("login")->withSuccess('Sorry, your account is currently inactive, please call an administrator !...');
+          return $next($request);
         }
-
-        if (Auth::check() && Auth::user()->role=='partner' ) {
-           
-            return $next($request);
-
-        }else{
-            return redirect('login');
-
-        }
+        else return redirect('login');
     }
 }

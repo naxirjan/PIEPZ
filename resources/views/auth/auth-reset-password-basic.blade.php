@@ -4,7 +4,7 @@ $customizerHidden = 'customizer-hide';
 
 @extends('layouts/layoutMaster')
 
-@section('title', 'Reset Password Basic - Pages')
+@section('title', 'Reset Password')
 
 @section('vendor-style')
 <!-- Vendor -->

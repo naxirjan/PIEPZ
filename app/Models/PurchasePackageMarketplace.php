@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class PurchasePackageMarketplace extends Model
 {
     use HasFactory;
+
+    public function toggleIsActiveM()
+    {
+        $this->status = !$this->status;
+        return $this;
+    }
 }

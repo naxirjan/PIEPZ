@@ -22,7 +22,7 @@ class UserInsert extends Seeder
 
     public function insertUser(){
         \DB::table('users')->insert([
-            'role'   => 'admin',
+            'role_id'   => 1,
             'last_name'    => 'Admin',
             'first_name'    => 'Piepz',
             'email'       => 'piepz@getnada.com',

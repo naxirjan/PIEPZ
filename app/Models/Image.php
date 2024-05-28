@@ -26,4 +26,9 @@ class Image extends Model
         }
         return true;
     }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

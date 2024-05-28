@@ -118,7 +118,7 @@
     {
       "name": "User Profile",
       "icon": "ti-user-circle",
-      "url": "pages/profile-user"
+      "url": "admin/profile"
     },
     {
       "name": "User Profile - Teams",

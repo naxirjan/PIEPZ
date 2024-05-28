@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use DB;
 
 class User extends Authenticatable
 {
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        
+
         'first_name',
         'last_name',
         'address',
@@ -28,7 +29,9 @@ class User extends Authenticatable
         'platform_token',
         'platform_type',
         'email',
+        'wallet',
         'password',
+        'image',
     ];
 
     /**
@@ -53,5 +56,12 @@ class User extends Authenticatable
     public function package()
     {
         return $this->hasOne(PurchasePackage::class);
+    }
+
+    public  static function roles(){
+
+      $aRoles = DB::table("roles")->get()->toArray();
+
+      return $aRoles;
     }
 }

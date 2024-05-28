@@ -8,52 +8,46 @@
 
 
 <div class="row">
-<!-- Total Profit -->
-<div class="col-xl-4 col-md-4 col-6 mb-4">
+  <div class="col-xl-4 col-md-4 col-6 mb-4">
     <div class="card">
       <div class="card-body">
         <div class="badge p-2 bg-label-danger mb-2 rounded"><i class="ti ti-currency-dollar ti-md"></i></div>
         <h5 class="card-title mb-1 pt-2">Phone</h5>
-    
+
         <div class="pt-1">
           <span class="badge bg-label-secondary">Call</span>
         </div>
       </div>
     </div>
   </div>
-
   <div class="col-xl-4 col-md-4 col-6 mb-4">
     <div class="card">
       <div class="card-body">
         <div class="badge p-2 bg-label-danger mb-2 rounded"><i class="ti ti-currency-dollar ti-md"></i></div>
         <h5 class="card-title mb-1 pt-2">Live Chat</h5>
-     
+
         <div class="pt-1">
           <span class="badge bg-label-secondary">Chat</span>
         </div>
       </div>
     </div>
   </div>
-
   <div class="col-xl-4 col-md-4 col-6 mb-4">
     <div class="card">
       <div class="card-body">
         <div class="badge p-2 bg-label-danger mb-2 rounded"><i class="ti ti-currency-dollar ti-md"></i></div>
         <h5 class="card-title mb-1 pt-2">Mail</h5>
-  
+
         <div class="pt-1">
           <span class="badge bg-label-secondary">Mail</span>
         </div>
       </div>
     </div>
   </div>
-
-  
- 
 </div>
 <!-- Pills -->
 <div class="row">
- 
+
 
   <div class="col-xl-12">
     <h6 class="text-muted">Customers  Questions</h6>
@@ -78,7 +72,7 @@
           <th>Customer Name</th>
           <th>Question</th>
           <th>Status</th>
-         
+
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
@@ -89,7 +83,7 @@
           Lorem ipsum is a placeholder text commonly used to demonstrat
           </td>
           <td><span class="badge bg-label-warning me-1">Completed</span></td>
-        
+
         </tr>
       </tbody>
     </table>
@@ -102,7 +96,7 @@
           <th>Customer Name</th>
           <th>Question</th>
           <th>Status</th>
-         
+
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
@@ -113,7 +107,7 @@
           Lorem ipsum is a placeholder text commonly used to demonstrat
           </td>
           <td><span class="badge bg-label-warning me-1">Completed</span></td>
-        
+
         </tr>
       </tbody>
     </table>
@@ -126,7 +120,7 @@
           <th>Customer Name</th>
           <th>Question</th>
           <th>Status</th>
-         
+
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
@@ -137,7 +131,7 @@
           Lorem ipsum is a placeholder text commonly used to demonstrat
           </td>
           <td><span class="badge bg-label-warning me-1">Completed</span></td>
-        
+
         </tr>
       </tbody>
     </table>
@@ -145,7 +139,7 @@
       </div>
     </div>
   </div>
- 
+
 </div>
 <!-- Pills -->
 

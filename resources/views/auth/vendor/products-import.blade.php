@@ -159,11 +159,33 @@ function Upload() {
         const sheetData = XLSX.utils.sheet_to_json(worksheet, options);
 
         const header = sheetData.shift();
-        console.log(header,"header");
+
         header.forEach(function (name){
         jQuery(".select1").append("<option>"+name+"</option>");
         })
+        var form_data = new FormData(document.getElementById("multiStepsForm"));
 
+// var data = new FormData($(this));
+  jQuery.each(jQuery('#fileUpload')[0].files, function(i, file) {
+    form_data.append('file', file);
+});
+
+$.ajax({
+  type: "POST",
+  url: "{{route('uploadFile')}}",
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+},
+  data: form_data,
+  dataType: "json",
+  encode: true,
+  cache: false,
+contentType: false,
+processData: false,
+}).done(function (data) {
+  console.log(data);
+  $("[name='file_id']").val(data.id);
+});
     };
 
 
@@ -194,6 +216,8 @@ var user_data={
   'password':$("[name='password']").val(),
   'cocnumber':$("[name='cocnumber']").val(),
   'taxnumber':$("[name='taxnumber']").val(),
+  'file_id':$("[name='file_id']").val(),
+
 };
 var validation_=false;
 toastr.options = {
@@ -221,10 +245,10 @@ $.each(form_data_, function(key, value) {
     toastr.warning("<span>Please select "+key+" field to upload</span><br>");
 
 
-    console.log("KEE",key)
+
     validation_=true;
   }
-  console.log("KEE",key,"VAL",value)
+
 });
 if (validation_) {
   return 0;
@@ -251,8 +275,7 @@ if (validation_) {
           console.log(err);
       },
       success:function(result){
-          console.log(result);
-          // result=result.replace("0", "");
+
           result = JSON.parse(result);
          window.location.href = "vendor-confirmation?id=" + result.id;
 
@@ -323,12 +346,9 @@ jQuery.ajax({
           console.log(err);
       },
       success:function(result){
-          console.log(result);
-         // result=result.replace("0", "");
-          //console.log(result);
+
+
           result = JSON.parse(result);
-          console.log(result);
-          //console.log(index);
 
           index += 2;
           if(result.status && result.links.length>0){
@@ -653,7 +673,7 @@ jQuery.ajax({
                     </tr>
                   </thead>
                   <tbody class="table-border-bottom-0">
-
+                      <input type="hidden" name="file_id" value="0">
                   <tr>
                       <td>Product Name</td>
                       <td>

@@ -1,273 +1,86 @@
 {
   "menu": [
     {
-      "name": "Dashboards",
-      "icon": "menu-icon tf-icons ti ti-file",
-      "slug": "dashboard",
-      "badge": [
-        "primary",
-        "1"
-      ],
-      "submenu": [
-        {
-          "url": "/dashboard/analytics",
-          "name": "Dashboard",
-          "slug": "dashboard-analytics"
-        },
-        {
-          "url": "/dashboard/crm",
-          "name": "CRM",
-          "icon": "menu-icon tf-icons ti ti-3d-cube-sphere",
-          "slug": "dashboard-crm"
-        },
-        {
-          "url": "/dashboard/ecommerce",
-          "name": "eCommerce",
-          "icon": "menu-icon tf-icons ti ti-atom-2",
-          "slug": "dashboard-ecommerce"
-        }
-      ]
+      "name": "Dashboard",
+      "icon": "menu-icon tf-icons ti ti-table",
+      "slug": "admin.dashboard",
+      "url": "admin/dashboard"
     },
     {
       "name": "Products",
-      "icon": "menu-icon tf-icons ti ti-file",
-      "slug": "products",
-      "badge": [
-        "primary",
-        "3"
-      ],
-      "submenu": [
-        {
-          "url": "admin/products",
-          "name": "All Products",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "admin-products"
-        },
-        {
-          "url": "admin/products/bulk-edit-products",
-          "name": "Bulk Edit Products",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "admin-bulk-edit-products"
-        },
-        {
-          "url": "admin/product/add",
-          "name": "Product Add",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "admin-product-add"
-        }
-      ]
+      "icon": "menu-icon tf-icons ti ti-list",
+      "slug": "admin.products|admin.products.with.params|admin.product.view|admin.products.add|admin.product.edit|admin.feed.products|admin.import.products|admin.bulk.edit.products",
+      "url": "admin/products"
+    },
+    {
+      "name": "Categories",
+      "icon": "menu-icon tf-icons ti ti-color-swatch",
+      "slug": "admin.categories",
+      "url": "admin/categories"
     },
     {
       "name": "Piepz Products",
-      "icon": "menu-icon tf-icons ti ti-file",
-      "slug": "piepz",
-      "badge": [
-        "primary",
-        "5"
-      ],
+      "icon": "menu-icon tf-icons ti ti-list",
+      "slug": "admin.piepz.products|admin.piepz.packages|admin.piepz.addons|admin.piepz.marketplaces|admin.piepz.functionalities|admin.piepz.store",
       "submenu": [
-        {
-          "url": "/admin/piepz/products",
-          "name": "Piepz Products",
-          "slug": "admin-piepz-products"
-        },
         {
           "url": "/admin/piepz/packages",
           "name": "Products Packages",
-          "slug": "admin-piepz-packages"
+          "slug": "admin.piepz.packages",
+          "menuHeader": "piepz"
         },
         {
           "url": "/admin/piepz/addons",
           "name": "Products Addons",
-          "slug": "admin-piepz-addons"
+          "slug": "admin.piepz.addons"
         },
         {
           "url": "/admin/piepz/marketplaces",
           "name": "Products Marketplaces",
-          "slug": "admin-piepz-marketplaces"
+          "slug": "admin.piepz.marketplaces"
         },
         {
           "url": "/admin/piepz/functionalities",
           "name": "Products Functionalities",
-          "slug": "admin-piepz-functionalities"
-        },
-        {
-          "url": "/admin/piepz/store",
-          "name": "Store Products",
-          "slug": "admin-piepz-store"
-        }
-      ]
-    },
-    {
-      "name": "Import Setup",
-      "icon": "menu-icon tf-icons ti ti-smart-home",
-      "slug": "import",
-      "badge": [
-        "primary",
-        "3"
-      ],
-      "submenu": [
-        {
-          "url": "admin/import/products",
-          "name": "Import Products",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "admin-import-products"
-        },
-        {
-          "url": "admin/mapping/products",
-          "name": "Import Mapping",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "admin-mapping-products"
-        },
-        {
-          "url": "admin/feed/products",
-          "name": "Upload Feed",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "admin-feed-products"
+          "slug": "admin.piepz.functionalities"
         }
       ]
     },
     {
       "name": "Orders",
-      "icon": "menu-icon tf-icons ti ti-smart-home",
-      "slug": "Orders",
-      "badge": [
-        "primary",
-        "3"
-      ],
-      "submenu": [
-        {
-          "url": "admin/orders",
-          "name": "All Orders",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "admin-orders"
-        },
-        {
-          "url": "admin/order/create",
-          "name": "Order Create",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "admin-order-create"
-        },
-        {
-          "url": "admin/order/details",
-          "name": "Order Detail",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "admin-order-detail"
-        }
-      ]
+      "url": "admin/orders",
+      "icon": "menu-icon tf-icons ti ti-shopping-cart",
+      "slug": "admin.orders|admin.orders.with.params|admin.orders.create|admin.orders.details"
     },
     {
-      "name": "Invoice",
-      "icon": "menu-icon tf-icons ti ti-file",
-      "slug": "Invoice",
-      "badge": [
-        "primary",
-        "1"
-      ],
-      "submenu": [
-        {
-          "url": "admin/order/invoice",
-          "name": "Order Invoice",
-          "icon": "menu-icon tf-icons ti ti-messages",
-          "slug": "admin-order-invoice"
-        }
-      ]
+      "name": "Invoices",
+      "url": "admin/invoices",
+      "icon": "menu-icon tf-icons ti ti-file-dollar",
+      "slug": "admin.invoices|admin.invoices.with.params|admin.invoice.details"
     },
     {
       "name": "Analytics",
-      "icon": "menu-icon tf-icons ti ti-file",
-      "slug": "analytics",
-      "badge": [
-        "primary",
-        "1"
-      ],
-      "submenu": [
-        {
-          "url": "/admin/analytics",
-          "name": "Dashboard",
-          "slug": "admin-analytics"
-        }
-      ]
+      "icon": "menu-icon tf-icons ti ti-device-desktop-analytics",
+      "slug": "admin.analytics",
+      "url": "/admin/analytics"
     },
     {
       "name": "Users",
       "icon": "menu-icon tf-icons ti ti-users",
-      "slug": "app-user",
-      "submenu": [
-        {
-          "url": "/app/user/list",
-          "name": "All Users",
-          "slug": "app-user-list"
-        },
-        {
-          "name": "Profile",
-          "slug": "app-user-view",
-          "submenu": [
-            {
-              "url": "/app/user/view/account",
-              "name": "Account",
-              "slug": "app-user-view-account"
-            },
-            {
-              "url": "/app/user/view/security",
-              "name": "Security",
-              "slug": "app-user-view-security"
-            },
-            {
-              "url": "/app/user/view/billing",
-              "name": "Billing & Plans",
-              "slug": "app-user-view-billing"
-            },
-            {
-              "url": "/app/user/view/notifications",
-              "name": "Notifications",
-              "slug": "app-user-view-notifications"
-            },
-            {
-              "url": "/app/user/view/connections",
-              "name": "Connections",
-              "slug": "app-user-view-connections"
-            }
-          ]
-        }
-      ]
+      "slug": "admin.users|admin.users.with.params|admin.users.profile|admin.users.bulkedit",
+      "url": "admin/users"
     },
     {
       "name": "Support Tickets",
-      "icon": "menu-icon tf-icons ti ti-file",
-      "slug": "support",
-      "badge": [
-        "primary",
-        "2"
-      ],
-      "submenu": [
-        {
-          "url": "/admin/tickets",
-          "name": "All Tickets",
-          "slug": "admin-tickets"
-        },
-        {
-          "url": "/admin/single/ticket",
-          "name": "View Ticket",
-          "slug": "admin-single-ticket"
-        }
-      ]
+      "icon": "menu-icon tf-icons ti ti-lifebuoy",
+      "slug": "admin.tickets|admin.tickets.with.params|admin.ticket.details",
+      "url": "/admin/tickets"
     },
     {
       "name": "Logout",
-      "icon": "menu-icon tf-icons ti ti-file",
+      "icon": "menu-icon tf-icons ti ti-lock",
       "slug": "logout",
-      "badge": [
-        "primary",
-        "0"
-      ],
-      "submenu": [
-        {
-          "url": "logout",
-          "name": "Logout",
-          "slug": "logut"
-        }
-      ]
+      "url": "logout"
     }
   ]
 }

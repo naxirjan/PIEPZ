@@ -4,7 +4,7 @@ $customizerHidden = 'customizer-hide';
 
 @extends('layouts/layoutMaster')
 
-@section('title', 'Login Basic - Pages')
+@section('title', 'Account Confirmation')
 
 @section('vendor-style')
 <!-- Vendor -->
@@ -67,20 +67,20 @@ $customizerHidden = 'customizer-hide';
                             <div class="card mb-4">
                               <div class="card-body">
                                 <h5 class="card-title">Company Information</h5>
-                                <div class="card-subtitle text-muted mb-3">Company Name: {{$user->company->company_name}}</div>
+                                <div class="card-subtitle text-muted mb-3">Company Name: {{($user->company->company_name ?? "-")}}</div>
 
                               </div>
                             </div>
 
                           </div>
                     </div>
-                    <div class="row mb-5">
+                    <!-- <div class="row mb-5">
                           <div class="col-md-6 col-lg-6">
 
                             <div class="card mb-4">
                               <div class="card-body">
                                 <h5 class="card-title">Package Information</h5>
-                                <div class="card-subtitle  mb-3">Package: {{$package_details->package_title}}</div>
+                                <div class="card-subtitle  mb-3">Package: {{($package_details->package_title ?? "-")}}</div>
 
                               </div>
                             </div>
@@ -99,7 +99,7 @@ $customizerHidden = 'customizer-hide';
                             </div>
 
                           </div>
-                    </div>
+                    </div> -->
 
                     <a href="{{route('logout')}}" >logout</a>
         </div>

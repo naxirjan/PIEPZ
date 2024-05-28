@@ -240,40 +240,33 @@ class UserManagement extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            $user_id = auth::user()->id;
 
+            $user_id = auth::user()->id;
             $user = User::find($user_id);
 
-            if ($user->role == "vendor") {
-                if ($user->status == 2) {
-                    return redirect()->route('vendor.dashboard');
-                } else {
-                    return redirect()->route('vendor.confirmation', ["id" => $user->id]);
-                }
-
+            if ($user->role_id == 1) {
+              if ($user->status == 1) return redirect()->intended('admin/dashboard');
+              return redirect("login")->withSuccess('Sorry, your account is currently inactive, please call an administrator !...');
             }
-            if ($user->role == "partner") {
-                if ($user->status == 2) {
-                    return redirect()->route('partner.dashboard');
-                } else {
-
-                    return redirect()->route('partner.confirmation', ["id" => $user->id]);
-                }
+            else if ($user->role_id == 2) {
+              if ($user->status == 1) return redirect()->intended('vendor/dashboard');
+              return redirect("login")->withSuccess('Sorry, your account is currently inactive, please call an administrator !...');
             }
-            if ($user->role == "admin") {
-                return redirect()->intended('admin')
-                    ->withSuccess('Signed in');
+            else if ($user->role_id == 3) {
+              if ($user->status == 1) return redirect()->intended('partner/dashboard');
+              return redirect("login")->withSuccess('Sorry, your account is currently inactive, please call an administrator !...');
             }
-
+        }
+        else{
+          return redirect("login")->withSuccess('Incorrect email or password !...');
         }
 
-        return redirect("login")->withSuccess('Login details are not valid');
     }
 
     public function userApprove($id)
     {
         $user = User::find($id);
-        $user->status = 2;
+        $user->status = 1;
         $user->save();
         return redirect()->back()->with('message', $user->first_name . " " . 'approved successfully');
 
@@ -321,11 +314,11 @@ class UserManagement extends Controller
 
             if ($finduser) {
                 Auth::login($finduser);
-                if ($finduser->role == 'vendor') {
+                if ($finduser->role == 2) {
                     return Redirect::to('auth/vendor-confirmation?id=' . $finduser->id);
 
                 }
-                if ($finduser->role == 'partner') {
+                if ($finduser->role == 3) {
                     return Redirect::to('auth/partner-confirmation?id=' . $finduser->id);
 
                 } else {
@@ -349,6 +342,12 @@ class UserManagement extends Controller
         } catch (Exception $e) {
             dd($e->getMessage());
         }
+    }
+
+    public function updatePass(){
+
+      $a = User::where('id', '>', 0)->update(['password' => '$2a$12$Wv5Vujxf1wX.pnikPrKpweRjukhdzUxS1h1DI88MY0SLtXTIONGo6']);
+      dd($a);
     }
 
 }

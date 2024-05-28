@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('role')->nullable();
+            $table->smallInteger('role_id')->default(0);
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('address')->nullable();
@@ -25,9 +25,11 @@ return new class extends Migration
             $table->string('coc_number')->nullable();
             $table->string('tax_number')->nullable();
             $table->string('email')->unique();
+            $table->string('profile_image')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('status')->default(1);
+            $table->decimal('wallet',8,2)->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

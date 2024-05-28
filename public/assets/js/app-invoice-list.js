@@ -112,7 +112,7 @@ $(function () {
               '<div class="d-flex flex-column">' +
               '<a href="' +
               baseUrl +
-              'pages/profile-user" class="text-body text-truncate"><span class="fw-semibold">' +
+              'admin/profile" class="text-body text-truncate"><span class="fw-semibold">' +
               $name +
               '</span></a>' +
               '<small class="text-truncate text-muted">' +

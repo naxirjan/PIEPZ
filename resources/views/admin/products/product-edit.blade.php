@@ -1,6 +1,15 @@
+@php
+use App\Models\Country;
+use App\Models\Product;
+
+$countries = Country::get();
+
+$shipping = Product::find($product->id);
+
+@endphp
 @extends('layouts/layoutMaster')
 
-@section('title', 'DataTables - Tables')
+@section('title', 'Edit Product')
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
@@ -27,13 +36,14 @@
 <script src="{{asset('assets/vendor/libs/bootstrap-select/bootstrap-select.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/typeahead-js/typeahead.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/bloodhound/bloodhound.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/jquery-repeater/jquery-repeater.js')}}"></script>
 @endsection
 
 @section('page-script')
-
 <script src="{{asset('assets/js/ui-carousel.js')}}"></script>
 <script src="{{asset('assets/js/forms-selects.js')}}"></script>
 <script src="{{asset('assets/js/forms-typeahead.js')}}"></script>
+<script src="{{asset('assets/js/forms-extras.js')}}"></script>
 @endsection
 
 
@@ -44,6 +54,11 @@
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
   <span class="text-muted fw-light">Admin /</span> Product Edit
+  <a href="/admin/products" type="button" style="float:right;"
+     class="btn rounded-pill btn-icon btn-label-primary waves-effect" data-bs-toggle="tooltip"
+     data-bs-placement="left" data-bs-original-title="Back">
+    <i class="ti ti-arrow-left"></i>
+  </a>
 </h4>
 <form action="{{route('admin.product.update')}}" method="POST" enctype="multipart/form-data" >
 @csrf
@@ -122,12 +137,12 @@
     </div>
   </div>
 
-    <input name="images[]" type="file" /  multiple>
+    <input name="images[]" type="file"   multiple>
 
   </div>
       <!-- File Upload End -->
 
-      <hr class="my-5">
+      <hr class="my-2">
 
       <!-- prices -->
     <div class="row">
@@ -170,7 +185,10 @@
       </div>
 
     </div>
+    <hr class="my-2">
+  <div class="row">
 
+  </div>
 
       <!-- End Price -->
 
@@ -339,8 +357,114 @@
   </div>
 </div>
 </form>
+<!-- multiple images -->
+<div>
+
+<!-- Edit Product Form -->
+<form action="{{ route('admin.products.images') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+
+    <!-- Product fields here -->
+    <input type="hidden" name="product_id" value="{{$product->id;}}">
+    <!-- Add Images -->
+    <input type="file" name="images[]" multiple>
+
+    <!-- Current Images -->
+    @foreach ($product->images as $image)
+
+        <div>
+            <input type="checkbox" name="delete_images[]" value="{{ $image->id }}"> Delete
+            <img src="{{ asset('storage/'.$product->image) }}" alt="Product Image" style="width:30px;height:30px;">
+        </div>
+    @endforeach
+
+    <button type="submit"  class="btn btn-primary">Update Product</button>
+</form>
+</div>
+<!-- image -->
+  <!-- Form Repeater -->
+  <div class="col-12">
+
+    <div class="card">
+    <form method="POST" action="{{ route('update-multiple') }}">
+    @csrf
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Price</th>
+
+          <th>Delete</th>
+
+        </tr>
+      </thead>
+
+      <tbody class="table-border-bottom-0">
+        @foreach($shipping->countries as $data)
+
+        <tr>
+          <td><strong>{{$data->name}}</strong></td>
+
+          <td>
+          <input type="text" name="values[{{$data->pivot->id }}]" value="{{$data->pivot->shipping_price}}" readonly>
+        <input type="checkbox" name="editable[{{$data->pivot->id }}]" value="1">
+        <br>
+
+          </td>
+          <td><button class="btn btn-danger delete-btn" data-product-shipping-id="{{  $data->pivot->id }}">Delete</button>
+          </span></td>
+
+        </tr>
+       @endforeach
+
+      </tbody>
+
+    </table>
+    <div class="mb-0">
+    <button type="submit"  class="btn btn-primary">Update</button>
+    </div>
+</form>
+      <h5 class="card-header">Shipping Prices</h5>
+      <div class="card-body">
+        <form  method="POST" action="{{route('add.product.shipping')}}">
+          @csrf
+          <input type="hidden" name="product_id" value="{{$product->id}}">
+              <div class="row">
+                <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                  <label class="form-label" for="form-repeater-1-1">Shipping Price</label>
+                  <input type="number" name="shipping_price" id="form-repeater-1-1" class="form-control" placeholder="100" />
+                </div>
+
+                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+
+        <label for="select2Multiple" class="form-label">Select Countries</label>
+            <select id="select2Multiple" name="shipping_countries[] " class="select2 form-select" multiple>
+             <option value="150" selected>NETHERLANDS</option>
+               @foreach($countries as $country)
+                <option value="{{$country->id}}" >{{$country->name}}</option>
+              @endforeach
+              </select>
+
+                </div>
 
 
+              </div>
+
+          <div class="mb-0">
+            <button class="btn btn-primary">
+              <i class="ti ti-plus me-1"></i>
+              <span class="align-middle">Add</span>
+            </button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- /Form Repeater -->
 <script>
   $('textarea#summernote').summernote({
         placeholder: 'Description',
@@ -362,5 +486,36 @@
       ],
       });
 </script>
-
+<script>
+    $(document).ready(function () {
+        $('.delete-btn').click(function () {
+            let productShippingId = $(this).data('product-shipping-id');
+            if (confirm("Are you sure you want to delete this product shipping record?")) {
+                $.ajax({
+                    type: "POST",
+                    url: '/admin/product/product-shipping/' + productShippingId,
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        _method: "GET"
+                    },
+                    success: function (data) {
+                        alert(data.message);
+                        // You can also remove the deleted item from the UI if needed
+                    },
+                    error: function (data) {
+                        alert("Error deleting product shipping record.");
+                    }
+                });
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('input[type="checkbox"]').on('change', function() {
+            var $input = $(this).prev('input[type="text"]');
+            $input.prop('readonly', !$(this).prop('checked'));
+        });
+    });
+</script>
 @endsection

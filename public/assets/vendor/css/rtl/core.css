@@ -18431,7 +18431,7 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
   -ms-flex-negative: 0;
       flex-shrink: 0;
   margin-right: 0.5rem;
-  font-size: 1.375rem;
+  font-size: 1.30rem;
 }
 .menu:not(.menu-no-animation) .menu-icon {
   transition: margin-right 0.3s ease;
@@ -18561,7 +18561,7 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
   padding: 0.561rem 1rem;
 }
 .menu-vertical .menu-item .menu-link {
-  font-size: 0.9375rem;
+  font-size: 0.85rem;
 }
 .menu-vertical .menu-item .menu-toggle {
   padding-right: calc(1rem + 1.26em);

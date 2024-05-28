@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Cards Statistics- UI elements')
+@section('title', 'Analytics')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
@@ -20,7 +20,7 @@
 </h4>
 <div class="row">
 
-  
+
 
   <!-- Orders last week -->
   <div class="col-xl-4 col-md-4 col-6 mb-4">
@@ -123,7 +123,7 @@
     </div>
   </div>
 
-  
+
   <!-- Subscriber Gained -->
   <div class="col-lg-4 col-sm-6 mb-4">
     <div class="card">
@@ -202,7 +202,7 @@
     </div>
   </div>
 
-  
+
 
 
   <!-- Generated Leads -->

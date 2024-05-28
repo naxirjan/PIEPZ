@@ -1,7 +1,7 @@
 // This is your test publishable API key.
 'use strict';
 
-const stripe = Stripe("pk_test_ZKCt8aIRSubTWaYdNWuccXRk00DkrObfcQ");
+const stripe = Stripe("pk_test_51Eac8oLzhLMNB9IQoeWqR3BoSlo8KdiLmnKpnk4lJhEYTzO8ZR5HkSm5FF2aMd7jcsEtTWVumd176AMID1EEX5jE00BlNDcXGv");
 
 // The items the customer wants to buy
 

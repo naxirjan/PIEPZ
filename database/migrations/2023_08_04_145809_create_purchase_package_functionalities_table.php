@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->integer('price')->nullable();
             $table->string('type')->nullable();
+            $table->integer('status')->default('1');
             $table->timestamps();
         });
     }

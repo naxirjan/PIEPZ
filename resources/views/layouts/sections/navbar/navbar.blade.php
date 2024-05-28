@@ -1,6 +1,7 @@
 @php
 $containerNav = $containerNav ?? 'container-fluid';
 $navbarDetached = ($navbarDetached ?? '');
+$auth  = Auth::user();
 @endphp
 
 <!-- Navbar -->
@@ -80,7 +81,13 @@ $navbarDetached = ($navbarDetached ?? '');
             </ul>
           </li>
           <!--/ Language -->
-
+         <!-- Style Switcher -->
+            <li class="nav-item me-2 me-xl-0">
+            <a class="nav-link" href="{{ route('order-cart') }}">
+              <i class="fa-solid fa-cart-shopping"></i>
+          </a>
+          </li>
+          <!--/ Style Switcher -->
           <!-- Style Switcher -->
           <li class="nav-item me-2 me-xl-0">
             <a class="nav-link style-switcher-toggle hide-arrow" href="javascript:void(0);">
@@ -190,7 +197,7 @@ $navbarDetached = ($navbarDetached ?? '');
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar">
-                          <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="h-auto rounded-circle">
+                          <img src="{{ url('uploads/profile_images/'.$auth->profile_image) }}" alt class="h-auto rounded-circle">
                         </div>
                       </div>
                       <div class="flex-grow-1">
@@ -226,7 +233,7 @@ $navbarDetached = ($navbarDetached ?? '');
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar">
-                          <img src="{{ asset('assets/img/avatars/2.png') }}" alt class="h-auto rounded-circle">
+                          <img src="{{ url('uploads/profile_images/'.$auth->profile_image) }}" alt class="h-auto rounded-circle">
                         </div>
                       </div>
                       <div class="flex-grow-1">
@@ -262,7 +269,7 @@ $navbarDetached = ($navbarDetached ?? '');
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar">
-                          <img src="{{ asset('assets/img/avatars/9.png') }}" alt class="h-auto rounded-circle">
+                          <img src="{{ url('uploads/profile_images/'.$auth->profile_image) }}" alt class="h-auto rounded-circle">
                         </div>
                       </div>
                       <div class="flex-grow-1">
@@ -298,7 +305,7 @@ $navbarDetached = ($navbarDetached ?? '');
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar">
-                          <img src="{{ asset('assets/img/avatars/5.png') }}" alt class="h-auto rounded-circle">
+                          <img src="{{ url('uploads/profile_images/'.$auth->profile_image) }}" alt class="h-auto rounded-circle">
                         </div>
                       </div>
                       <div class="flex-grow-1">
@@ -363,27 +370,36 @@ $navbarDetached = ($navbarDetached ?? '');
           <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
               <div class="avatar avatar-online">
-                <img src="{{ Auth::user() ? Auth::user()->profile_photo_url : asset('assets/img/avatars/1.png') }}" alt class="h-auto rounded-circle">
+                <img src="{{ url('uploads/profile_images/'.$auth->profile_image) }}" alt class="h-auto rounded-circle">
               </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li>
-                <a class="dropdown-item" href="{{ Route::has('profile.show') ? route('profile.show') : url('pages/profile-user') }}">
-                  <div class="d-flex">
+                
+                @if (Auth::check() AND Auth::user()->role_id==1)
+                <a class="dropdown-item" href="{{ Route::has('profile.show') ? route('profile.show') : url('admin/profile') }}">
+                @elseif(Auth::check() AND Auth::user()->role_id==2)
+                <a class="dropdown-item" href="{{ Route::has('profile.show') ? route('profile.show') : url('vendor/v-profile') }}">
+                @else
+                <a class="dropdown-item" href="{{ Route::has('profile.show') ? route('profile.show') : url('partner/p-profile') }}">
+               
+                @endif
+
+                <div class="d-flex">
                     <div class="flex-shrink-0 me-3">
                       <div class="avatar avatar-online">
-                        <img src="{{ Auth::user() ? Auth::user()->profile_photo_url : asset('assets/img/avatars/1.png') }}" alt class="h-auto rounded-circle">
+                        <img src="{{ url('uploads/profile_images/'.$auth->profile_image) }}" alt class="h-auto rounded-circle">
                       </div>
                     </div>
                     <div class="flex-grow-1">
                       <span class="fw-semibold d-block">
                         @if (Auth::check())
-                        {{ Auth::user()->name }}
+                        {{ Auth::user()->first_name}}
                         @else
                         John Doe
                         @endif
                       </span>
-                      <small class="text-muted">Admin</small>
+                      <small class="text-muted"> {{ Auth::user()->first_name }}</small>
                     </div>
                   </div>
                 </a>
@@ -392,8 +408,15 @@ $navbarDetached = ($navbarDetached ?? '');
                 <div class="dropdown-divider"></div>
               </li>
               <li>
-                <a class="dropdown-item" href="{{ Route::has('profile.show') ? route('profile.show') : url('pages/profile-user') }}">
-                  <i class="ti ti-user-check me-2 ti-sm"></i>
+              @if (Auth::check() AND Auth::user()->role_id==1)
+                <a class="dropdown-item" href="{{ Route::has('profile.show') ? route('profile.show') : url('admin/profile') }}">
+                @elseif(Auth::check() AND Auth::user()->role_id==2)
+                <a class="dropdown-item" href="{{ Route::has('profile.show') ? route('profile.show') : url('vendor/v-profile') }}">
+                @else
+                <a class="dropdown-item" href="{{ Route::has('profile.show') ? route('profile.show') : url('partner/v-profile') }}">
+               
+                @endif
+                   <i class="ti ti-user-check me-2 ti-sm"></i>
                   <span class="align-middle">My Profile</span>
                 </a>
               </li>
